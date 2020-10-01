@@ -9,7 +9,7 @@ class DrawerNg extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Image.asset('media/logo.png'),
+            child: Image.asset('assets/images/logo.png'),
           ),
           Container(
             color: Colors.grey[200],
