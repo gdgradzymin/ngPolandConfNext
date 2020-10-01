@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
           title: 'ngPolandConf',
           theme: ThemeData(
             brightness: Brightness.light,
-            accentColor: Color.fromRGBO(231, 1, 94, 1),
-            primaryColor: Color.fromRGBO(0, 90, 135, 1),
+            accentColor: Color.fromRGBO(255, 0, 122, 1),
+            primaryColor: Color.fromRGBO(59, 29, 130, 1),
             canvasColor: Colors.white,
           ),
           darkTheme: ThemeData(
