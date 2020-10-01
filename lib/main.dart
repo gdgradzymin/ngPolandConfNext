@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-      ChangeNotifierProvider(create: (_) => ThemeNotifier(), child: MyApp()));
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ThemeNotifier(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SelectedPage(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +35,8 @@ class MyApp extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
-            primarySwatch: Colors.lightBlue,
+            accentColor: Color.fromRGBO(255, 0, 122, 1),
+            primaryColor: Color.fromRGBO(59, 29, 130, 1),
           ),
           themeMode: theme.getMode,
           home: child,
