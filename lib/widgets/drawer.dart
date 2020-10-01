@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ng_poland_conf_next/models/pages.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
+import 'package:ng_poland_conf_next/screens/about.dart';
+import 'package:ng_poland_conf_next/screens/home.dart';
+import 'package:ng_poland_conf_next/screens/info.dart';
+import 'package:ng_poland_conf_next/screens/ngGirls.dart';
+import 'package:ng_poland_conf_next/screens/schedule.dart';
+import 'package:ng_poland_conf_next/screens/speakers.dart';
+import 'package:ng_poland_conf_next/screens/workShops.dart';
+import 'package:ng_poland_conf_next/widgets/switchDarkMode.dart';
 import 'package:provider/provider.dart';
 
 class DrawerNg extends StatefulWidget {
@@ -50,8 +58,8 @@ class _DrawerNgState extends State<DrawerNg> {
                           title: Text('Home'),
                           onTap: () {
                             selectedPage.changeSelected(name: PagesName.home);
-                            // Update the state of the app.
-                            // ...
+                            Navigator.of(context)
+                                .popAndPushNamed(Home.routeName);
                           },
                         ),
                         ListTile(
@@ -66,8 +74,8 @@ class _DrawerNgState extends State<DrawerNg> {
                           onTap: () {
                             selectedPage.changeSelected(
                                 name: PagesName.schedule);
-                            // Update the state of the app.
-                            // ...
+                            Navigator.of(context)
+                                .popAndPushNamed(Schedule.routeName);
                           },
                         ),
                         ListTile(
@@ -82,8 +90,8 @@ class _DrawerNgState extends State<DrawerNg> {
                           onTap: () {
                             selectedPage.changeSelected(
                                 name: PagesName.workshops);
-                            // Update the state of the app.
-                            // ...
+                            Navigator.of(context)
+                                .popAndPushNamed(WorkShops.routeName);
                           },
                         ),
                         ListTile(
@@ -99,8 +107,8 @@ class _DrawerNgState extends State<DrawerNg> {
                           onTap: () {
                             selectedPage.changeSelected(
                                 name: PagesName.ngGirls);
-                            // Update the state of the app.
-                            // ...
+                            Navigator.of(context)
+                                .popAndPushNamed(NgGirls.routeName);
                           },
                         ),
                         ListTile(
@@ -116,8 +124,8 @@ class _DrawerNgState extends State<DrawerNg> {
                           onTap: () {
                             selectedPage.changeSelected(
                                 name: PagesName.speakers);
-                            // Update the state of the app.
-                            // ...
+                            Navigator.of(context)
+                                .popAndPushNamed(Speakers.routeName);
                           },
                         ),
                         ListTile(
@@ -130,8 +138,8 @@ class _DrawerNgState extends State<DrawerNg> {
                           title: Text('Info'),
                           onTap: () {
                             selectedPage.changeSelected(name: PagesName.info);
-                            // Update the state of the app.
-                            // ...
+                            Navigator.of(context)
+                                .popAndPushNamed(Info.routeName);
                           },
                         ),
                         ListTile(
@@ -144,14 +152,15 @@ class _DrawerNgState extends State<DrawerNg> {
                           title: Text('About'),
                           onTap: () {
                             selectedPage.changeSelected(name: PagesName.about);
-                            // Update the state of the app.
-                            // ...
+                            Navigator.of(context)
+                                .popAndPushNamed(About.routeName);
                           },
                         ),
                         Divider(
                           thickness: 2,
+                          height: 25,
                         ),
-                        // Switch Darkmode
+                        SwitchDarkMode(),
                       ],
                     ),
                   ),
