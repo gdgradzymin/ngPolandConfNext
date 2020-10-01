@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 enum PagesName {
-  Home,
+  home,
   schedule,
   workshops,
   ngGirls,

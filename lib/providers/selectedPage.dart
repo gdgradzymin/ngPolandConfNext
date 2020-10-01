@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/pages.dart';
 
 class SelectedPage with ChangeNotifier {
-  Pages _selectedPage = Pages(name: PagesName.Home, number: 0);
+  Pages _selectedPage = Pages(name: PagesName.home, number: 0);
 
   Pages get getPage {
     return _selectedPage;

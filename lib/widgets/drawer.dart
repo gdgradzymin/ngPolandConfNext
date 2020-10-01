@@ -41,7 +41,7 @@ class _DrawerNgState extends State<DrawerNg> {
                     child: Column(
                       children: [
                         ListTile(
-                          selected: selectedPage.getPage.name == PagesName.Home
+                          selected: selectedPage.getPage.name == PagesName.home
                               ? true
                               : false,
                           leading: Icon(
@@ -49,7 +49,7 @@ class _DrawerNgState extends State<DrawerNg> {
                           ),
                           title: Text('Home'),
                           onTap: () {
-                            selectedPage.changeSelected(name: PagesName.Home);
+                            selectedPage.changeSelected(name: PagesName.home);
                             // Update the state of the app.
                             // ...
                           },
