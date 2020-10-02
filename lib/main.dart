@@ -1,83 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/widgets/drawer.dart';
+import 'package:ng_poland_conf_next/screens/about.dart';
+import 'package:ng_poland_conf_next/screens/home.dart';
+import 'package:ng_poland_conf_next/screens/info.dart';
+import 'package:ng_poland_conf_next/screens/ngGirls.dart';
+import 'package:ng_poland_conf_next/screens/schedule.dart';
+import 'package:ng_poland_conf_next/screens/speakers.dart';
+import 'package:ng_poland_conf_next/screens/workShops.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeNotifier themeNotifier = ThemeNotifier();
+
+  void getStatusDarkTheme() async {
+    themeNotifier.darkTheme =
+        await themeNotifier.darkThemePreferences.getStatusDarkTheme();
+  }
+
+  @override
+  void initState() {
+    getStatusDarkTheme();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => ThemeNotifier(),
+          create: (_) => themeNotifier,
         ),
         ChangeNotifierProvider(
           create: (_) => SelectedPage(),
         ),
       ],
-      child: MyApp(),
-    ),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<ThemeNotifier>(
-      builder: (context, theme, child) {
-        return MaterialApp(
-          title: 'ngPolandConf',
-          theme: ThemeData(
-            brightness: Brightness.light,
-            accentColor: Color.fromRGBO(255, 0, 122, 1),
-            primaryColor: Color.fromRGBO(59, 29, 130, 1),
-            canvasColor: Colors.white,
-          ),
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            accentColor: Color.fromRGBO(255, 0, 122, 1),
-            primaryColor: Color.fromRGBO(59, 29, 130, 1),
-          ),
-          themeMode: theme.getMode,
-          home: child,
-        );
-      },
-      child: MyHomePage(title: 'ngPolandConf'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      drawer: DrawerNg(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hi ngPoland :)',
+      child: Consumer<ThemeNotifier>(
+        builder: (context, theme, _) {
+          return MaterialApp(
+            title: 'ngPolandConf 2020',
+            theme: ThemeData(
+              brightness: Brightness.light,
+              accentColor: Color.fromRGBO(255, 0, 122, 1),
+              primaryColor: Color.fromRGBO(59, 29, 130, 1),
+              canvasColor: Colors.white,
+              textTheme: TextTheme(
+                headline1: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: Provider.of<ThemeNotifier>(context).changeTheme,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              accentColor: Color.fromRGBO(255, 0, 122, 1),
+              primaryColor: Color.fromRGBO(59, 29, 130, 1),
+              textTheme: TextTheme(
+                headline1: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            themeMode: theme.darkTheme ? ThemeMode.dark : ThemeMode.light,
+            initialRoute: '/',
+            routes: {
+              // When navigating to the "/" route, build the FirstScreen widget.
+              '/': (context) => Home(title: 'ngPolandConf'),
+              // When navigating to the "/second" route, build the SecondScreen widget.
+              '/Schedule': (context) => Schedule(title: 'Schedule - NG Poland'),
+              '/WorkShops': (context) => WorkShops(title: 'WorkShops'),
+              '/NgGirls': (context) => NgGirls(title: 'ngGirls'),
+              '/Speakers': (context) => Speakers(title: 'Speakers'),
+              '/Info': (context) => Info(title: 'Info'),
+              '/About': (context) => About(title: 'About'),
+            },
+          );
+        },
       ),
     );
   }

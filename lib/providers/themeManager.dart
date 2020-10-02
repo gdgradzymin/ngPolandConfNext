@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:ng_poland_conf_next/sharedPreferences/darkTheme.dart';
 
 class ThemeNotifier with ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.light;
+  DarkThemePreferences darkThemePreferences = DarkThemePreferences();
 
-  get getMode {
-    return _themeMode;
+  bool _darkTheme = false;
+
+  get darkTheme {
+    return _darkTheme;
   }
 
-  void changeTheme() {
-    if (_themeMode == ThemeMode.light) {
-      _themeMode = ThemeMode.dark;
-    } else {
-      _themeMode = ThemeMode.light;
-    }
+  set darkTheme(bool value) {
+    _darkTheme = value;
+
+    darkThemePreferences.setDarkTheme(value);
 
     notifyListeners();
   }
