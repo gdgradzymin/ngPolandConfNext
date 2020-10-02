@@ -14,13 +14,6 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'Dark Mode',
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.05,
-        ),
         Consumer<ThemeNotifier>(
           builder: (BuildContext context, ThemeNotifier theme, _) {
             return InkWell(
@@ -80,6 +73,13 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
               ),
             );
           },
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.05,
+        ),
+        Text(
+          'Dark Mode',
+          style: Theme.of(context).textTheme.headline1,
         ),
       ],
     );
