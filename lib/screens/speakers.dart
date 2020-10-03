@@ -17,13 +17,30 @@ class Speakers extends StatelessWidget {
       ),
       drawer: DrawerNg(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Speakers',
-            ),
-          ],
+        child: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.all(16),
+                  onTap: () {},
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                    child: Image.asset('assets/images/person.png'),
+                  ),
+                  title: Text('name$index'),
+                  subtitle: Text('subtitle$index'),
+                ),
+                Divider(
+                  height: 0,
+                  color: Theme.of(context).accentColor,
+                )
+              ],
+            );
+          },
         ),
       ),
     );
