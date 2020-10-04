@@ -6,6 +6,7 @@ import 'package:ng_poland_conf_next/screens/home.dart';
 import 'package:ng_poland_conf_next/screens/info.dart';
 import 'package:ng_poland_conf_next/screens/ngGirls.dart';
 import 'package:ng_poland_conf_next/screens/schedule.dart';
+import 'package:ng_poland_conf_next/screens/speakerDetails.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
 import 'package:ng_poland_conf_next/screens/workShops.dart';
 import 'package:provider/provider.dart';
@@ -83,6 +84,7 @@ class _MyAppState extends State<MyApp> {
               '/Speakers': (context) => Speakers(title: 'Speakers'),
               '/Info': (context) => Info(title: 'Info'),
               '/About': (context) => About(title: 'About'),
+              '/SpeakerDetails': (context) => SpeakerDetails(),
             },
           );
         },
