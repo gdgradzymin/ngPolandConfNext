@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ng_poland_conf_next/providers/ngGirls.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/screens/about.dart';
@@ -42,6 +43,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (_) => SelectedPage(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => NgGirlsProvider(),
         ),
       ],
       child: Consumer<ThemeNotifier>(
