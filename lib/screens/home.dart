@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
+import 'package:ng_poland_conf_next/widgets/home/tabs.dart';
 
 class Home extends StatelessWidget {
   static const routeName = '/';
@@ -18,10 +19,29 @@ class Home extends StatelessWidget {
       drawer: DrawerNg(),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Hi ngPoland :)',
+            Container(
+              color: Theme.of(context).primaryColor,
+              width: double.infinity,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Text(
+                    'Welcome to ngPoland Conference.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    'The biggest Angular Conference in CEE.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: HomeTabs(),
             ),
           ],
         ),
