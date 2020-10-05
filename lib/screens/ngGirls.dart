@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/providers/ngGirls.dart';
+import 'package:ng_poland_conf_next/models/contentful.dart';
+import 'package:ng_poland_conf_next/providers/contentful.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,8 @@ class NgGirls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _ngGirlsContent = Provider.of<NgGirlsProvider>(context).getContent;
+    SimpleContent _simpleContent =
+        Provider.of<ContentfulService>(context).getSimpleContent ?? null;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,10 +31,10 @@ class NgGirls extends StatelessWidget {
               padding: const EdgeInsets.all(24.0),
               child: Image.asset('assets/images/nggirls.png'),
             ),
-            _ngGirlsContent == ''
+            _simpleContent == null
                 ? CircularProgressIndicator()
                 : Text(
-                    Provider.of<NgGirlsProvider>(context).getContent,
+                    _simpleContent.text,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
           ],
