@@ -11,8 +11,13 @@ import 'package:ng_poland_conf_next/screens/speakerDetails.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
 import 'package:ng_poland_conf_next/screens/workShops.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_config/flutter_config.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await FlutterConfig.loadEnvVariables();
+
   runApp(MyApp());
 }
 
