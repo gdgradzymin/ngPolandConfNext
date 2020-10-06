@@ -82,6 +82,7 @@ class ContentfulService with ChangeNotifier {
     String contentType,
     String locale = 'en-US',
     List<String> fields,
+    String order = '',
     String limit = '1',
   }) {
     String stringfields = '';
@@ -90,7 +91,7 @@ class ContentfulService with ChangeNotifier {
       stringfields = stringfields + '&fields.' + field;
     }
 
-    return '&content_type=$contentType&locale=$locale$stringfields&limit=$limit';
+    return '&content_type=$contentType&locale=$locale$stringfields&limit=$limit&order=$order';
   }
 
   Future<void> getInfoItems({int howMany, String confId}) async {
@@ -101,6 +102,7 @@ class ContentfulService with ChangeNotifier {
               EventContentTypes.INFO_ITEM,
             ),
             fields: ['confId=$confId'],
+            order: 'fields.order',
             limit: howMany.toString(),
           ));
 
@@ -142,6 +144,7 @@ class ContentfulService with ChangeNotifier {
               'type=${getStringFromEventItemType(type)}',
               'confId=$confId'
             ],
+            order: 'fields.startDate',
             limit: howMany.toString(),
           ));
 
@@ -219,6 +222,7 @@ class ContentfulService with ChangeNotifier {
               EventContentTypes.WORKSHOP,
             ),
             fields: ['confId=$confId'],
+            order: 'sys.createdAt',
             limit: howMany.toString(),
           ));
 
@@ -268,6 +272,7 @@ class ContentfulService with ChangeNotifier {
               EventContentTypes.SPEAKER,
             ),
             fields: ['confIds=$confId'],
+            order: 'fields.name',
             limit: howMany.toString(),
           ));
 
