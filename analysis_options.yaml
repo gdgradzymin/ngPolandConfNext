@@ -88,7 +88,7 @@ linter:
     # - avoid_types_on_closure_parameters # conflicts with always_specify_types
     # - avoid_unnecessary_containers # not yet tested
     - avoid_unused_constructor_parameters
-    - avoid_void_async
+    # - avoid_void_async
     # - avoid_web_libraries_in_flutter # not yet tested
     - await_only_futures
     - camel_case_extensions

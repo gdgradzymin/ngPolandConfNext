@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ng_poland_conf_next/models/pages.dart';
-import 'package:ng_poland_conf_next/providers/contentful.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/screens/about.dart';
 import 'package:ng_poland_conf_next/screens/home.dart';
@@ -104,12 +103,6 @@ class _DrawerNgState extends State<DrawerNg> {
                       ),
                       title: const Text('ngGirls'),
                       onTap: () {
-                        Provider.of<ContentfulService>(context, listen: false)
-                            .getSimpleContentById(
-                          myId: 'ng-girls-workshops',
-                          confId: '2019',
-                        );
-
                         selectedPage.changeSelected(name: PagesName.ngGirls);
                         Navigator.of(context)
                             .popAndPushNamed(NgGirls.routeName);
