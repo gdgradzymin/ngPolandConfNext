@@ -1,6 +1,6 @@
 class InfoItem {
   final String title;
-  final String order;
+  final int order;
   final String icon;
   final String description;
   final String confId;

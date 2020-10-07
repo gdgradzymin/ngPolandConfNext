@@ -6,7 +6,7 @@ class ThemeNotifier with ChangeNotifier {
 
   bool _darkTheme = false;
 
-  get darkTheme {
+  bool get darkTheme {
     return _darkTheme;
   }
 

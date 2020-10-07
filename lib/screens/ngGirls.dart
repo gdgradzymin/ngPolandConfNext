@@ -13,8 +13,9 @@ class NgGirls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SimpleContent _simpleContent =
-        Provider.of<ContentfulService>(context).getSimpleContent ?? null;
+    SimpleContent _simpleContent = Provider.of<ContentfulService>(context)
+            .simpleContent['ng-girls-workshops'] ??
+        null;
 
     return Scaffold(
       appBar: AppBar(
@@ -22,21 +23,34 @@ class NgGirls extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: DrawerNg(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
+      body: RefreshIndicator(
+        onRefresh: () async =>
+            await Provider.of<ContentfulService>(context, listen: false)
+                .getSimpleContentById(
+          myId: 'ng-girls-workshops',
+          confId: '2019',
+          refresh: true,
+        ),
+        child: ListView(
+          children: [
             Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Image.asset('assets/images/nggirls.png'),
-            ),
-            _simpleContent == null
-                ? CircularProgressIndicator()
-                : Text(
-                    _simpleContent.text,
-                    style: Theme.of(context).textTheme.bodyText1,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Image.asset('assets/images/nggirls.png'),
                   ),
+                  _simpleContent == null
+                      ? CircularProgressIndicator()
+                      : Text(
+                          _simpleContent.text,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
