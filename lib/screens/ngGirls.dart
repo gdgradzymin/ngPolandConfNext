@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/ngGirlsdart';
+import 'package:ng_poland_conf_next/providers/ngGirls.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
