@@ -25,7 +25,7 @@ class EventItemsProvider with ChangeNotifier {
       type: type,
       confId: confId,
       refresh: refresh,
-    ) as List<EventItem>;
+    );
 
     notifyListeners();
   }

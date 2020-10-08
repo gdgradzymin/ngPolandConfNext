@@ -23,7 +23,7 @@ class WorkShopsProvider with ChangeNotifier {
       howMany: howMany,
       confId: confId,
       refresh: refresh,
-    ) as List<WorkShop>;
+    );
 
     notifyListeners();
   }

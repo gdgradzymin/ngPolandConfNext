@@ -108,7 +108,7 @@ class ContentfulService {
     return '&content_type=$contentType&locale=$locale$stringfields&limit=$limit&order=$order';
   }
 
-  Future getInfoItems({
+  Future<List<InfoItem>> getInfoItems({
     int howMany,
     String confId,
     bool refresh = false,
@@ -140,13 +140,13 @@ class ContentfulService {
           ),
         );
       }
-      return _infoItems;
     } catch (err) {
       print(err);
     }
+    return _infoItems;
   }
 
-  Future getEventItems({
+  Future<List<EventItem>> getEventItems({
     int howMany,
     EventItemType type,
     String confId,
@@ -198,14 +198,14 @@ class ContentfulService {
           ),
         );
       }
-
-      return _eventItems;
     } catch (err) {
       print(err);
     }
+
+    return _eventItems;
   }
 
-  Future getSimpleContentById({
+  Future<Map<String, SimpleContent>> getSimpleContentById({
     String myId,
     String confId,
     bool refresh = false,
@@ -234,13 +234,14 @@ class ContentfulService {
           ),
         );
       }
-      return _simpleContent;
     } catch (err) {
       print(err);
     }
+
+    return _simpleContent;
   }
 
-  Future getWorkshops({
+  Future<List<WorkShop>> getWorkshops({
     int howMany,
     String confId,
     bool refresh = false,
@@ -288,14 +289,14 @@ class ContentfulService {
           ),
         );
       }
-
-      return _workShops;
     } catch (err) {
       print(err);
     }
+
+    return _workShops;
   }
 
-  Future getSpeakers({
+  Future<List<Speaker>> getSpeakers({
     int howMany,
     String confId,
     bool refresh = false,
@@ -333,9 +334,10 @@ class ContentfulService {
           ),
         );
       }
-      return _speakers;
     } catch (err) {
       print(err);
     }
+
+    return _speakers;
   }
 }

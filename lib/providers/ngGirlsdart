@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 
-class SimpleContentProvider with ChangeNotifier {
+class NgGirlsProvider with ChangeNotifier {
   Map<String, SimpleContent> _simpleContent = {};
 
   Map<String, SimpleContent> get simpleContent => _simpleContent;
@@ -23,7 +23,7 @@ class SimpleContentProvider with ChangeNotifier {
       myId: myId,
       confId: confId,
       refresh: refresh,
-    ) as Map<String, SimpleContent>;
+    );
 
     notifyListeners();
   }

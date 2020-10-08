@@ -6,7 +6,7 @@ import 'package:ng_poland_conf_next/providers/speakers.dart';
 import 'package:ng_poland_conf_next/providers/workShops.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
-import 'package:ng_poland_conf_next/providers/simpleContent.dart';
+import 'package:ng_poland_conf_next/providers/ngGirlsdart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/screens/about.dart';
 import 'package:ng_poland_conf_next/screens/home.dart';
@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
           create: (_) => EventItemsProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => SimpleContentProvider(),
+          create: (_) => NgGirlsProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => WorkShopsProvider(),

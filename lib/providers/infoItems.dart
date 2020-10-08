@@ -23,7 +23,7 @@ class InfoItemsProvider with ChangeNotifier {
       howMany: howMany,
       confId: confId,
       refresh: refresh,
-    ) as List<InfoItem>;
+    );
 
     notifyListeners();
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/simpleContent.dart';
+import 'package:ng_poland_conf_next/providers/ngGirlsdart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class NgGirls extends StatefulWidget {
 class _NgGirlsState extends State<NgGirls> {
   @override
   void initState() {
-    Provider.of<SimpleContentProvider>(context, listen: false).fetchData(
+    Provider.of<NgGirlsProvider>(context, listen: false).fetchData(
       myId: 'ng-girls-workshops',
       confId: '2019',
     );
@@ -27,7 +27,7 @@ class _NgGirlsState extends State<NgGirls> {
 
   @override
   Widget build(BuildContext context) {
-    SimpleContent _simpleContent = Provider.of<SimpleContentProvider>(context)
+    SimpleContent _simpleContent = Provider.of<NgGirlsProvider>(context)
             .simpleContent['ng-girls-workshops'] ??
         null;
 
@@ -39,7 +39,7 @@ class _NgGirlsState extends State<NgGirls> {
       drawer: DrawerNg(),
       body: RefreshIndicator(
         onRefresh: () async =>
-            await Provider.of<SimpleContentProvider>(context, listen: false)
+            await Provider.of<NgGirlsProvider>(context, listen: false)
                 .fetchData(
           myId: 'ng-girls-workshops',
           confId: '2019',
