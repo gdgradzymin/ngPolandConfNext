@@ -47,7 +47,8 @@ class _DrawerNgState extends State<DrawerNg> {
                       title: const Text('Home'),
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.home);
-                        Navigator.of(context).popAndPushNamed(Home.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(Home.routeName);
                       },
                     ),
                   ),
@@ -66,7 +67,7 @@ class _DrawerNgState extends State<DrawerNg> {
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.schedule);
                         Navigator.of(context)
-                            .popAndPushNamed(Schedule.routeName);
+                            .pushReplacementNamed(Schedule.routeName);
                       },
                     ),
                   ),
@@ -85,7 +86,7 @@ class _DrawerNgState extends State<DrawerNg> {
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.workshops);
                         Navigator.of(context)
-                            .popAndPushNamed(WorkShops.routeName);
+                            .pushReplacementNamed(WorkShops.routeName);
                       },
                     ),
                   ),
@@ -105,7 +106,7 @@ class _DrawerNgState extends State<DrawerNg> {
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.ngGirls);
                         Navigator.of(context)
-                            .popAndPushNamed(NgGirls.routeName);
+                            .pushReplacementNamed(NgGirls.routeName);
                       },
                     ),
                   ),
@@ -125,7 +126,7 @@ class _DrawerNgState extends State<DrawerNg> {
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.speakers);
                         Navigator.of(context)
-                            .popAndPushNamed(Speakers.routeName);
+                            .pushReplacementNamed(Speakers.routeName);
                       },
                     ),
                   ),
@@ -143,7 +144,8 @@ class _DrawerNgState extends State<DrawerNg> {
                       title: const Text('Info'),
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.info);
-                        Navigator.of(context).popAndPushNamed(Info.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(Info.routeName);
                       },
                     ),
                   ),
@@ -161,11 +163,12 @@ class _DrawerNgState extends State<DrawerNg> {
                       title: const Text('About'),
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.about);
-                        Navigator.of(context).popAndPushNamed(About.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(About.routeName);
                       },
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 2,
                     height: 25,
                   ),
