@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/providers/ngGirls.dart';
+import 'package:get_it/get_it.dart';
+import 'package:ng_poland_conf_next/providers/eventItems.dart';
+import 'package:ng_poland_conf_next/providers/infoItems.dart';
+import 'package:ng_poland_conf_next/providers/speakers.dart';
+import 'package:ng_poland_conf_next/providers/workShops.dart';
+import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
+import 'package:ng_poland_conf_next/providers/ngGirls.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/screens/about.dart';
 import 'package:ng_poland_conf_next/screens/home.dart';
@@ -11,8 +17,21 @@ import 'package:ng_poland_conf_next/screens/speakerDetails.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
 import 'package:ng_poland_conf_next/screens/workShops.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_config/flutter_config.dart';
 
-void main() {
+GetIt locator = GetIt.instance;
+
+void setupSingletons() async {
+  locator.registerLazySingleton<ContentfulService>(() => ContentfulService());
+}
+
+void main() async {
+  setupSingletons();
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await FlutterConfig.loadEnvVariables();
+
   runApp(MyApp());
 }
 
@@ -46,7 +65,19 @@ class _MyAppState extends State<MyApp> {
           create: (_) => SelectedPage(),
         ),
         ChangeNotifierProvider(
+          create: (_) => InfoItemsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EventItemsProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => NgGirlsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => WorkShopsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SpeakersProvider(),
         ),
       ],
       child: Consumer<ThemeNotifier>(

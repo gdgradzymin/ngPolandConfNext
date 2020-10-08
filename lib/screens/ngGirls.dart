@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/ngGirls.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
-class NgGirls extends StatelessWidget {
+class NgGirls extends StatefulWidget {
   static const routeName = '/NgGirls';
 
   final String title;
@@ -11,30 +12,59 @@ class NgGirls extends StatelessWidget {
   NgGirls({Key key, this.title}) : super(key: key);
 
   @override
+  _NgGirlsState createState() => _NgGirlsState();
+}
+
+class _NgGirlsState extends State<NgGirls> {
+  @override
+  void initState() {
+    Provider.of<NgGirlsProvider>(context, listen: false).fetchData(
+      myId: 'ng-girls-workshops',
+      confId: '2019',
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String _ngGirlsContent = Provider.of<NgGirlsProvider>(context).getContent;
+    SimpleContent _simpleContent = Provider.of<NgGirlsProvider>(context)
+            .simpleContent['ng-girls-workshops'] ??
+        null;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
         centerTitle: true,
       ),
       drawer: DrawerNg(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
+      body: RefreshIndicator(
+        onRefresh: () async =>
+            await Provider.of<NgGirlsProvider>(context, listen: false)
+                .fetchData(
+          myId: 'ng-girls-workshops',
+          confId: '2019',
+          refresh: true,
+        ),
+        child: ListView(
+          children: [
             Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Image.asset('assets/images/nggirls.png'),
-            ),
-            _ngGirlsContent == ''
-                ? CircularProgressIndicator()
-                : Text(
-                    Provider.of<NgGirlsProvider>(context).getContent,
-                    style: Theme.of(context).textTheme.bodyText1,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Image.asset('assets/images/nggirls.png'),
                   ),
+                  _simpleContent == null
+                      ? CircularProgressIndicator()
+                      : Text(
+                          _simpleContent.text,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

@@ -3,24 +3,24 @@ import 'package:get_it/get_it.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 
-class NgGirlsProvider with ChangeNotifier {
-  Map<String, SimpleContent> _simpleContent = {};
+class SpeakersProvider with ChangeNotifier {
+  List<Speaker> _speakers = [];
 
-  Map<String, SimpleContent> get simpleContent => _simpleContent;
+  List<Speaker> get speakers => _speakers;
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
   Future fetchData({
-    String myId,
-    String confId,
+    @required int howMany,
+    @required String confId,
     bool refresh = false,
   }) async {
     if (refresh) {
       clear();
     }
 
-    _simpleContent = await _contentfulService.getSimpleContentById(
-      myId: myId,
+    _speakers = await _contentfulService.getSpeakers(
+      howMany: howMany,
       confId: confId,
       refresh: refresh,
     );
@@ -29,7 +29,7 @@ class NgGirlsProvider with ChangeNotifier {
   }
 
   void clear() {
-    _simpleContent = {};
+    _speakers = [];
     notifyListeners();
   }
 }
