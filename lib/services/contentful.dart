@@ -171,30 +171,51 @@ class ContentfulService {
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
+        dynamic _speaker;
+
+        String _photoFileUrl = '';
+        if (item['fields']['presenter'] != null) {
+          for (final dynamic asset in dataDecode['includes']['Entry']) {
+            if (asset['sys']['id'] ==
+                item['fields']['presenter']['sys']['id']) {
+              _speaker = asset['fields'];
+            }
+          }
+
+          for (final dynamic asset in dataDecode['includes']['Asset']) {
+            if (asset['sys']['id'] == _speaker['photo']['sys']['id']) {
+              _photoFileUrl = asset['fields']['file']['url'] as String;
+            }
+          }
+        }
+
         _eventItems.add(
           EventItem(
-            title: item['fields']['title'] as String,
-            confId: item['fields']['confId'] as String,
-            type: item['fields']['type'] as String,
-            category: item['fields']['category'] as String,
-            shortDescription: item['fields']['shortDescription'] as String,
-            description: item['fields']['description'] as String,
-            startDate: item['fields']['startDate'] as String,
-            endDate: item['fields']['endDate'] as String,
-            speaker: Speaker(
-              name: item['fields']['name'] as String,
-              confIds: item['fields']['confIds'] as String,
-              role: item['fields']['role'] as String,
-              bio: item['fields']['bio'] as String,
-              photoFileUrl: item['fields']['photoFileUrl'] as String,
-              photoTitle: item['fields']['photoTitle'] as String,
-              photoDescription: item['fields']['photoDescription'] as String,
-              email: item['fields']['email'] as String,
-              urlGithub: item['fields']['urlGithub'] as String,
-              urlLinkedIn: item['fields']['urlLinkedIn'] as String,
-              urlTwitter: item['fields']['urlTwitter'] as String,
-              urlWww: item['fields']['urlWww'] as String,
-            ),
+            title: item['fields']['title'] as String ?? null,
+            confId: item['fields']['confId'] as String ?? null,
+            type: item['fields']['type'] as String ?? null,
+            category: item['fields']['category'] as String ?? null,
+            shortDescription:
+                item['fields']['shortDescription'] as String ?? null,
+            description: item['fields']['description'] as String ?? null,
+            startDate: item['fields']['startDate'] as String ?? null,
+            endDate: item['fields']['endDate'] as String ?? null,
+            speaker: _speaker == null
+                ? null
+                : Speaker(
+                    name: _speaker['name'] as String,
+                    confIds: _speaker['confIds'].toString(),
+                    role: _speaker['role'] as String,
+                    bio: _speaker['bio'] as String,
+                    photoFileUrl: _photoFileUrl,
+                    photoTitle: _speaker['photoTitle'] as String,
+                    photoDescription: _speaker['photoDescription'] as String,
+                    email: _speaker['email'] as String,
+                    urlGithub: _speaker['urlGithub'] as String,
+                    urlLinkedIn: _speaker['urlLinkedIn'] as String,
+                    urlTwitter: _speaker['urlTwitter'] as String,
+                    urlWww: _speaker['urlWww'] as String,
+                  ),
           ),
         );
       }
