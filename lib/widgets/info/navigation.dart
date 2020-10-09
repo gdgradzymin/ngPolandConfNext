@@ -23,7 +23,7 @@ class InfoNavigation extends StatelessWidget {
         child: Stack(
           children: [
             AnimatedPositioned(
-              duration: Duration(milliseconds: 1000),
+              duration: const Duration(milliseconds: 1000),
               curve: Curves.easeInOutBack,
               left: MediaQuery.of(context).size.width *
                   0.225 *
@@ -45,7 +45,7 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: Icon(
+                        child: const Icon(
                           Icons.location_on,
                           size: 27.5,
                         ),
@@ -60,7 +60,7 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: Icon(
+                        child: const Icon(
                           FontAwesomeIcons.laptopCode,
                           size: 27.5,
                         ),
@@ -75,7 +75,7 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: Icon(
+                        child: const Icon(
                           FontAwesomeIcons.ticketAlt,
                           size: 27.5,
                         ),
@@ -90,7 +90,7 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: Icon(
+                        child: const Icon(
                           Icons.comment,
                           size: 27.5,
                         ),
