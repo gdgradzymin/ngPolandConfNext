@@ -262,24 +262,39 @@ class ContentfulService {
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
+        dynamic _speaker;
+
+        String _photoFileUrl = '';
+
+        for (final dynamic asset in dataDecode['includes']['Entry']) {
+          if (asset['sys']['id'] == item['fields']['instructor']['sys']['id']) {
+            _speaker = asset['fields'];
+          }
+        }
+
+        for (final dynamic asset in dataDecode['includes']['Asset']) {
+          if (asset['sys']['id'] == _speaker['photo']['sys']['id']) {
+            _photoFileUrl = asset['fields']['file']['url'] as String;
+          }
+        }
+
         _workShops.add(
           WorkShop(
             title: item['fields']['title'] as String,
             confId: item['fields']['confId'] as String,
             description: item['fields']['description'] as String,
             speaker: Speaker(
-              name: item['fields']['name'] as String,
-              confIds: item['fields']['confIds'] as String,
-              role: item['fields']['role'] as String,
-              bio: item['fields']['bio'] as String,
-              photoFileUrl: item['fields']['photoFileUrl'] as String,
-              photoTitle: item['fields']['photoTitle'] as String,
-              photoDescription: item['fields']['photoDescription'] as String,
-              email: item['fields']['email'] as String,
-              urlGithub: item['fields']['urlGithub'] as String,
-              urlLinkedIn: item['fields']['urlLinkedIn'] as String,
-              urlTwitter: item['fields']['urlTwitter'] as String,
-              urlWww: item['fields']['urlWww'] as String,
+              name: _speaker['name'] as String,
+              role: _speaker['role'] as String,
+              bio: _speaker['bio'] as String,
+              photoFileUrl: _photoFileUrl,
+              photoTitle: _speaker['photoTitle'] as String,
+              photoDescription: _speaker['photoDescription'] as String,
+              email: _speaker['email'] as String,
+              urlGithub: _speaker['urlGithub'] as String,
+              urlLinkedIn: _speaker['urlLinkedIn'] as String,
+              urlTwitter: _speaker['urlTwitter'] as String,
+              urlWww: _speaker['urlWww'] as String,
             ),
             startDate: item['fields']['startDate'] as String,
             endDate: item['fields']['endDate'] as String,
@@ -317,13 +332,20 @@ class ContentfulService {
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
+        String _photoFileUrl = '';
+        for (final dynamic asset in dataDecode['includes']['Asset']) {
+          if (asset['sys']['id'] == item['fields']['photo']['sys']['id']) {
+            _photoFileUrl = asset['fields']['file']['url'] as String;
+          }
+        }
+
         _speakers.add(
           Speaker(
             name: item['fields']['name'] as String,
             confIds: item['fields']['confIds'].toString(),
             role: item['fields']['role'] as String,
             bio: item['fields']['bio'] as String,
-            photoFileUrl: item['fields']['photoFileUrl'] as String,
+            photoFileUrl: _photoFileUrl,
             photoTitle: item['fields']['photoTitle'] as String,
             photoDescription: item['fields']['photoDescription'] as String,
             email: item['fields']['email'] as String,
