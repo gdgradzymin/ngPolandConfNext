@@ -150,7 +150,6 @@ class ContentfulService {
     int howMany,
     EventItemType type,
     String confId,
-    bool refresh = false,
   }) async {
     List<EventItem> _eventItems = [];
 

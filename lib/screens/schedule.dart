@@ -6,6 +6,7 @@ import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
+import 'package:ng_poland_conf_next/widgets/schedule/animatedBottomNav.dart';
 import 'package:provider/provider.dart';
 
 class Schedule extends StatefulWidget {
@@ -20,13 +21,19 @@ class Schedule extends StatefulWidget {
 }
 
 class _ScheduleState extends State<Schedule> {
+  bool _fetchdata = false;
+
   @override
   void didChangeDependencies() {
-    Provider.of<EventItemsProvider>(context, listen: false).fetchData(
-      howMany: 999,
-      confId: '2019',
-      type: EventItemType.NGPOLAND,
-    );
+    if (!_fetchdata) {
+      Provider.of<EventItemsProvider>(context, listen: false).fetchData(
+        howMany: 999,
+        confId: '2019',
+        type: EventItemType.NGPOLAND,
+      );
+      _fetchdata = true;
+    }
+
     super.didChangeDependencies();
   }
 
@@ -120,11 +127,9 @@ class _ScheduleState extends State<Schedule> {
       drawer: DrawerNg(),
       body: RefreshIndicator(
         onRefresh: () =>
-            Provider.of<EventItemsProvider>(context, listen: false).fetchData(
+            Provider.of<EventItemsProvider>(context, listen: false).refreshData(
           howMany: 999,
           confId: '2019',
-          type: EventItemType.NGPOLAND,
-          refresh: true,
         ),
         child: Ink(
           decoration: _darkMode
@@ -199,7 +204,7 @@ class _ScheduleState extends State<Schedule> {
                                 Row(
                                   children: [
                                     ClipRRect(
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(20),
                                       ),
                                       child: Image.network(
@@ -229,6 +234,9 @@ class _ScheduleState extends State<Schedule> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: AnimatedBottomNav(
+        deviceSize: MediaQuery.of(context).size,
       ),
     );
   }
