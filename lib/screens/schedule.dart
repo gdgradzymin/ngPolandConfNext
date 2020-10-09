@@ -170,7 +170,22 @@ class _ScheduleState extends State<Schedule> {
                           )
                         : const BoxDecoration(color: Colors.white),
                     child: ListTile(
-                      onTap: _eventItems[index].speaker == null ? null : () {},
+                      onTap: _eventItems[index].speaker == null
+                          ? null
+                          : () {
+                              Navigator.of(context).pushNamed(
+                                '/SchedulePresenter',
+                                arguments: {
+                                  'title': _eventItems[index].title,
+                                  'description': _eventItems[index].description,
+                                  'icon': _getIcon(
+                                    _eventItems[index].category,
+                                    _iconsColor,
+                                  ),
+                                  'speaker': _eventItems[index].speaker,
+                                },
+                              );
+                            },
                       leading: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

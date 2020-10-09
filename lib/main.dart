@@ -4,6 +4,7 @@ import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/infoItems.dart';
 import 'package:ng_poland_conf_next/providers/speakers.dart';
 import 'package:ng_poland_conf_next/providers/workShops.dart';
+import 'package:ng_poland_conf_next/screens/schedulePresenter.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/providers/ngGirls.dart';
@@ -86,10 +87,10 @@ class _MyAppState extends State<MyApp> {
             title: 'ngPolandConf 2020',
             theme: ThemeData(
               brightness: Brightness.light,
-              accentColor: Color.fromRGBO(255, 0, 122, 1),
-              primaryColor: Color.fromRGBO(59, 29, 130, 1),
+              accentColor: const Color.fromRGBO(255, 0, 122, 1),
+              primaryColor: const Color.fromRGBO(59, 29, 130, 1),
               canvasColor: Colors.white,
-              textTheme: TextTheme(
+              textTheme: const TextTheme(
                 headline1: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -98,9 +99,9 @@ class _MyAppState extends State<MyApp> {
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
-              accentColor: Color.fromRGBO(255, 0, 122, 1),
-              primaryColor: Color.fromRGBO(59, 29, 130, 1),
-              textTheme: TextTheme(
+              accentColor: const Color.fromRGBO(255, 0, 122, 1),
+              primaryColor: const Color.fromRGBO(59, 29, 130, 1),
+              textTheme: const TextTheme(
                 headline1: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -120,6 +121,7 @@ class _MyAppState extends State<MyApp> {
               '/Info': (context) => Info(title: 'Info'),
               '/About': (context) => About(title: 'About'),
               '/SpeakerDetails': (context) => SpeakerDetails(),
+              '/SchedulePresenter': (context) => SchedulePresenter(),
             },
           );
         },
