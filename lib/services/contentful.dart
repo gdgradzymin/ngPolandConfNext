@@ -244,37 +244,48 @@ class ContentfulService {
     return _eventItems;
   }
 
-  Future<Map<String, SimpleContent>> getSimpleContentById({
+  Future<SimpleContent> getSimpleContentById({
     String myId,
     String confId,
     bool refresh = false,
   }) async {
-    Map<String, SimpleContent> _simpleContent = {};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    http.Response response = await http.get(_contentfulEntries +
-        _contentfull(
-          contentType: getStringFromEventContentTypes(
-            EventContentTypes.SIMPLE_CONTENT,
-          ),
-          fields: ['myId=$myId', 'confId=$confId'],
-        ));
+    SimpleContent _simpleContent;
 
     try {
+      http.Response response = await http.get(_contentfulEntries +
+          _contentfull(
+            contentType: getStringFromEventContentTypes(
+              EventContentTypes.SIMPLE_CONTENT,
+            ),
+            fields: ['myId=$myId', 'confId=$confId'],
+          ));
+
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
-      for (final dynamic item in dataDecode['items']) {
-        _simpleContent.putIfAbsent(
-          myId,
-          () => SimpleContent(
-            myId: item['fields']['myId'] as String,
-            title: item['fields']['title'] as String,
-            text: item['fields']['text'] as String,
-            confId: item['fields']['confId'] as String,
-          ),
-        );
-      }
-    } catch (err) {
-      print(err);
+      _simpleContent = SimpleContent(
+        myId: dataDecode['items'][0]['fields']['myId'] as String,
+        title: dataDecode['items'][0]['fields']['title'] as String,
+        text: dataDecode['items'][0]['fields']['text'] as String,
+        confId: dataDecode['items'][0]['fields']['confId'] as String,
+      );
+      prefs.setString(
+        'SimpleContent-$myId',
+        jsonEncode(_simpleContent),
+      );
+    } on SocketException {
+      _simpleContent = SimpleContent.fromJson(
+        jsonDecode(
+          prefs.getString('SimpleContent-$myId'),
+        ) as Map<String, dynamic>,
+      );
+
+      print('Internet connection lost.');
+    } on HttpException {
+      print('Couldn\'t find the post.');
+    } on FormatException {
+      print('Bad response format.');
     }
 
     return _simpleContent;

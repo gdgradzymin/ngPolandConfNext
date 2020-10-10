@@ -134,17 +134,35 @@ class Speaker {
 }
 
 class SimpleContent {
-  final String myId;
-  final String title;
-  final String text;
-  final String confId;
-
   SimpleContent({
     this.myId,
     this.title,
     this.text,
     this.confId,
   });
+
+  factory SimpleContent.fromJson(Map<String, dynamic> json) {
+    return SimpleContent(
+      myId: json['myId'] as String,
+      title: json['title'] as String,
+      text: json['text'] as String,
+      confId: json['confId'] as String,
+    );
+  }
+
+  final String myId;
+  final String title;
+  final String text;
+  final String confId;
+
+  Map<String, Object> toJson() {
+    return {
+      'myId': myId,
+      'title': title,
+      'text': text,
+      'confId': confId,
+    };
+  }
 }
 
 class WorkShop {
