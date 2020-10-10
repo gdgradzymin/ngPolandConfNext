@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:ng_poland_conf_next/models/pages.dart';
+import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:provider/provider.dart';
 
 class HomeButton extends StatelessWidget {
   final String name;
   final IconData icon;
+  final PagesName selectedPage;
   final String routeName;
 
   HomeButton({
     this.name,
     this.icon,
+    this.selectedPage,
     this.routeName,
   });
 
@@ -17,6 +21,7 @@ class HomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Provider.of<SelectedPage>(context, listen: false).changeSelected(name: selectedPage);
         Navigator.of(context).pushReplacementNamed(routeName);
       },
       child: Column(
