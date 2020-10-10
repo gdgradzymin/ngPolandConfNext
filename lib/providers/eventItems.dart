@@ -4,9 +4,14 @@ import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 
 class EventItemsProvider with ChangeNotifier {
-  List<EventItem> _eventItems = [];
+  EventItemType _selectedItems;
 
-  List<EventItem> get eventItems => _eventItems;
+  List<EventItem> _ngPoland = [];
+
+  List<EventItem> _jsPoland = [];
+
+  List<EventItem> get eventItems =>
+      _selectedItems == EventItemType.NGPOLAND ? _ngPoland : _jsPoland;
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
@@ -14,24 +19,58 @@ class EventItemsProvider with ChangeNotifier {
     @required int howMany,
     @required String confId,
     @required EventItemType type,
-    bool refresh = false,
   }) async {
-    if (refresh) {
-      clear();
+    if (type == EventItemType.NGPOLAND) {
+      _selectedItems = EventItemType.NGPOLAND;
+      _ngPoland = await _contentfulService.getEventItems(
+        howMany: howMany,
+        type: type,
+        confId: confId,
+      );
+    } else {
+      _selectedItems = EventItemType.JSPOLAND;
+      _jsPoland = await _contentfulService.getEventItems(
+        howMany: howMany,
+        type: type,
+        confId: confId,
+      );
     }
-
-    _eventItems = await _contentfulService.getEventItems(
-      howMany: howMany,
-      type: type,
-      confId: confId,
-      refresh: refresh,
-    );
 
     notifyListeners();
   }
 
-  void clear() {
-    _eventItems = [];
+  Future refreshData({
+    @required int howMany,
+    @required String confId,
+  }) async {
+    clear(_selectedItems);
+
+    if (_selectedItems == EventItemType.NGPOLAND) {
+      _selectedItems = EventItemType.NGPOLAND;
+      _ngPoland = await _contentfulService.getEventItems(
+        howMany: howMany,
+        type: _selectedItems,
+        confId: confId,
+      );
+    } else {
+      _selectedItems = EventItemType.JSPOLAND;
+      _jsPoland = await _contentfulService.getEventItems(
+        howMany: howMany,
+        type: _selectedItems,
+        confId: confId,
+      );
+    }
+
+    notifyListeners();
+  }
+
+  void clear(EventItemType type) {
+    if (type == EventItemType.NGPOLAND) {
+      _ngPoland = [];
+    } else {
+      _jsPoland = [];
+    }
+
     notifyListeners();
   }
 }
