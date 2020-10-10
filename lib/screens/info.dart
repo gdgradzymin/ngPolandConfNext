@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ng_poland_conf_next/providers/infoItems.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
+import 'package:ng_poland_conf_next/widgets/info/content.dart';
 import 'package:ng_poland_conf_next/widgets/info/navigation.dart';
+import 'package:provider/provider.dart';
 
 enum InfoContents {
   location,
@@ -30,6 +33,16 @@ class _InfoState extends State<Info> {
   }
 
   @override
+  void initState() {
+    Provider.of<InfoItemsProvider>(context, listen: false).fetchData(
+      howMany: 999,
+      confId: '2019',
+      refresh: false,
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -37,24 +50,30 @@ class _InfoState extends State<Info> {
         centerTitle: true,
       ),
       drawer: DrawerNg(),
-      body: SingleChildScrollView(
-        clipBehavior: Clip.none,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              InfoNavigation(
-                currentContent: _currentContent,
-                changeContent: _changeContent,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              Text(
-                _currentContent.toString(),
-              ),
-            ],
+      body: RefreshIndicator(
+        onRefresh: () =>
+            Provider.of<InfoItemsProvider>(context, listen: false).fetchData(
+          howMany: 999,
+          confId: '2019',
+          refresh: true,
+        ),
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                InfoNavigation(
+                  currentContent: _currentContent,
+                  changeContent: _changeContent,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
+                ),
+                InfoContent(selectedContent: _currentContent),
+              ],
+            ),
           ),
         ),
       ),
