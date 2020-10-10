@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
@@ -18,12 +19,12 @@ class WorkShops extends StatefulWidget {
 
 class _WorkShopsState extends State<WorkShops> {
   @override
-  void didChangeDependencies() {
+  void initState() {
     Provider.of<WorkShopsProvider>(context, listen: false).fetchData(
       howMany: 999,
       confId: '2019',
     );
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override
@@ -56,13 +57,13 @@ class _WorkShopsState extends State<WorkShops> {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(25),
                       ),
-                      child: _workShopsItems[index].speaker.photoFileUrl == null
-                          ? Image.asset(
-                              'assets/images/person.png',
-                            )
-                          : Image.network(
-                              'http:${_workShopsItems[index].speaker.photoFileUrl}',
-                            ),
+                      child: CachedNetworkImage(
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                Image.asset('assets/images/person.png'),
+                        imageUrl:
+                            'http:${_workShopsItems[index].speaker.photoFileUrl}',
+                      ),
                     ),
                     title: Text(
                       _workShopsItems[index].title,

@@ -166,15 +166,6 @@ class SimpleContent {
 }
 
 class WorkShop {
-  final String title;
-  final String confId;
-  final String description;
-  final Speaker speaker;
-  final String startDate;
-  final String endDate;
-  final String locationDescription;
-  final String pricePln;
-
   WorkShop({
     this.title,
     this.confId,
@@ -185,4 +176,41 @@ class WorkShop {
     this.locationDescription,
     this.pricePln,
   });
+
+  factory WorkShop.fromJson(Map<String, dynamic> json) {
+    return WorkShop(
+      title: json['title'] as String,
+      confId: json['confId'] as String,
+      description: json['description'] as String,
+      speaker: json['speaker'] == null
+          ? null
+          : Speaker.fromJson(json['speaker'] as Map<String, dynamic>),
+      startDate: json['startDate'] as String,
+      endDate: json['endDate'] as String,
+      locationDescription: json['locationDescription'] as String,
+      pricePln: json['pricePln'] as String,
+    );
+  }
+
+  final String title;
+  final String confId;
+  final String description;
+  final Speaker speaker;
+  final String startDate;
+  final String endDate;
+  final String locationDescription;
+  final String pricePln;
+
+  Map<String, Object> toJson() {
+    return {
+      'title': title,
+      'confId': confId,
+      'description': description,
+      'speaker': speaker,
+      'startDate': startDate,
+      'endDate': endDate,
+      'locationDescription': locationDescription,
+      'pricePln': pricePln,
+    };
+  }
 }
