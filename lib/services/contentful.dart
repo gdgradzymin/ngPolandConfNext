@@ -248,12 +248,14 @@ class ContentfulService {
             .toList(),
       );
     } on SocketException {
-      List<String> _data = prefs.getStringList('EventItems-$type');
+      if (prefs.containsKey('EventItems-$type')) {
+        List<String> _data = prefs.getStringList('EventItems-$type');
 
-      _eventItems = _data
-          .map((e) => EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
-          .toList();
-
+        _eventItems = _data
+            .map((e) =>
+                EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
+            .toList();
+      }
       print('Internet connection lost.');
     } on HttpException {
       print('Couldn\'t find the post.');
@@ -295,12 +297,13 @@ class ContentfulService {
         jsonEncode(_simpleContent),
       );
     } on SocketException {
-      _simpleContent = SimpleContent.fromJson(
-        jsonDecode(
-          prefs.getString('SimpleContent-$myId'),
-        ) as Map<String, dynamic>,
-      );
-
+      if (prefs.containsKey('SimpleContent-$myId')) {
+        _simpleContent = SimpleContent.fromJson(
+          jsonDecode(
+            prefs.getString('SimpleContent-$myId'),
+          ) as Map<String, dynamic>,
+        );
+      }
       print('Internet connection lost.');
     } on HttpException {
       print('Couldn\'t find the post.');
@@ -381,12 +384,14 @@ class ContentfulService {
         _workShops.map((WorkShop workShop) => jsonEncode(workShop)).toList(),
       );
     } on SocketException {
-      List<String> _data = prefs.getStringList('WorkShop');
+      if (prefs.containsKey('WorkShop')) {
+        List<String> _data = prefs.getStringList('WorkShop');
 
-      _workShops = _data
-          .map((e) => WorkShop.fromJson(jsonDecode(e) as Map<String, dynamic>))
-          .toList();
-
+        _workShops = _data
+            .map(
+                (e) => WorkShop.fromJson(jsonDecode(e) as Map<String, dynamic>))
+            .toList();
+      }
       print('Internet connection lost.');
     } on HttpException {
       print('Couldn\'t find the post.');
