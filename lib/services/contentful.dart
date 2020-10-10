@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_config/flutter_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum EventContentTypes {
   SPEAKER,
@@ -124,10 +126,9 @@ class ContentfulService {
           order: 'fields.order',
           limit: howMany.toString(),
         ));
+    dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
     try {
-      dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
-
       for (final dynamic item in dataDecode['items']) {
         _infoItems.add(
           InfoItem(
@@ -151,22 +152,23 @@ class ContentfulService {
     EventItemType type,
     String confId,
   }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     List<EventItem> _eventItems = [];
 
-    http.Response response = await http.get(_contentfulEntries +
-        _contentfull(
-          contentType: getStringFromEventContentTypes(
-            EventContentTypes.EVENT_ITEM,
-          ),
-          fields: [
-            'type=${getStringFromEventItemType(type)}',
-            'confId=$confId'
-          ],
-          order: 'fields.startDate',
-          limit: howMany.toString(),
-        ));
-
     try {
+      http.Response response = await http.get(_contentfulEntries +
+          _contentfull(
+            contentType: getStringFromEventContentTypes(
+              EventContentTypes.EVENT_ITEM,
+            ),
+            fields: [
+              'type=${getStringFromEventItemType(type)}',
+              'confId=$confId'
+            ],
+            order: 'fields.startDate',
+            limit: howMany.toString(),
+          ));
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
@@ -218,8 +220,25 @@ class ContentfulService {
           ),
         );
       }
-    } catch (err) {
-      print(err);
+
+      prefs.setStringList(
+        'EventItems-$type',
+        _eventItems
+            .map((EventItem eventItem) => jsonEncode(eventItem))
+            .toList(),
+      );
+    } on SocketException {
+      List<String> _data = prefs.getStringList('EventItems-$type');
+
+      _eventItems = _data
+          .map((e) => EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
+          .toList();
+
+      print('Internet connection lost.');
+    } on HttpException {
+      print('Couldn\'t find the post.');
+    } on FormatException {
+      print('Bad response format.');
     }
 
     return _eventItems;

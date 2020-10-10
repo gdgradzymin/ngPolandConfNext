@@ -17,16 +17,6 @@ class InfoItem {
 }
 
 class EventItem {
-  final String title;
-  final String confId;
-  final String type;
-  final String category;
-  final String shortDescription;
-  final String description;
-  final String startDate;
-  final String endDate;
-  final Speaker speaker;
-
   EventItem({
     this.title,
     this.confId,
@@ -38,22 +28,48 @@ class EventItem {
     this.endDate,
     this.speaker,
   });
+
+  factory EventItem.fromJson(Map<String, dynamic> json) {
+    return EventItem(
+      title: json['title'] as String,
+      confId: json['confId'] as String,
+      type: json['type'] as String,
+      category: json['category'] as String,
+      shortDescription: json['shortDescription'] as String,
+      description: json['description'] as String,
+      startDate: json['startDate'] as String,
+      endDate: json['endDate'] as String,
+      speaker: json['speaker'] == null
+          ? null
+          : Speaker.fromJson(json['speaker'] as Map<String, dynamic>),
+    );
+  }
+  final String title;
+  final String confId;
+  final String type;
+  final String category;
+  final String shortDescription;
+  final String description;
+  final String startDate;
+  final String endDate;
+  final Speaker speaker;
+
+  Map<String, Object> toJson() {
+    return {
+      'title': title,
+      'confId': confId,
+      'type': type,
+      'category': category,
+      'shortDescription': shortDescription,
+      'description': description,
+      'startDate': startDate,
+      'endDate': endDate,
+      'speaker': speaker,
+    };
+  }
 }
 
 class Speaker {
-  final String name;
-  final String confIds;
-  final String role;
-  final String bio;
-  final String photoFileUrl;
-  final String photoTitle;
-  final String photoDescription;
-  final String email;
-  final String urlGithub;
-  final String urlLinkedIn;
-  final String urlTwitter;
-  final String urlWww;
-
   Speaker({
     this.name,
     this.confIds,
@@ -68,6 +84,53 @@ class Speaker {
     this.urlTwitter,
     this.urlWww,
   });
+
+  factory Speaker.fromJson(Map<String, dynamic> json) {
+    return Speaker(
+      name: json['name'] as String,
+      confIds: json['confIds'] as String,
+      role: json['role'] as String,
+      bio: json['bio'] as String,
+      photoFileUrl: json['photoFileUrl'] as String,
+      photoTitle: json['photoTitle'] as String,
+      photoDescription: json['photoDescription'] as String,
+      email: json['email'] as String,
+      urlGithub: json['urlGithub'] as String,
+      urlLinkedIn: json['urlLinkedIn'] as String,
+      urlTwitter: json['urlTwitter'] as String,
+      urlWww: json['urlWww'] as String,
+    );
+  }
+
+  final String name;
+  final String confIds;
+  final String role;
+  final String bio;
+  final String photoFileUrl;
+  final String photoTitle;
+  final String photoDescription;
+  final String email;
+  final String urlGithub;
+  final String urlLinkedIn;
+  final String urlTwitter;
+  final String urlWww;
+
+  Map<String, Object> toJson() {
+    return {
+      'name': name,
+      'confIds': confIds,
+      'role': role,
+      'bio': bio,
+      'photoFileUrl': photoFileUrl,
+      'photoTitle': photoTitle,
+      'photoDescription': photoDescription,
+      'email': email,
+      'urlGithub': urlGithub,
+      'urlLinkedIn': urlLinkedIn,
+      'urlTwitter': urlTwitter,
+      'urlWww': urlWww,
+    };
+  }
 }
 
 class SimpleContent {

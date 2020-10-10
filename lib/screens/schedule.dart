@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -222,9 +223,14 @@ class _ScheduleState extends State<Schedule> {
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(20),
                                       ),
-                                      child: Image.network(
-                                        'http:${_eventItems[index].speaker.photoFileUrl}',
+                                      child: CachedNetworkImage(
                                         width: 20,
+                                        progressIndicatorBuilder:
+                                            (context, url, downloadProgress) =>
+                                                Image.asset(
+                                                    'assets/images/person.png'),
+                                        imageUrl:
+                                            'http:${_eventItems[index].speaker.photoFileUrl}',
                                       ),
                                     ),
                                     SizedBox(
