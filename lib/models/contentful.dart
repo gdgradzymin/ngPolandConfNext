@@ -1,11 +1,4 @@
 class InfoItem {
-  final String title;
-  final int order;
-  final String icon;
-  final String description;
-  final String confId;
-  final String urlLink;
-
   InfoItem({
     this.title,
     this.order,
@@ -14,6 +7,35 @@ class InfoItem {
     this.confId,
     this.urlLink,
   });
+
+  factory InfoItem.fromJson(Map<String, dynamic> json) {
+    return InfoItem(
+      title: json['title'] as String,
+      order: json['order'] as int,
+      icon: json['icon'] as String,
+      description: json['description'] as String,
+      confId: json['confId'] as String,
+      urlLink: json['urlLink'] as String,
+    );
+  }
+
+  final String title;
+  final int order;
+  final String icon;
+  final String description;
+  final String confId;
+  final String urlLink;
+
+  Map<String, Object> toJson() {
+    return {
+      'title': title,
+      'order': order,
+      'icon': icon,
+      'description': description,
+      'confId': confId,
+      'urlLink': urlLink,
+    };
+  }
 }
 
 class EventItem {
