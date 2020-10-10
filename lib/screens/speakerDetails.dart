@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
@@ -50,15 +51,11 @@ class SpeakerDetails extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Hero(
                 tag: 'image' + _speaker.name,
-                child: _speaker.photoFileUrl == null
-                    ? Image.asset(
-                        'assets/images/person.png',
-                        width: MediaQuery.of(context).size.width * 0.5,
-                      )
-                    : Image.network(
-                        'http:${_speaker.photoFileUrl}',
-                        width: MediaQuery.of(context).size.width * 0.5,
-                      ),
+                child: CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Image.asset('assets/images/person.png'),
+                  imageUrl: 'http:${_speaker.photoFileUrl}',
+                ),
               ),
             ),
             SizedBox(
