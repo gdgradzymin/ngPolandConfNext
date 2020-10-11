@@ -311,7 +311,11 @@ class ContentfulService {
           ) as Map<String, dynamic>,
         );
       }
-      print('Internet connection lost.');
+
+      throw Failure(
+        fail: 'Internet connection lost.',
+        localdata: _simpleContent,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
