@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
@@ -45,9 +46,11 @@ class SchedulePresenter extends StatelessWidget {
                                   'assets/images/person.png',
                                   width: double.infinity,
                                 )
-                              : Image.network(
-                                  'http:${_speaker.photoFileUrl}',
-                                  width: double.infinity,
+                              : CachedNetworkImage(
+                                  progressIndicatorBuilder: (context, url,
+                                          downloadProgress) =>
+                                      Image.asset('assets/images/person.png'),
+                                  imageUrl: 'http:${_speaker.photoFileUrl}',
                                 ),
                         ),
                       ),

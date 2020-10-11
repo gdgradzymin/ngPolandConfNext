@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_config/flutter_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum EventContentTypes {
   SPEAKER,
@@ -113,19 +115,21 @@ class ContentfulService {
     String confId,
     bool refresh = false,
   }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     List<InfoItem> _infoItems = [];
 
-    http.Response response = await http.get(_contentfulEntries +
-        _contentfull(
-          contentType: getStringFromEventContentTypes(
-            EventContentTypes.INFO_ITEM,
-          ),
-          fields: ['confId=$confId'],
-          order: 'fields.order',
-          limit: howMany.toString(),
-        ));
-
     try {
+      http.Response response = await http.get(_contentfulEntries +
+          _contentfull(
+            contentType: getStringFromEventContentTypes(
+              EventContentTypes.INFO_ITEM,
+            ),
+            fields: ['confId=$confId'],
+            order: 'fields.order',
+            limit: howMany.toString(),
+          ));
+
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
@@ -140,8 +144,25 @@ class ContentfulService {
           ),
         );
       }
-    } catch (err) {
-      print(err);
+      prefs.setStringList(
+        'InfoItems',
+        _infoItems.map((InfoItem infoItem) => jsonEncode(infoItem)).toList(),
+      );
+    } on SocketException {
+      if (prefs.containsKey('InfoItems')) {
+        List<String> _data = prefs.getStringList('InfoItems');
+
+        _infoItems = _data
+            .map(
+                (e) => InfoItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
+            .toList();
+      }
+
+      print('Internet connection lost.');
+    } on HttpException {
+      print('Couldn\'t find the post.');
+    } on FormatException {
+      print('Bad response format.');
     }
     return _infoItems;
   }
@@ -151,22 +172,23 @@ class ContentfulService {
     EventItemType type,
     String confId,
   }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     List<EventItem> _eventItems = [];
 
-    http.Response response = await http.get(_contentfulEntries +
-        _contentfull(
-          contentType: getStringFromEventContentTypes(
-            EventContentTypes.EVENT_ITEM,
-          ),
-          fields: [
-            'type=${getStringFromEventItemType(type)}',
-            'confId=$confId'
-          ],
-          order: 'fields.startDate',
-          limit: howMany.toString(),
-        ));
-
     try {
+      http.Response response = await http.get(_contentfulEntries +
+          _contentfull(
+            contentType: getStringFromEventContentTypes(
+              EventContentTypes.EVENT_ITEM,
+            ),
+            fields: [
+              'type=${getStringFromEventItemType(type)}',
+              'confId=$confId'
+            ],
+            order: 'fields.startDate',
+            limit: howMany.toString(),
+          ));
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
@@ -218,44 +240,75 @@ class ContentfulService {
           ),
         );
       }
-    } catch (err) {
-      print(err);
+
+      prefs.setStringList(
+        'EventItems-$type',
+        _eventItems
+            .map((EventItem eventItem) => jsonEncode(eventItem))
+            .toList(),
+      );
+    } on SocketException {
+      if (prefs.containsKey('EventItems-$type')) {
+        List<String> _data = prefs.getStringList('EventItems-$type');
+
+        _eventItems = _data
+            .map((e) =>
+                EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
+            .toList();
+      }
+      print('Internet connection lost.');
+    } on HttpException {
+      print('Couldn\'t find the post.');
+    } on FormatException {
+      print('Bad response format.');
     }
 
     return _eventItems;
   }
 
-  Future<Map<String, SimpleContent>> getSimpleContentById({
+  Future<SimpleContent> getSimpleContentById({
     String myId,
     String confId,
     bool refresh = false,
   }) async {
-    Map<String, SimpleContent> _simpleContent = {};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    http.Response response = await http.get(_contentfulEntries +
-        _contentfull(
-          contentType: getStringFromEventContentTypes(
-            EventContentTypes.SIMPLE_CONTENT,
-          ),
-          fields: ['myId=$myId', 'confId=$confId'],
-        ));
+    SimpleContent _simpleContent;
 
     try {
+      http.Response response = await http.get(_contentfulEntries +
+          _contentfull(
+            contentType: getStringFromEventContentTypes(
+              EventContentTypes.SIMPLE_CONTENT,
+            ),
+            fields: ['myId=$myId', 'confId=$confId'],
+          ));
+
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
-      for (final dynamic item in dataDecode['items']) {
-        _simpleContent.putIfAbsent(
-          myId,
-          () => SimpleContent(
-            myId: item['fields']['myId'] as String,
-            title: item['fields']['title'] as String,
-            text: item['fields']['text'] as String,
-            confId: item['fields']['confId'] as String,
-          ),
+      _simpleContent = SimpleContent(
+        myId: dataDecode['items'][0]['fields']['myId'] as String,
+        title: dataDecode['items'][0]['fields']['title'] as String,
+        text: dataDecode['items'][0]['fields']['text'] as String,
+        confId: dataDecode['items'][0]['fields']['confId'] as String,
+      );
+      prefs.setString(
+        'SimpleContent-$myId',
+        jsonEncode(_simpleContent),
+      );
+    } on SocketException {
+      if (prefs.containsKey('SimpleContent-$myId')) {
+        _simpleContent = SimpleContent.fromJson(
+          jsonDecode(
+            prefs.getString('SimpleContent-$myId'),
+          ) as Map<String, dynamic>,
         );
       }
-    } catch (err) {
-      print(err);
+      print('Internet connection lost.');
+    } on HttpException {
+      print('Couldn\'t find the post.');
+    } on FormatException {
+      print('Bad response format.');
     }
 
     return _simpleContent;
@@ -266,19 +319,21 @@ class ContentfulService {
     String confId,
     bool refresh = false,
   }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     List<WorkShop> _workShops = [];
 
-    http.Response response = await http.get(_contentfulEntries +
-        _contentfull(
-          contentType: getStringFromEventContentTypes(
-            EventContentTypes.WORKSHOP,
-          ),
-          fields: ['confId=$confId'],
-          order: 'sys.createdAt',
-          limit: howMany.toString(),
-        ));
-
     try {
+      http.Response response = await http.get(_contentfulEntries +
+          _contentfull(
+            contentType: getStringFromEventContentTypes(
+              EventContentTypes.WORKSHOP,
+            ),
+            fields: ['confId=$confId'],
+            order: 'sys.createdAt',
+            limit: howMany.toString(),
+          ));
+
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
@@ -324,8 +379,24 @@ class ContentfulService {
           ),
         );
       }
-    } catch (err) {
-      print(err);
+      prefs.setStringList(
+        'WorkShop',
+        _workShops.map((WorkShop workShop) => jsonEncode(workShop)).toList(),
+      );
+    } on SocketException {
+      if (prefs.containsKey('WorkShop')) {
+        List<String> _data = prefs.getStringList('WorkShop');
+
+        _workShops = _data
+            .map(
+                (e) => WorkShop.fromJson(jsonDecode(e) as Map<String, dynamic>))
+            .toList();
+      }
+      print('Internet connection lost.');
+    } on HttpException {
+      print('Couldn\'t find the post.');
+    } on FormatException {
+      print('Bad response format.');
     }
 
     return _workShops;
@@ -336,19 +407,21 @@ class ContentfulService {
     String confId,
     bool refresh = false,
   }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     List<Speaker> _speakers = [];
 
-    http.Response response = await http.get(_contentfulEntries +
-        _contentfull(
-          contentType: getStringFromEventContentTypes(
-            EventContentTypes.SPEAKER,
-          ),
-          fields: ['confIds=$confId'],
-          order: 'fields.name',
-          limit: howMany.toString(),
-        ));
-
     try {
+      http.Response response = await http.get(_contentfulEntries +
+          _contentfull(
+            contentType: getStringFromEventContentTypes(
+              EventContentTypes.SPEAKER,
+            ),
+            fields: ['confIds=$confId'],
+            order: 'fields.name',
+            limit: howMany.toString(),
+          ));
+
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
 
       for (final dynamic item in dataDecode['items']) {
@@ -376,8 +449,24 @@ class ContentfulService {
           ),
         );
       }
-    } catch (err) {
-      print(err);
+      prefs.setStringList(
+        'Speakers',
+        _speakers.map((Speaker speaker) => jsonEncode(speaker)).toList(),
+      );
+    } on SocketException {
+      if (prefs.containsKey('Speakers')) {
+        List<String> _data = prefs.getStringList('Speakers');
+
+        _speakers = _data
+            .map((e) => Speaker.fromJson(jsonDecode(e) as Map<String, dynamic>))
+            .toList();
+      }
+
+      print('Internet connection lost.');
+    } on HttpException {
+      print('Couldn\'t find the post.');
+    } on FormatException {
+      print('Bad response format.');
     }
 
     return _speakers;

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/speakers.dart';
@@ -18,15 +19,6 @@ class Speakers extends StatefulWidget {
 }
 
 class _SpeakersState extends State<Speakers> {
-  @override
-  void didChangeDependencies() {
-    Provider.of<SpeakersProvider>(context, listen: false).fetchData(
-      howMany: 999,
-      confId: '2019',
-    );
-    super.didChangeDependencies();
-  }
-
   Widget _flightShuttleBuilder(
     BuildContext flightContext,
     Animation<double> animation,
@@ -38,6 +30,15 @@ class _SpeakersState extends State<Speakers> {
       style: DefaultTextStyle.of(toHeroContext).style,
       child: toHeroContext.widget,
     );
+  }
+
+  @override
+  void initState() {
+    Provider.of<SpeakersProvider>(context, listen: false).fetchData(
+      howMany: 999,
+      confId: '2019',
+    );
+    super.initState();
   }
 
   @override
@@ -82,13 +83,13 @@ class _SpeakersState extends State<Speakers> {
                             ),
                             child: Hero(
                               tag: 'image' + _speakers[index].name,
-                              child: _speakers[index].photoFileUrl == null
-                                  ? Image.asset(
-                                      'assets/images/person.png',
-                                    )
-                                  : Image.network(
-                                      'http:${_speakers[index].photoFileUrl}',
-                                    ),
+                              child: CachedNetworkImage(
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                        Image.asset('assets/images/person.png'),
+                                imageUrl:
+                                    'http:${_speakers[index].photoFileUrl}',
+                              ),
                             ),
                           ),
                           title: Hero(

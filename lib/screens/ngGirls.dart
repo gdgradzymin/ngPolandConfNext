@@ -27,9 +27,8 @@ class _NgGirlsState extends State<NgGirls> {
 
   @override
   Widget build(BuildContext context) {
-    SimpleContent _simpleContent = Provider.of<NgGirlsProvider>(context)
-            .simpleContent['ng-girls-workshops'] ??
-        null;
+    SimpleContent _simpleContent =
+        Provider.of<NgGirlsProvider>(context).data ?? null;
 
     return Scaffold(
       appBar: AppBar(

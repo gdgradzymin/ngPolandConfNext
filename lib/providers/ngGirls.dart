@@ -4,9 +4,9 @@ import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 
 class NgGirlsProvider with ChangeNotifier {
-  Map<String, SimpleContent> _simpleContent = {};
+  SimpleContent _data;
 
-  Map<String, SimpleContent> get simpleContent => _simpleContent;
+  SimpleContent get data => _data;
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
@@ -19,7 +19,7 @@ class NgGirlsProvider with ChangeNotifier {
       clear();
     }
 
-    _simpleContent = await _contentfulService.getSimpleContentById(
+    _data = await _contentfulService.getSimpleContentById(
       myId: myId,
       confId: confId,
       refresh: refresh,
@@ -29,7 +29,7 @@ class NgGirlsProvider with ChangeNotifier {
   }
 
   void clear() {
-    _simpleContent = {};
+    _data = null;
     notifyListeners();
   }
 }
