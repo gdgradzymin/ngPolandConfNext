@@ -412,7 +412,6 @@ class ContentfulService {
   Future<List<Speaker>> getSpeakers({
     int howMany,
     String confId,
-    bool refresh = false,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -469,7 +468,10 @@ class ContentfulService {
             .toList();
       }
 
-      print('Internet connection lost.');
+      throw Failure(
+        fail: 'Internet connection lost.',
+        localdata: _speakers,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {

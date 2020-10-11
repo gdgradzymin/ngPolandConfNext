@@ -24,8 +24,6 @@ class InfoItemsProvider with ChangeNotifier {
 
       _infoItems = _err.localdata as List<InfoItem>;
 
-      print(_infoItems);
-
       notifyListeners();
 
       throw _err.fail;
@@ -49,8 +47,6 @@ class InfoItemsProvider with ChangeNotifier {
       var _err = err as Failure;
 
       _infoItems = _err.localdata as List<InfoItem>;
-
-      print(_infoItems);
 
       notifyListeners();
 

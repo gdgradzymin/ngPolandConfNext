@@ -13,17 +13,45 @@ class SpeakersProvider with ChangeNotifier {
   Future fetchData({
     @required int howMany,
     @required String confId,
-    bool refresh = false,
   }) async {
-    if (refresh) {
-      clear();
+    try {
+      _speakers = await _contentfulService.getSpeakers(
+        howMany: howMany,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _speakers = _err.localdata as List<Speaker>;
+
+      notifyListeners();
+
+      throw _err.fail;
     }
 
-    _speakers = await _contentfulService.getSpeakers(
-      howMany: howMany,
-      confId: confId,
-      refresh: refresh,
-    );
+    notifyListeners();
+  }
+
+  Future refreshData({
+    @required int howMany,
+    @required String confId,
+  }) async {
+    clear();
+
+    try {
+      _speakers = await _contentfulService.getSpeakers(
+        howMany: howMany,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _speakers = _err.localdata as List<Speaker>;
+
+      notifyListeners();
+
+      throw _err.fail;
+    }
 
     notifyListeners();
   }

@@ -20,6 +20,8 @@ class Speakers extends StatefulWidget {
 }
 
 class _SpeakersState extends State<Speakers> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   Widget _flightShuttleBuilder(
     BuildContext flightContext,
     Animation<double> animation,
@@ -35,10 +37,18 @@ class _SpeakersState extends State<Speakers> {
 
   @override
   void initState() {
-    Provider.of<SpeakersProvider>(context, listen: false).fetchData(
+    Provider.of<SpeakersProvider>(context, listen: false)
+        .fetchData(
       howMany: 999,
       confId: '2019',
-    );
+    )
+        .catchError((Object err) {
+      ConnectionSnackBar.show(
+        context: context,
+        message: err.toString(),
+        scaffoldKeyCurrentState: _scaffoldKey.currentState,
+      );
+    });
     super.initState();
   }
 
@@ -47,6 +57,7 @@ class _SpeakersState extends State<Speakers> {
     List<Speaker> _speakers = Provider.of<SpeakersProvider>(context).speakers;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
@@ -54,12 +65,18 @@ class _SpeakersState extends State<Speakers> {
       ),
       drawer: DrawerNg(),
       body: RefreshIndicator(
-        onRefresh: () =>
-            Provider.of<SpeakersProvider>(context, listen: false).fetchData(
+        onRefresh: () => Provider.of<SpeakersProvider>(context, listen: false)
+            .refreshData(
           howMany: 999,
           confId: '2019',
-          refresh: true,
-        ),
+        )
+            .catchError((Object err) {
+          ConnectionSnackBar.show(
+            context: context,
+            message: err.toString(),
+            scaffoldKeyCurrentState: _scaffoldKey.currentState,
+          );
+        }),
         child: Center(
           child: _speakers.isEmpty
               ? const Padding(
