@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:provider/provider.dart';
 
 class AnimatedBottomNav extends StatefulWidget {
@@ -78,7 +79,16 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           howMany: 999,
                           confId: '2019',
                           type: EventItemType.NGPOLAND,
+                        )
+                            .catchError(
+                          (Object err) {
+                            ConnectionSnackBar.show(
+                              context: context,
+                              scaffoldKeyCurrentState: null,
+                            );
+                          },
                         );
+
                         _selected = EventItemType.NGPOLAND;
                       });
                     },
@@ -119,7 +129,16 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           howMany: 999,
                           confId: '2019',
                           type: EventItemType.JSPOLAND,
+                        )
+                            .catchError(
+                          (Object err) {
+                            ConnectionSnackBar.show(
+                              context: context,
+                              scaffoldKeyCurrentState: null,
+                            );
+                          },
                         );
+
                         _selected = EventItemType.JSPOLAND;
                       });
                     },

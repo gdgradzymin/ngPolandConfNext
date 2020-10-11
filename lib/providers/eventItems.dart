@@ -20,20 +20,34 @@ class EventItemsProvider with ChangeNotifier {
     @required String confId,
     @required EventItemType type,
   }) async {
-    if (type == EventItemType.NGPOLAND) {
-      _selectedItems = EventItemType.NGPOLAND;
-      _ngPoland = await _contentfulService.getEventItems(
-        howMany: howMany,
-        type: type,
-        confId: confId,
-      );
-    } else {
-      _selectedItems = EventItemType.JSPOLAND;
-      _jsPoland = await _contentfulService.getEventItems(
-        howMany: howMany,
-        type: type,
-        confId: confId,
-      );
+    try {
+      if (type == EventItemType.NGPOLAND) {
+        _selectedItems = EventItemType.NGPOLAND;
+        _ngPoland = await _contentfulService.getEventItems(
+          howMany: howMany,
+          type: type,
+          confId: confId,
+        );
+      } else {
+        _selectedItems = EventItemType.JSPOLAND;
+        _jsPoland = await _contentfulService.getEventItems(
+          howMany: howMany,
+          type: type,
+          confId: confId,
+        );
+      }
+    } catch (err) {
+      var _err = err as Failure;
+
+      if (type == EventItemType.NGPOLAND) {
+        _ngPoland = _err.localdata as List<EventItem>;
+      } else {
+        _jsPoland = _err.localdata as List<EventItem>;
+      }
+
+      notifyListeners();
+
+      throw _err.fail;
     }
 
     notifyListeners();
@@ -43,22 +57,36 @@ class EventItemsProvider with ChangeNotifier {
     @required int howMany,
     @required String confId,
   }) async {
-    clear(_selectedItems);
+    try {
+      clear(_selectedItems);
 
-    if (_selectedItems == EventItemType.NGPOLAND) {
-      _selectedItems = EventItemType.NGPOLAND;
-      _ngPoland = await _contentfulService.getEventItems(
-        howMany: howMany,
-        type: _selectedItems,
-        confId: confId,
-      );
-    } else {
-      _selectedItems = EventItemType.JSPOLAND;
-      _jsPoland = await _contentfulService.getEventItems(
-        howMany: howMany,
-        type: _selectedItems,
-        confId: confId,
-      );
+      if (_selectedItems == EventItemType.NGPOLAND) {
+        _selectedItems = EventItemType.NGPOLAND;
+        _ngPoland = await _contentfulService.getEventItems(
+          howMany: howMany,
+          type: _selectedItems,
+          confId: confId,
+        );
+      } else {
+        _selectedItems = EventItemType.JSPOLAND;
+        _jsPoland = await _contentfulService.getEventItems(
+          howMany: howMany,
+          type: _selectedItems,
+          confId: confId,
+        );
+      }
+    } catch (err) {
+      var _err = err as Failure;
+
+      if (_selectedItems == EventItemType.NGPOLAND) {
+        _ngPoland = _err.localdata as List<EventItem>;
+      } else {
+        _jsPoland = _err.localdata as List<EventItem>;
+      }
+
+      notifyListeners();
+
+      throw _err.fail;
     }
 
     notifyListeners();

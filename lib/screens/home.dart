@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:ng_poland_conf_next/widgets/home/tabs.dart';
 
@@ -15,6 +16,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
+        actions: [ConnectionStatus()],
       ),
       drawer: DrawerNg(),
       body: Center(
@@ -27,12 +29,12 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     'Welcome to ngPoland Conference.',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white),
                   ),
-                  Text(
+                  const Text(
                     'The biggest Angular Conference in CEE.',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white),

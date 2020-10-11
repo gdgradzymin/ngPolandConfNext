@@ -256,11 +256,16 @@ class ContentfulService {
                 EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-      print('Internet connection lost.');
+      throw Failure(
+        fail: 'Internet connection lost.',
+        localdata: _eventItems,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
       print('Bad response format.');
+    } catch (err) {
+      print('cos');
     }
 
     return _eventItems;
@@ -470,5 +475,21 @@ class ContentfulService {
     }
 
     return _speakers;
+  }
+}
+
+class Failure {
+  Failure({
+    this.fail,
+    this.localdata,
+  });
+
+  final String fail;
+  final dynamic localdata;
+
+  @override
+  String toString() {
+    fail.toString();
+    return super.toString();
   }
 }

@@ -6,6 +6,7 @@ import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:ng_poland_conf_next/widgets/schedule/animatedBottomNav.dart';
 import 'package:provider/provider.dart';
@@ -22,21 +23,7 @@ class Schedule extends StatefulWidget {
 }
 
 class _ScheduleState extends State<Schedule> {
-  bool _fetchdata = false;
-
-  @override
-  void didChangeDependencies() {
-    if (!_fetchdata) {
-      Provider.of<EventItemsProvider>(context, listen: false).fetchData(
-        howMany: 999,
-        confId: '2019',
-        type: EventItemType.NGPOLAND,
-      );
-      _fetchdata = true;
-    }
-
-    super.didChangeDependencies();
-  }
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget _getIcon(String category, Color color) {
     switch (category) {
@@ -112,6 +99,23 @@ class _ScheduleState extends State<Schedule> {
   }
 
   @override
+  void initState() {
+    Provider.of<EventItemsProvider>(context, listen: false)
+        .fetchData(
+      howMany: 999,
+      confId: '2019',
+      type: EventItemType.NGPOLAND,
+    )
+        .catchError((Object err) {
+      ConnectionSnackBar.show(
+        context: context,
+        scaffoldKeyCurrentState: _scaffoldKey.currentState,
+      );
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<EventItem> _eventItems =
         Provider.of<EventItemsProvider>(context).eventItems;
@@ -121,17 +125,25 @@ class _ScheduleState extends State<Schedule> {
     Color _iconsColor = Theme.of(context).accentColor;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        actions: [ConnectionStatus()],
       ),
       drawer: DrawerNg(),
       body: RefreshIndicator(
-        onRefresh: () =>
-            Provider.of<EventItemsProvider>(context, listen: false).refreshData(
+        onRefresh: () => Provider.of<EventItemsProvider>(context, listen: false)
+            .refreshData(
           howMany: 999,
           confId: '2019',
-        ),
+        )
+            .catchError((Object err) {
+          ConnectionSnackBar.show(
+            context: context,
+            scaffoldKeyCurrentState: _scaffoldKey.currentState,
+          );
+        }),
         child: Ink(
           decoration: _darkMode
               ? const BoxDecoration()
