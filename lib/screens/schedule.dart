@@ -109,6 +109,7 @@ class _ScheduleState extends State<Schedule> {
         .catchError((Object err) {
       ConnectionSnackBar.show(
         context: context,
+        message: err.toString(),
         scaffoldKeyCurrentState: _scaffoldKey.currentState,
       );
     });
@@ -141,6 +142,7 @@ class _ScheduleState extends State<Schedule> {
             .catchError((Object err) {
           ConnectionSnackBar.show(
             context: context,
+            message: err.toString(),
             scaffoldKeyCurrentState: _scaffoldKey.currentState,
           );
         }),

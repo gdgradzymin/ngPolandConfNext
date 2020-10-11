@@ -25,7 +25,7 @@ class ConnectionStatus extends StatelessWidget {
 class ConnectionSnackBar {
   static void show({
     @required BuildContext context,
-    String message = 'Problem connection Internet.',
+    String message = 'Error',
     ScaffoldState scaffoldKeyCurrentState,
   }) {
     int viewedSnackBar =

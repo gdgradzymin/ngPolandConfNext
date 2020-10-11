@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/authors.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,6 +35,7 @@ class About extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
+        actions: [ConnectionStatus()],
       ),
       drawer: DrawerNg(),
       body: SingleChildScrollView(
@@ -47,7 +49,7 @@ class About extends StatelessWidget {
                 padding: const EdgeInsets.all(24.0),
                 child: Image.asset('assets/images/logo.png'),
               ),
-              Text(
+              const Text(
                 'This app is built with Flutter!',
               ),
               Divider(

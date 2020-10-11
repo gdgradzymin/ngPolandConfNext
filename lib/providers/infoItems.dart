@@ -13,17 +13,49 @@ class InfoItemsProvider with ChangeNotifier {
   Future fetchData({
     @required int howMany,
     @required String confId,
-    bool refresh = false,
   }) async {
-    if (refresh) {
-      clear();
+    try {
+      _infoItems = await _contentfulService.getInfoItems(
+        howMany: howMany,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _infoItems = _err.localdata as List<InfoItem>;
+
+      print(_infoItems);
+
+      notifyListeners();
+
+      throw _err.fail;
     }
 
-    _infoItems = await _contentfulService.getInfoItems(
-      howMany: howMany,
-      confId: confId,
-      refresh: refresh,
-    );
+    notifyListeners();
+  }
+
+  Future refreshData({
+    @required int howMany,
+    @required String confId,
+  }) async {
+    clear();
+
+    try {
+      _infoItems = await _contentfulService.getInfoItems(
+        howMany: howMany,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _infoItems = _err.localdata as List<InfoItem>;
+
+      print(_infoItems);
+
+      notifyListeners();
+
+      throw _err.fail;
+    }
 
     notifyListeners();
   }

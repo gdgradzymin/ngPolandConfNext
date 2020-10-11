@@ -84,6 +84,7 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           (Object err) {
                             ConnectionSnackBar.show(
                               context: context,
+                              message: err.toString(),
                               scaffoldKeyCurrentState: null,
                             );
                           },
@@ -134,6 +135,7 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           (Object err) {
                             ConnectionSnackBar.show(
                               context: context,
+                              message: err.toString(),
                               scaffoldKeyCurrentState: null,
                             );
                           },
