@@ -13,17 +13,45 @@ class WorkShopsProvider with ChangeNotifier {
   Future fetchData({
     @required int howMany,
     @required String confId,
-    bool refresh = false,
   }) async {
-    if (refresh) {
-      clear();
+    try {
+      _workShopItems = await _contentfulService.getWorkshops(
+        howMany: howMany,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _workShopItems = _err.localdata as List<WorkShop>;
+
+      notifyListeners();
+
+      throw _err.fail;
     }
 
-    _workShopItems = await _contentfulService.getWorkshops(
-      howMany: howMany,
-      confId: confId,
-      refresh: refresh,
-    );
+    notifyListeners();
+  }
+
+  Future refreshData({
+    @required int howMany,
+    @required String confId,
+  }) async {
+    clear();
+
+    try {
+      _workShopItems = await _contentfulService.getWorkshops(
+        howMany: howMany,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _workShopItems = _err.localdata as List<WorkShop>;
+
+      notifyListeners();
+
+      throw _err.fail;
+    }
 
     notifyListeners();
   }

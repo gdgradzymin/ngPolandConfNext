@@ -276,7 +276,6 @@ class ContentfulService {
   Future<SimpleContent> getSimpleContentById({
     String myId,
     String confId,
-    bool refresh = false,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -328,7 +327,6 @@ class ContentfulService {
   Future<List<WorkShop>> getWorkshops({
     int howMany,
     String confId,
-    bool refresh = false,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -403,7 +401,11 @@ class ContentfulService {
                 (e) => WorkShop.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-      print('Internet connection lost.');
+
+      throw Failure(
+        fail: 'Internet connection lost.',
+        localdata: _workShops,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
