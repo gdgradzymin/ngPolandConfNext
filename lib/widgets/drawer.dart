@@ -173,6 +173,9 @@ class _DrawerNgState extends State<DrawerNg> {
                     height: 25,
                   ),
                   SwitchDarkMode(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  ),
                 ],
               );
             },

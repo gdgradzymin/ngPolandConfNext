@@ -23,7 +23,7 @@ class HomeTabs extends StatelessWidget {
           routeName: Schedule.routeName,
         ),
         HomeButton(
-          name: 'Workshops',
+          name: '  Workshops',
           icon: FontAwesomeIcons.solidKeyboard,
           selectedPage: PagesName.workshops,
           routeName: WorkShops.routeName,
@@ -35,7 +35,7 @@ class HomeTabs extends StatelessWidget {
           routeName: NgGirls.routeName,
         ),
         HomeButton(
-          name: 'Speakers',
+          name: '   Speakers',
           icon: FontAwesomeIcons.users,
           selectedPage: PagesName.speakers,
           routeName: Speakers.routeName,
@@ -47,7 +47,7 @@ class HomeTabs extends StatelessWidget {
           routeName: Info.routeName,
         ),
         HomeButton(
-          name: 'About',
+          name: '    About',
           icon: FontAwesomeIcons.code,
           selectedPage: PagesName.about,
           routeName: About.routeName,

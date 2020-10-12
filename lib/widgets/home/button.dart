@@ -21,11 +21,13 @@ class HomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Provider.of<SelectedPage>(context, listen: false).changeSelected(name: selectedPage);
+        Provider.of<SelectedPage>(context, listen: false)
+            .changeSelected(name: selectedPage);
         Navigator.of(context).pushReplacementNamed(routeName);
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
             icon,
