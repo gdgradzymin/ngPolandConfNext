@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:provider/provider.dart';
 
 class SpeakerDetails extends StatelessWidget {
@@ -39,6 +40,7 @@ class SpeakerDetails extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        actions: [ConnectionStatus()],
       ),
       body: Container(
         width: double.infinity,

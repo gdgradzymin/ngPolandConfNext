@@ -1,5 +1,7 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:ng_poland_conf_next/providers/connection.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/infoItems.dart';
 import 'package:ng_poland_conf_next/providers/speakers.dart';
@@ -42,6 +44,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Connectivity connectivity;
+
   ThemeNotifier themeNotifier = ThemeNotifier();
 
   void getStatusDarkTheme() async {
@@ -52,6 +56,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     getStatusDarkTheme();
+
     super.initState();
   }
 
@@ -80,9 +85,30 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (_) => SpeakersProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => Connection(),
+        ),
       ],
       child: Consumer<ThemeNotifier>(
         builder: (context, theme, _) {
+          // Checking Status internet
+          connectivity = Connectivity();
+          connectivity.onConnectivityChanged
+              .listen((ConnectivityResult result) {
+            if (result == ConnectivityResult.wifi) {
+              Provider.of<Connection>(context, listen: false).viewedSnackBar =
+                  0;
+              Provider.of<Connection>(context, listen: false).status = true;
+            } else if (result == ConnectivityResult.mobile) {
+              Provider.of<Connection>(context, listen: false).viewedSnackBar =
+                  0;
+              Provider.of<Connection>(context, listen: false).status = true;
+            } else {
+              Provider.of<Connection>(context, listen: false).status = false;
+            }
+          });
+          //
+
           return MaterialApp(
             title: 'ngPolandConf 2020',
             theme: ThemeData(

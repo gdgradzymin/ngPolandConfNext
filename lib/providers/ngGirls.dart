@@ -13,17 +13,45 @@ class NgGirlsProvider with ChangeNotifier {
   Future fetchData({
     String myId,
     String confId,
-    bool refresh = false,
   }) async {
-    if (refresh) {
-      clear();
+    try {
+      _data = await _contentfulService.getSimpleContentById(
+        myId: myId,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _data = _err.localdata as SimpleContent;
+
+      notifyListeners();
+
+      throw _err.fail;
     }
 
-    _data = await _contentfulService.getSimpleContentById(
-      myId: myId,
-      confId: confId,
-      refresh: refresh,
-    );
+    notifyListeners();
+  }
+
+  Future refreshData({
+    String myId,
+    String confId,
+  }) async {
+    clear();
+
+    try {
+      _data = await _contentfulService.getSimpleContentById(
+        myId: myId,
+        confId: confId,
+      );
+    } catch (err) {
+      var _err = err as Failure;
+
+      _data = _err.localdata as SimpleContent;
+
+      notifyListeners();
+
+      throw _err.fail;
+    }
 
     notifyListeners();
   }

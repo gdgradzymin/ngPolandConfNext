@@ -28,6 +28,9 @@ final String _contentfulEntries =
     '${_url}spaces/$_spaceId/environments/master/entries?access_token=$_accessToken';
 
 class ContentfulService {
+  static const String _connectionLostMessage =
+      'No Internet connection, please try later.';
+
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
       case EventContentTypes.SPEAKER:
@@ -113,7 +116,6 @@ class ContentfulService {
   Future<List<InfoItem>> getInfoItems({
     int howMany,
     String confId,
-    bool refresh = false,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -158,7 +160,10 @@ class ContentfulService {
             .toList();
       }
 
-      print('Internet connection lost.');
+      throw Failure(
+        fail: _connectionLostMessage,
+        localdata: _infoItems,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
@@ -256,11 +261,16 @@ class ContentfulService {
                 EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-      print('Internet connection lost.');
+      throw Failure(
+        fail: _connectionLostMessage,
+        localdata: _eventItems,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
       print('Bad response format.');
+    } catch (err) {
+      print('cos');
     }
 
     return _eventItems;
@@ -269,7 +279,6 @@ class ContentfulService {
   Future<SimpleContent> getSimpleContentById({
     String myId,
     String confId,
-    bool refresh = false,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -304,7 +313,11 @@ class ContentfulService {
           ) as Map<String, dynamic>,
         );
       }
-      print('Internet connection lost.');
+
+      throw Failure(
+        fail: _connectionLostMessage,
+        localdata: _simpleContent,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
@@ -317,7 +330,6 @@ class ContentfulService {
   Future<List<WorkShop>> getWorkshops({
     int howMany,
     String confId,
-    bool refresh = false,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -392,7 +404,11 @@ class ContentfulService {
                 (e) => WorkShop.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-      print('Internet connection lost.');
+
+      throw Failure(
+        fail: _connectionLostMessage,
+        localdata: _workShops,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
@@ -405,7 +421,6 @@ class ContentfulService {
   Future<List<Speaker>> getSpeakers({
     int howMany,
     String confId,
-    bool refresh = false,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -462,7 +477,10 @@ class ContentfulService {
             .toList();
       }
 
-      print('Internet connection lost.');
+      throw Failure(
+        fail: _connectionLostMessage,
+        localdata: _speakers,
+      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
@@ -470,5 +488,21 @@ class ContentfulService {
     }
 
     return _speakers;
+  }
+}
+
+class Failure {
+  Failure({
+    this.fail,
+    this.localdata,
+  });
+
+  final String fail;
+  final dynamic localdata;
+
+  @override
+  String toString() {
+    fail.toString();
+    return super.toString();
   }
 }

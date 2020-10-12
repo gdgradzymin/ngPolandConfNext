@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SchedulePresenter extends StatelessWidget {
@@ -15,7 +16,9 @@ class SchedulePresenter extends StatelessWidget {
     Speaker _speaker = _data['speaker'] as Speaker;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [ConnectionStatus()],
+      ),
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,

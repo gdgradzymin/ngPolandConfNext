@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/providers/workShops.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -18,12 +19,22 @@ class WorkShops extends StatefulWidget {
 }
 
 class _WorkShopsState extends State<WorkShops> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
-    Provider.of<WorkShopsProvider>(context, listen: false).fetchData(
+    Provider.of<WorkShopsProvider>(context, listen: false)
+        .fetchData(
       howMany: 999,
       confId: '2019',
-    );
+    )
+        .catchError((Object err) {
+      ConnectionSnackBar.show(
+        context: context,
+        message: err.toString(),
+        scaffoldKeyCurrentState: _scaffoldKey.currentState,
+      );
+    });
     super.initState();
   }
 
@@ -33,18 +44,26 @@ class _WorkShopsState extends State<WorkShops> {
         Provider.of<WorkShopsProvider>(context).workShopItems ?? null;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        actions: [ConnectionStatus()],
       ),
       drawer: DrawerNg(),
       body: RefreshIndicator(
-        onRefresh: () =>
-            Provider.of<WorkShopsProvider>(context, listen: false).fetchData(
+        onRefresh: () => Provider.of<WorkShopsProvider>(context, listen: false)
+            .refreshData(
           howMany: 999,
           confId: '2019',
-          refresh: true,
-        ),
+        )
+            .catchError((Object err) {
+          ConnectionSnackBar.show(
+            context: context,
+            message: err.toString(),
+            scaffoldKeyCurrentState: _scaffoldKey.currentState,
+          );
+        }),
         child: Center(
           child: ListView.builder(
             itemCount: _workShopsItems.length,

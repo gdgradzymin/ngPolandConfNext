@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/ngGirls.dart';
+import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -16,12 +17,22 @@ class NgGirls extends StatefulWidget {
 }
 
 class _NgGirlsState extends State<NgGirls> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
-    Provider.of<NgGirlsProvider>(context, listen: false).fetchData(
+    Provider.of<NgGirlsProvider>(context, listen: false)
+        .fetchData(
       myId: 'ng-girls-workshops',
       confId: '2019',
-    );
+    )
+        .catchError((Object err) {
+      ConnectionSnackBar.show(
+        context: context,
+        message: err.toString(),
+        scaffoldKeyCurrentState: _scaffoldKey.currentState,
+      );
+    });
     super.initState();
   }
 
@@ -31,19 +42,27 @@ class _NgGirlsState extends State<NgGirls> {
         Provider.of<NgGirlsProvider>(context).data ?? null;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        actions: [ConnectionStatus()],
       ),
       drawer: DrawerNg(),
       body: RefreshIndicator(
         onRefresh: () async =>
             await Provider.of<NgGirlsProvider>(context, listen: false)
-                .fetchData(
+                .refreshData(
           myId: 'ng-girls-workshops',
           confId: '2019',
-          refresh: true,
-        ),
+        )
+                .catchError((Object err) {
+          ConnectionSnackBar.show(
+            context: context,
+            message: err.toString(),
+            scaffoldKeyCurrentState: _scaffoldKey.currentState,
+          );
+        }),
         child: ListView(
           children: [
             Padding(
@@ -56,7 +75,7 @@ class _NgGirlsState extends State<NgGirls> {
                     child: Image.asset('assets/images/nggirls.png'),
                   ),
                   _simpleContent == null
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : Text(
                           _simpleContent.text,
                           style: Theme.of(context).textTheme.bodyText1,
