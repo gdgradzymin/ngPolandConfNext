@@ -28,6 +28,9 @@ final String _contentfulEntries =
     '${_url}spaces/$_spaceId/environments/master/entries?access_token=$_accessToken';
 
 class ContentfulService {
+  static const String _connectionLostMessage =
+      'No Internet connection, please try later.';
+
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
       case EventContentTypes.SPEAKER:
@@ -158,7 +161,7 @@ class ContentfulService {
       }
 
       throw Failure(
-        fail: 'Internet connection lost.',
+        fail: _connectionLostMessage,
         localdata: _infoItems,
       );
     } on HttpException {
@@ -259,7 +262,7 @@ class ContentfulService {
             .toList();
       }
       throw Failure(
-        fail: 'Internet connection lost.',
+        fail: _connectionLostMessage,
         localdata: _eventItems,
       );
     } on HttpException {
@@ -312,7 +315,7 @@ class ContentfulService {
       }
 
       throw Failure(
-        fail: 'Internet connection lost.',
+        fail: _connectionLostMessage,
         localdata: _simpleContent,
       );
     } on HttpException {
@@ -403,7 +406,7 @@ class ContentfulService {
       }
 
       throw Failure(
-        fail: 'Internet connection lost.',
+        fail: _connectionLostMessage,
         localdata: _workShops,
       );
     } on HttpException {
@@ -475,7 +478,7 @@ class ContentfulService {
       }
 
       throw Failure(
-        fail: 'Internet connection lost.',
+        fail: _connectionLostMessage,
         localdata: _speakers,
       );
     } on HttpException {
