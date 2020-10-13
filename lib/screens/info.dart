@@ -74,24 +74,26 @@ class _InfoState extends State<Info> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
-            RefreshIndicator(
-              onRefresh: () async =>
-                  await Provider.of<InfoItemsProvider>(context, listen: false)
-                      .refreshData(
-                howMany: 999,
-                confId: '2019',
-              )
-                      .catchError((Object err) {
-                ConnectionSnackBar.show(
-                  context: context,
-                  message: err.toString(),
-                  scaffoldKeyCurrentState: _scaffoldKey.currentState,
-                );
-              }),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                clipBehavior: Clip.none,
-                child: InfoContent(selectedContent: _currentContent),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async =>
+                    await Provider.of<InfoItemsProvider>(context, listen: false)
+                        .refreshData(
+                  howMany: 999,
+                  confId: '2019',
+                )
+                        .catchError((Object err) {
+                  ConnectionSnackBar.show(
+                    context: context,
+                    message: err.toString(),
+                    scaffoldKeyCurrentState: _scaffoldKey.currentState,
+                  );
+                }),
+                child: ListView(
+                  children: [
+                    InfoContent(selectedContent: _currentContent),
+                  ],
+                ),
               ),
             ),
           ],
