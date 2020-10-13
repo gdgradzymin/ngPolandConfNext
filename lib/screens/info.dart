@@ -28,11 +28,24 @@ class _InfoState extends State<Info> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   InfoContents _currentContent = InfoContents.location;
+  int _whoColorIcon = 0;
 
   void _changeContent(InfoContents infoContents) {
-    setState(() {
-      _currentContent = infoContents;
-    });
+    // Anti select spam
+    if (_currentContent.index == _whoColorIcon) {
+      setState(() {
+        _currentContent = infoContents;
+
+        // In 500 miliseconds changing icon color
+        Future<dynamic>.delayed(
+          const Duration(milliseconds: 500),
+        ).whenComplete(() {
+          setState(() {
+            _whoColorIcon = infoContents.index;
+          });
+        });
+      });
+    }
   }
 
   @override
@@ -69,6 +82,7 @@ class _InfoState extends State<Info> {
           children: <Widget>[
             InfoNavigation(
               currentContent: _currentContent,
+              whoColorIcon: _whoColorIcon,
               changeContent: _changeContent,
             ),
             SizedBox(

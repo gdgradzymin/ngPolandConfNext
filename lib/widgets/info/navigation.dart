@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/screens/info.dart';
+import 'package:provider/provider.dart';
 
 class InfoNavigation extends StatelessWidget {
   final InfoContents currentContent;
+  final int whoColorIcon;
   final Function changeContent;
 
   InfoNavigation({
     this.currentContent,
+    this.whoColorIcon,
     this.changeContent,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
+
     return Center(
       child: Container(
         decoration: BoxDecoration(
@@ -45,9 +51,14 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: const Icon(
+                        child: Icon(
                           Icons.location_on,
                           size: 27.5,
+                          color: _darkMode
+                              ? Colors.white
+                              : whoColorIcon == 0
+                                  ? Colors.white
+                                  : Colors.black,
                         ),
                       ),
                     ),
@@ -60,9 +71,14 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: const Icon(
+                        child: Icon(
                           FontAwesomeIcons.laptopCode,
                           size: 27.5,
+                          color: _darkMode
+                              ? Colors.white
+                              : whoColorIcon == 1
+                                  ? Colors.white
+                                  : Colors.black,
                         ),
                       ),
                     ),
@@ -75,9 +91,14 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: const Icon(
+                        child: Icon(
                           FontAwesomeIcons.ticketAlt,
                           size: 27.5,
+                          color: _darkMode
+                              ? Colors.white
+                              : whoColorIcon == 2
+                                  ? Colors.white
+                                  : Colors.black,
                         ),
                       ),
                     ),
@@ -90,9 +111,14 @@ class InfoNavigation extends StatelessWidget {
                       },
                       child: Container(
                         height: double.infinity,
-                        child: const Icon(
+                        child: Icon(
                           Icons.comment,
                           size: 27.5,
+                          color: _darkMode
+                              ? Colors.white
+                              : whoColorIcon == 3
+                                  ? Colors.white
+                                  : Colors.black,
                         ),
                       ),
                     ),
