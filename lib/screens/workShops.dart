@@ -138,6 +138,9 @@ class _WorkShopsState extends State<WorkShops> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.025,
+                    ),
                     Text(_workShopsItems[index].description),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.035,
