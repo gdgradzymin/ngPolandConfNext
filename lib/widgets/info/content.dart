@@ -17,7 +17,7 @@ class InfoContent extends StatelessWidget {
 
     return Container(
       child: _info.isEmpty
-          ? const CircularProgressIndicator()
+          ? const SizedBox()
           : Column(
               children: [
                 Text(
