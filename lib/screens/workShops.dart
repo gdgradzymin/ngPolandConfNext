@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
@@ -43,6 +44,8 @@ class _WorkShopsState extends State<WorkShops> {
     List<WorkShop> _workShopsItems =
         Provider.of<WorkShopsProvider>(context).workShopItems ?? null;
 
+    bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -68,44 +71,86 @@ class _WorkShopsState extends State<WorkShops> {
           child: ListView.builder(
             itemCount: _workShopsItems.length,
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  ListTile(
-                    contentPadding: const EdgeInsets.all(16),
-                    leading: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(25),
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                        child: InkWell(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              '/SpeakerDetails',
+                              arguments: _workShopsItems[index].speaker,
+                            );
+                          },
+                          child: CachedNetworkImage(
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    Image.asset('assets/images/person.png'),
+                            imageUrl:
+                                'http:${_workShopsItems[index].speaker.photoFileUrl}',
+                          ),
+                        ),
                       ),
-                      child: CachedNetworkImage(
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                Image.asset('assets/images/person.png'),
-                        imageUrl:
-                            'http:${_workShopsItems[index].speaker.photoFileUrl}',
+                      title: Text(
+                        _workShopsItems[index].title,
+                        style: TextStyle(
+                          color: Provider.of<ThemeNotifier>(context).darkTheme
+                              ? Theme.of(context).accentColor
+                              : Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.005,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: _workShopsItems[index].speaker.name,
+                                  style: TextStyle(
+                                    color:
+                                        _darkMode ? Colors.white : Colors.black,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context).pushNamed(
+                                        '/SpeakerDetails',
+                                        arguments:
+                                            _workShopsItems[index].speaker,
+                                      );
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    title: Text(
-                      _workShopsItems[index].title,
-                      style: TextStyle(
-                        color: Provider.of<ThemeNotifier>(context).darkTheme
-                            ? Theme.of(context).accentColor
-                            : Colors.black,
-                      ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.025,
                     ),
-                    subtitle: Text(_workShopsItems[index].speaker.name),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(_workShopsItems[index].description),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  Divider(
-                    height: 0,
-                    color: Theme.of(context).accentColor,
-                  )
-                ],
+                    Text(_workShopsItems[index].description),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.035,
+                    ),
+                    Divider(
+                      height: 0,
+                      color: Theme.of(context).accentColor,
+                    )
+                  ],
+                ),
               );
             },
           ),

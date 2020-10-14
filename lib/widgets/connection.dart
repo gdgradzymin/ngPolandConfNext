@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ng_poland_conf_next/providers/connection.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +12,7 @@ class ConnectionStatus extends StatelessWidget {
           return connection.status
               ? const SizedBox()
               : Icon(
-                  FontAwesomeIcons.wifi,
+                  Icons.wifi_off,
                   color: Theme.of(context).errorColor,
                 );
         },

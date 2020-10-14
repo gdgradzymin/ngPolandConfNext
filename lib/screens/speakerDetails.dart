@@ -32,55 +32,54 @@ class SpeakerDetails extends StatelessWidget {
           flightShuttleBuilder: _flightShuttleBuilder,
           child: Text(
             _speaker.name,
-            style: TextStyle(
-              color: Provider.of<ThemeNotifier>(context).darkTheme
-                  ? Theme.of(context).accentColor
-                  : Colors.white,
-            ),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
-      body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Hero(
-                tag: 'image' + _speaker.name,
-                child: CachedNetworkImage(
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Image.asset('assets/images/person.png'),
-                  imageUrl: 'http:${_speaker.photoFileUrl}',
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Hero(
+                  tag: 'image' + _speaker.name,
+                  child: CachedNetworkImage(
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            Image.asset('assets/images/person.png'),
+                    imageUrl: 'http:${_speaker.photoFileUrl}',
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Hero(
-              tag: 'role' + _speaker.name,
-              flightShuttleBuilder: _flightShuttleBuilder,
-              child: Text(
-                _speaker.role,
-                style: Theme.of(context).textTheme.bodyText2.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+              Hero(
+                tag: 'role' + _speaker.name,
+                flightShuttleBuilder: _flightShuttleBuilder,
+                child: Text(
+                  _speaker.role,
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Text(_speaker.bio),
-            ),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(_speaker.bio),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
+            ],
+          ),
         ),
       ),
     );

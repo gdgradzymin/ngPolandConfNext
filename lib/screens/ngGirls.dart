@@ -83,6 +83,9 @@ class _NgGirlsState extends State<NgGirls> {
                 ],
               ),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
           ],
         ),
       ),
