@@ -133,7 +133,7 @@ class _SpeakersState extends State<Speakers> {
                           ),
                         ),
                         Padding(
-                            padding: const EdgeInsets.only(right: 8, left: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Divider(
                               height: 0,
                               color: Theme.of(context).accentColor,
