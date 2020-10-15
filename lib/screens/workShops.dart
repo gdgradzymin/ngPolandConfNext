@@ -68,92 +68,98 @@ class _WorkshopsState extends State<Workshops> {
           );
         }),
         child: Center(
-          child: ListView.builder(
-            itemCount: _workshopsItems.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(25),
-                        ),
-                        child: InkWell(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(25),
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              '/SpeakerDetails',
-                              arguments: _workshopsItems[index].speaker,
-                            );
-                          },
-                          child: CachedNetworkImage(
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    Image.asset('assets/images/person.png'),
-                            imageUrl:
-                                'http:${_workshopsItems[index].speaker.photoFileUrl}',
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        _workshopsItems[index].title,
-                        style: TextStyle(
-                          color: Provider.of<ThemeNotifier>(context).darkTheme
-                              ? Theme.of(context).accentColor
-                              : Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          child: _workshopsItems.isEmpty
+              ? const CircularProgressIndicator()
+              : ListView.builder(
+                  itemCount: _workshopsItems.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.010,
-                          ),
-                          RichText(
-                            text: TextSpan(
+                          ListTile(
+                            leading: ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(25),
+                              ),
+                              child: InkWell(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(25),
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    '/SpeakerDetails',
+                                    arguments: _workshopsItems[index].speaker,
+                                  );
+                                },
+                                child: CachedNetworkImage(
+                                  progressIndicatorBuilder: (context, url,
+                                          downloadProgress) =>
+                                      Image.asset('assets/images/person.png'),
+                                  imageUrl:
+                                      'http:${_workshopsItems[index].speaker.photoFileUrl}',
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              _workshopsItems[index].title,
+                              style: TextStyle(
+                                color: Provider.of<ThemeNotifier>(context)
+                                        .darkTheme
+                                    ? Theme.of(context).accentColor
+                                    : Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextSpan(
-                                  text: _workshopsItems[index].speaker.name,
-                                  style: TextStyle(
-                                    color:
-                                        _darkMode ? Colors.white : Colors.black,
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.010,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text:
+                                            _workshopsItems[index].speaker.name,
+                                        style: TextStyle(
+                                          color: _darkMode
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            Navigator.of(context).pushNamed(
+                                              '/SpeakerDetails',
+                                              arguments: _workshopsItems[index]
+                                                  .speaker,
+                                            );
+                                          },
+                                      ),
+                                    ],
                                   ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.of(context).pushNamed(
-                                        '/SpeakerDetails',
-                                        arguments:
-                                            _workshopsItems[index].speaker,
-                                      );
-                                    },
                                 ),
                               ],
                             ),
                           ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.025,
+                          ),
+                          Text(_workshopsItems[index].description),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.035,
+                          ),
+                          Divider(
+                            height: 0,
+                            color: Theme.of(context).accentColor,
+                          )
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.025,
-                    ),
-                    Text(_workshopsItems[index].description),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.035,
-                    ),
-                    Divider(
-                      height: 0,
-                      color: Theme.of(context).accentColor,
-                    )
-                  ],
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ),
       ),
     );

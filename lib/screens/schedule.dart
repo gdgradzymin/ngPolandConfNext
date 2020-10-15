@@ -163,110 +163,122 @@ class _ScheduleState extends State<Schedule> {
                   ),
                 ),
           child: Center(
-            child: ListView.builder(
-              itemCount: _eventItems.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Ink(
-                    decoration: _darkMode
-                        ? BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              stops: const [0.1, 0.5, 0.7, 0.9],
-                              colors: [
-                                Colors.grey[500],
-                                Colors.grey[400],
-                                Colors.grey[400],
-                                Colors.grey[400],
-                              ],
-                            ),
-                          )
-                        : const BoxDecoration(color: Colors.white),
-                    child: ListTile(
-                      onTap: _eventItems[index].speaker == null
-                          ? null
-                          : () {
-                              Navigator.of(context).pushNamed(
-                                '/SchedulePresenter',
-                                arguments: {
-                                  'title': _eventItems[index].title,
-                                  'description': _eventItems[index].description,
-                                  'icon': _getIcon(
-                                    _eventItems[index].category,
-                                    _iconsColor,
+            child: _eventItems.isEmpty
+                ? const CircularProgressIndicator()
+                : ListView.builder(
+                    itemCount: _eventItems.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Ink(
+                          decoration: _darkMode
+                              ? BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                    stops: const [0.1, 0.5, 0.7, 0.9],
+                                    colors: [
+                                      Colors.grey[500],
+                                      Colors.grey[400],
+                                      Colors.grey[400],
+                                      Colors.grey[400],
+                                    ],
                                   ),
-                                  'speaker': _eventItems[index].speaker,
-                                },
-                              );
-                            },
-                      leading: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            DateFormat.Hm().format(
-                              DateTime.parse(_eventItems[index].startDate),
-                            ),
-                          ),
-                          Text(
-                            DateFormat.Hm().format(
-                              DateTime.parse(_eventItems[index].endDate),
-                            ),
-                          ),
-                        ],
-                      ),
-                      title: Text(
-                        _eventItems[index].title,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                            ),
-                      ),
-                      subtitle: _eventItems[index].speaker == null
-                          ? const Text('')
-                          : Column(
+                                )
+                              : const BoxDecoration(color: Colors.white),
+                          child: ListTile(
+                            onTap: _eventItems[index].speaker == null
+                                ? null
+                                : () {
+                                    Navigator.of(context).pushNamed(
+                                      '/SchedulePresenter',
+                                      arguments: {
+                                        'title': _eventItems[index].title,
+                                        'description':
+                                            _eventItems[index].description,
+                                        'icon': _getIcon(
+                                          _eventItems[index].category,
+                                          _iconsColor,
+                                        ),
+                                        'speaker': _eventItems[index].speaker,
+                                      },
+                                    );
+                                  },
+                            leading: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.005,
+                                Text(
+                                  DateFormat.Hm().format(
+                                    DateTime.parse(
+                                        _eventItems[index].startDate),
+                                  ),
                                 ),
-                                Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                      child: CachedNetworkImage(
-                                        width: 20,
-                                        progressIndicatorBuilder:
-                                            (context, url, downloadProgress) =>
-                                                Image.asset(
-                                                    'assets/images/person.png'),
-                                        imageUrl:
-                                            'http:${_eventItems[index].speaker.photoFileUrl}',
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.01,
-                                    ),
-                                    Text(_eventItems[index].speaker.name),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.005,
+                                Text(
+                                  DateFormat.Hm().format(
+                                    DateTime.parse(_eventItems[index].endDate),
+                                  ),
                                 ),
                               ],
                             ),
-                      trailing:
-                          _getIcon(_eventItems[index].category, _iconsColor),
-                    ),
+                            title: Text(
+                              _eventItems[index].title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                            subtitle: _eventItems[index].speaker == null
+                                ? const Text('')
+                                : Column(
+                                    children: [
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                      ),
+                                      Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(20),
+                                            ),
+                                            child: CachedNetworkImage(
+                                              width: 20,
+                                              progressIndicatorBuilder: (context,
+                                                      url, downloadProgress) =>
+                                                  Image.asset(
+                                                      'assets/images/person.png'),
+                                              imageUrl:
+                                                  'http:${_eventItems[index].speaker.photoFileUrl}',
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.01,
+                                          ),
+                                          Text(_eventItems[index].speaker.name),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                      ),
+                                    ],
+                                  ),
+                            trailing: _getIcon(
+                                _eventItems[index].category, _iconsColor),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ),
       ),
