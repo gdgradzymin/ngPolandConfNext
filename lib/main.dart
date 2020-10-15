@@ -5,7 +5,7 @@ import 'package:ng_poland_conf_next/providers/connection.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/infoItems.dart';
 import 'package:ng_poland_conf_next/providers/speakers.dart';
-import 'package:ng_poland_conf_next/providers/workShops.dart';
+import 'package:ng_poland_conf_next/providers/workshops.dart';
 import 'package:ng_poland_conf_next/screens/schedulePresenter.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
@@ -18,7 +18,7 @@ import 'package:ng_poland_conf_next/screens/ngGirls.dart';
 import 'package:ng_poland_conf_next/screens/schedule.dart';
 import 'package:ng_poland_conf_next/screens/speakerDetails.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
-import 'package:ng_poland_conf_next/screens/workShops.dart';
+import 'package:ng_poland_conf_next/screens/workshops.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_config/flutter_config.dart';
 
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
           create: (_) => NgGirlsProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => WorkShopsProvider(),
+          create: (_) => WorkshopsProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => SpeakersProvider(),
@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
-              accentColor: const Color.fromRGBO(255, 0, 122, 1),
+              accentColor: const Color.fromRGBO(233, 30, 99, 1),
               primaryColor: const Color.fromRGBO(59, 29, 130, 1),
               textTheme: const TextTheme(
                 headline1: TextStyle(
@@ -141,7 +141,7 @@ class _MyAppState extends State<MyApp> {
               '/': (context) => Home(title: 'ngPolandConf'),
               // When navigating to the "/second" route, build the SecondScreen widget.
               '/Schedule': (context) => Schedule(title: 'Schedule - NG Poland'),
-              '/WorkShops': (context) => WorkShops(title: 'Workshops'),
+              '/Workshops': (context) => Workshops(title: 'Workshops'),
               '/NgGirls': (context) => NgGirls(title: 'ngGirls'),
               '/Speakers': (context) => Speakers(title: 'Speakers'),
               '/Info': (context) => Info(title: 'Info'),

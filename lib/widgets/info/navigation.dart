@@ -21,9 +21,6 @@ class InfoNavigation extends StatelessWidget {
 
     return Center(
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).accentColor),
-        ),
         height: 50,
         width: MediaQuery.of(context).size.width * 0.9,
         child: Stack(
@@ -58,7 +55,7 @@ class InfoNavigation extends StatelessWidget {
                               ? Colors.white
                               : whoColorIcon == 0
                                   ? Colors.white
-                                  : Colors.black,
+                                  : Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -78,7 +75,7 @@ class InfoNavigation extends StatelessWidget {
                               ? Colors.white
                               : whoColorIcon == 1
                                   ? Colors.white
-                                  : Colors.black,
+                                  : Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -98,7 +95,7 @@ class InfoNavigation extends StatelessWidget {
                               ? Colors.white
                               : whoColorIcon == 2
                                   ? Colors.white
-                                  : Colors.black,
+                                  : Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -118,7 +115,7 @@ class InfoNavigation extends StatelessWidget {
                               ? Colors.white
                               : whoColorIcon == 3
                                   ? Colors.white
-                                  : Colors.black,
+                                  : Theme.of(context).primaryColor,
                         ),
                       ),
                     ),

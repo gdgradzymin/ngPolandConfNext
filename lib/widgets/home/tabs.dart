@@ -6,7 +6,7 @@ import 'package:ng_poland_conf_next/screens/info.dart';
 import 'package:ng_poland_conf_next/screens/ngGirls.dart';
 import 'package:ng_poland_conf_next/screens/schedule.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
-import 'package:ng_poland_conf_next/screens/workShops.dart';
+import 'package:ng_poland_conf_next/screens/workshops.dart';
 import 'package:ng_poland_conf_next/widgets/home/button.dart';
 
 class HomeTabs extends StatelessWidget {
@@ -26,7 +26,7 @@ class HomeTabs extends StatelessWidget {
           name: '  Workshops',
           icon: FontAwesomeIcons.solidKeyboard,
           selectedPage: PagesName.workshops,
-          routeName: WorkShops.routeName,
+          routeName: Workshops.routeName,
         ),
         HomeButton(
           name: 'ngGirls',

@@ -3,28 +3,28 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/providers/workShops.dart';
+import 'package:ng_poland_conf_next/providers/workshops.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
-class WorkShops extends StatefulWidget {
-  static const routeName = '/WorkShops';
+class Workshops extends StatefulWidget {
+  static const routeName = '/Workshops';
 
   final String title;
 
-  WorkShops({Key key, this.title}) : super(key: key);
+  Workshops({Key key, this.title}) : super(key: key);
 
   @override
-  _WorkShopsState createState() => _WorkShopsState();
+  _WorkshopsState createState() => _WorkshopsState();
 }
 
-class _WorkShopsState extends State<WorkShops> {
+class _WorkshopsState extends State<Workshops> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-    Provider.of<WorkShopsProvider>(context, listen: false)
+    Provider.of<WorkshopsProvider>(context, listen: false)
         .fetchData(
       howMany: 999,
       confId: '2019',
@@ -41,8 +41,8 @@ class _WorkShopsState extends State<WorkShops> {
 
   @override
   Widget build(BuildContext context) {
-    List<WorkShop> _workShopsItems =
-        Provider.of<WorkShopsProvider>(context).workShopItems ?? null;
+    List<Workshop> _workshopsItems =
+        Provider.of<WorkshopsProvider>(context).workshopItems ?? null;
 
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
@@ -55,7 +55,7 @@ class _WorkShopsState extends State<WorkShops> {
       ),
       drawer: DrawerNg(),
       body: RefreshIndicator(
-        onRefresh: () => Provider.of<WorkShopsProvider>(context, listen: false)
+        onRefresh: () => Provider.of<WorkshopsProvider>(context, listen: false)
             .refreshData(
           howMany: 999,
           confId: '2019',
@@ -69,7 +69,7 @@ class _WorkShopsState extends State<WorkShops> {
         }),
         child: Center(
           child: ListView.builder(
-            itemCount: _workShopsItems.length,
+            itemCount: _workshopsItems.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -87,7 +87,7 @@ class _WorkShopsState extends State<WorkShops> {
                           onTap: () {
                             Navigator.of(context).pushNamed(
                               '/SpeakerDetails',
-                              arguments: _workShopsItems[index].speaker,
+                              arguments: _workshopsItems[index].speaker,
                             );
                           },
                           child: CachedNetworkImage(
@@ -95,16 +95,16 @@ class _WorkShopsState extends State<WorkShops> {
                                 (context, url, downloadProgress) =>
                                     Image.asset('assets/images/person.png'),
                             imageUrl:
-                                'http:${_workShopsItems[index].speaker.photoFileUrl}',
+                                'http:${_workshopsItems[index].speaker.photoFileUrl}',
                           ),
                         ),
                       ),
                       title: Text(
-                        _workShopsItems[index].title,
+                        _workshopsItems[index].title,
                         style: TextStyle(
                           color: Provider.of<ThemeNotifier>(context).darkTheme
                               ? Theme.of(context).accentColor
-                              : Colors.black,
+                              : Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -112,13 +112,13 @@ class _WorkShopsState extends State<WorkShops> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.005,
+                            height: MediaQuery.of(context).size.height * 0.010,
                           ),
                           RichText(
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: _workShopsItems[index].speaker.name,
+                                  text: _workshopsItems[index].speaker.name,
                                   style: TextStyle(
                                     color:
                                         _darkMode ? Colors.white : Colors.black,
@@ -128,7 +128,7 @@ class _WorkShopsState extends State<WorkShops> {
                                       Navigator.of(context).pushNamed(
                                         '/SpeakerDetails',
                                         arguments:
-                                            _workShopsItems[index].speaker,
+                                            _workshopsItems[index].speaker,
                                       );
                                     },
                                 ),
@@ -141,7 +141,7 @@ class _WorkShopsState extends State<WorkShops> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.025,
                     ),
-                    Text(_workShopsItems[index].description),
+                    Text(_workshopsItems[index].description),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.035,
                     ),

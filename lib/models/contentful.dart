@@ -187,8 +187,8 @@ class SimpleContent {
   }
 }
 
-class WorkShop {
-  WorkShop({
+class Workshop {
+  Workshop({
     this.title,
     this.confId,
     this.description,
@@ -199,8 +199,8 @@ class WorkShop {
     this.pricePln,
   });
 
-  factory WorkShop.fromJson(Map<String, dynamic> json) {
-    return WorkShop(
+  factory Workshop.fromJson(Map<String, dynamic> json) {
+    return Workshop(
       title: json['title'] as String,
       confId: json['confId'] as String,
       description: json['description'] as String,

@@ -327,13 +327,13 @@ class ContentfulService {
     return _simpleContent;
   }
 
-  Future<List<WorkShop>> getWorkshops({
+  Future<List<Workshop>> getWorkshops({
     int howMany,
     String confId,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    List<WorkShop> _workShops = [];
+    List<Workshop> _workshops = [];
 
     try {
       http.Response response = await http.get(_contentfulEntries +
@@ -365,8 +365,8 @@ class ContentfulService {
           }
         }
 
-        _workShops.add(
-          WorkShop(
+        _workshops.add(
+          Workshop(
             title: item['fields']['title'] as String,
             confId: item['fields']['confId'] as String,
             description: item['fields']['description'] as String,
@@ -392,22 +392,22 @@ class ContentfulService {
         );
       }
       prefs.setStringList(
-        'WorkShop',
-        _workShops.map((WorkShop workShop) => jsonEncode(workShop)).toList(),
+        'Workshop',
+        _workshops.map((Workshop workshop) => jsonEncode(workshop)).toList(),
       );
     } on SocketException {
-      if (prefs.containsKey('WorkShop')) {
-        List<String> _data = prefs.getStringList('WorkShop');
+      if (prefs.containsKey('Workshop')) {
+        List<String> _data = prefs.getStringList('Workshop');
 
-        _workShops = _data
+        _workshops = _data
             .map(
-                (e) => WorkShop.fromJson(jsonDecode(e) as Map<String, dynamic>))
+                (e) => Workshop.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
 
       throw Failure(
         fail: _connectionLostMessage,
-        localdata: _workShops,
+        localdata: _workshops,
       );
     } on HttpException {
       print('Couldn\'t find the post.');
@@ -415,7 +415,7 @@ class ContentfulService {
       print('Bad response format.');
     }
 
-    return _workShops;
+    return _workshops;
   }
 
   Future<List<Speaker>> getSpeakers({

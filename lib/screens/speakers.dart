@@ -117,23 +117,27 @@ class _SpeakersState extends State<Speakers> {
                             child: Text(
                               _speakers[index].name,
                               style: TextStyle(
-                                color: Provider.of<ThemeNotifier>(context)
-                                        .darkTheme
-                                    ? Theme.of(context).accentColor
-                                    : Colors.black,
-                              ),
+                                  color: Provider.of<ThemeNotifier>(context)
+                                          .darkTheme
+                                      ? Theme.of(context).accentColor
+                                      : Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                           subtitle: Hero(
                             tag: 'role' + _speakers[index].name,
                             flightShuttleBuilder: _flightShuttleBuilder,
-                            child: Text(_speakers[index].role),
+                            child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(_speakers[index].role)),
                           ),
                         ),
-                        Divider(
-                          height: 0,
-                          color: Theme.of(context).accentColor,
-                        )
+                        Padding(
+                            padding: const EdgeInsets.only(right: 8, left: 8),
+                            child: Divider(
+                              height: 0,
+                              color: Theme.of(context).accentColor,
+                            )),
                       ],
                     );
                   },
