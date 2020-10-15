@@ -8,7 +8,7 @@ import 'package:ng_poland_conf_next/screens/info.dart';
 import 'package:ng_poland_conf_next/screens/ngGirls.dart';
 import 'package:ng_poland_conf_next/screens/schedule.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
-import 'package:ng_poland_conf_next/screens/workShops.dart';
+import 'package:ng_poland_conf_next/screens/workshops.dart';
 import 'package:ng_poland_conf_next/widgets/switchDarkMode.dart';
 import 'package:provider/provider.dart';
 
@@ -86,7 +86,7 @@ class _DrawerNgState extends State<DrawerNg> {
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.workshops);
                         Navigator.of(context)
-                            .pushReplacementNamed(WorkShops.routeName);
+                            .pushReplacementNamed(Workshops.routeName);
                       },
                     ),
                   ),

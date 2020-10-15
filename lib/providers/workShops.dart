@@ -3,10 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 
-class WorkShopsProvider with ChangeNotifier {
-  List<WorkShop> _workShopItems = [];
+class WorkshopsProvider with ChangeNotifier {
+  List<Workshop> _workshopItems = [];
 
-  List<WorkShop> get workShopItems => _workShopItems;
+  List<Workshop> get workshopItems => _workshopItems;
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
@@ -15,14 +15,14 @@ class WorkShopsProvider with ChangeNotifier {
     @required String confId,
   }) async {
     try {
-      _workShopItems = await _contentfulService.getWorkshops(
+      _workshopItems = await _contentfulService.getWorkshops(
         howMany: howMany,
         confId: confId,
       );
     } catch (err) {
       var _err = err as Failure;
 
-      _workShopItems = _err.localdata as List<WorkShop>;
+      _workshopItems = _err.localdata as List<Workshop>;
 
       notifyListeners();
 
@@ -39,14 +39,14 @@ class WorkShopsProvider with ChangeNotifier {
     clear();
 
     try {
-      _workShopItems = await _contentfulService.getWorkshops(
+      _workshopItems = await _contentfulService.getWorkshops(
         howMany: howMany,
         confId: confId,
       );
     } catch (err) {
       var _err = err as Failure;
 
-      _workShopItems = _err.localdata as List<WorkShop>;
+      _workshopItems = _err.localdata as List<Workshop>;
 
       notifyListeners();
 
@@ -57,7 +57,7 @@ class WorkShopsProvider with ChangeNotifier {
   }
 
   void clear() {
-    _workShopItems = [];
+    _workshopItems = [];
     notifyListeners();
   }
 }

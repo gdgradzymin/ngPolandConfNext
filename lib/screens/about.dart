@@ -62,8 +62,8 @@ class About extends StatelessWidget {
                   'Authors:',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                  ),
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(
@@ -105,9 +105,9 @@ class About extends StatelessWidget {
                 title: InkWell(
                   onTap: () =>
                       launch('https://github.com/gdgradzymin/ngPolandConfNext'),
-                  child: Text(
-                    'https://github.com/gdgradzymin/ngPolandConfNext',
-                    style: TextStyle(color: Colors.blue),
+                  child: const Text(
+                    'ngPolandConfNext',
+                    style: TextStyle(color: Colors.blue, fontSize: 12),
                   ),
                 ),
               ),
