@@ -12,7 +12,7 @@ import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/providers/ngGirls.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/screens/about.dart';
-import 'package:ng_poland_conf_next/screens/home.dart';
+import 'package:ng_poland_conf_next/screens/newHome.dart';
 import 'package:ng_poland_conf_next/screens/info.dart';
 import 'package:ng_poland_conf_next/screens/ngGirls.dart';
 import 'package:ng_poland_conf_next/screens/schedule.dart';
@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
               canvasColor: Colors.white,
               textTheme: const TextTheme(
                 headline1: TextStyle(
-                  fontSize: 15,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -129,7 +129,7 @@ class _MyAppState extends State<MyApp> {
               primaryColor: const Color.fromRGBO(59, 29, 130, 1),
               textTheme: const TextTheme(
                 headline1: TextStyle(
-                  fontSize: 15,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
