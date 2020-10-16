@@ -4,25 +4,47 @@ import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 
 class WorkshopsProvider with ChangeNotifier {
-  List<Workshop> _workshopItems = [];
+  EventItemType _selectedItems;
 
-  List<Workshop> get workshopItems => _workshopItems;
+  List<Workshop> _workshopItemsngPoland = [];
+
+  List<Workshop> _workshopItemsjsPoland = [];
+
+  List<Workshop> get workshopItems => _selectedItems == EventItemType.NGPOLAND
+      ? _workshopItemsngPoland
+      : _workshopItemsjsPoland;
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
   Future fetchData({
     @required int howMany,
+    @required EventItemType type,
     @required String confId,
   }) async {
     try {
-      _workshopItems = await _contentfulService.getWorkshops(
-        howMany: howMany,
-        confId: confId,
-      );
+      if (type == EventItemType.NGPOLAND) {
+        _selectedItems = EventItemType.NGPOLAND;
+        _workshopItemsngPoland = await _contentfulService.getWorkshops(
+          howMany: howMany,
+          type: type,
+          confId: confId,
+        );
+      } else {
+        _selectedItems = EventItemType.JSPOLAND;
+        _workshopItemsjsPoland = await _contentfulService.getWorkshops(
+          howMany: howMany,
+          type: type,
+          confId: confId,
+        );
+      }
     } catch (err) {
       var _err = err as Failure;
 
-      _workshopItems = _err.localdata as List<Workshop>;
+      if (type == EventItemType.NGPOLAND) {
+        _workshopItemsngPoland = _err.localdata as List<Workshop>;
+      } else {
+        _workshopItemsjsPoland = _err.localdata as List<Workshop>;
+      }
 
       notifyListeners();
 
@@ -36,17 +58,32 @@ class WorkshopsProvider with ChangeNotifier {
     @required int howMany,
     @required String confId,
   }) async {
-    clear();
-
     try {
-      _workshopItems = await _contentfulService.getWorkshops(
-        howMany: howMany,
-        confId: confId,
-      );
+      clear(_selectedItems);
+
+      if (_selectedItems == EventItemType.NGPOLAND) {
+        _selectedItems = EventItemType.NGPOLAND;
+        _workshopItemsngPoland = await _contentfulService.getWorkshops(
+          howMany: howMany,
+          type: _selectedItems,
+          confId: confId,
+        );
+      } else {
+        _selectedItems = EventItemType.JSPOLAND;
+        _workshopItemsjsPoland = await _contentfulService.getWorkshops(
+          howMany: howMany,
+          type: _selectedItems,
+          confId: confId,
+        );
+      }
     } catch (err) {
       var _err = err as Failure;
 
-      _workshopItems = _err.localdata as List<Workshop>;
+      if (_selectedItems == EventItemType.NGPOLAND) {
+        _workshopItemsngPoland = _err.localdata as List<Workshop>;
+      } else {
+        _workshopItemsjsPoland = _err.localdata as List<Workshop>;
+      }
 
       notifyListeners();
 
@@ -56,8 +93,13 @@ class WorkshopsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clear() {
-    _workshopItems = [];
+  void clear(EventItemType type) {
+    if (type == EventItemType.NGPOLAND) {
+      _workshopItemsngPoland = [];
+    } else {
+      _workshopItemsjsPoland = [];
+    }
+
     notifyListeners();
   }
 }

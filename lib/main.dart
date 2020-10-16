@@ -5,7 +5,7 @@ import 'package:ng_poland_conf_next/providers/connection.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/infoItems.dart';
 import 'package:ng_poland_conf_next/providers/speakers.dart';
-import 'package:ng_poland_conf_next/providers/workshops.dart';
+import 'package:ng_poland_conf_next/providers/workShops.dart';
 import 'package:ng_poland_conf_next/screens/schedulePresenter.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';

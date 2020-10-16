@@ -329,6 +329,7 @@ class ContentfulService {
 
   Future<List<Workshop>> getWorkshops({
     int howMany,
+    EventItemType type,
     String confId,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -341,7 +342,10 @@ class ContentfulService {
             contentType: getStringFromEventContentTypes(
               EventContentTypes.WORKSHOP,
             ),
-            fields: ['confId=$confId'],
+            fields: [
+              'type=${getStringFromEventItemType(type)}',
+              'confId=$confId'
+            ],
             order: 'sys.createdAt',
             limit: howMany.toString(),
           ));
@@ -392,12 +396,12 @@ class ContentfulService {
         );
       }
       prefs.setStringList(
-        'Workshop',
+        'Workshop-$type',
         _workshops.map((Workshop workshop) => jsonEncode(workshop)).toList(),
       );
     } on SocketException {
-      if (prefs.containsKey('Workshop')) {
-        List<String> _data = prefs.getStringList('Workshop');
+      if (prefs.containsKey('Workshop-$type')) {
+        List<String> _data = prefs.getStringList('Workshop-$type');
 
         _workshops = _data
             .map(

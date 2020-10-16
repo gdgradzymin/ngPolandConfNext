@@ -3,7 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/providers/workshops.dart';
+import 'package:ng_poland_conf_next/providers/workShops.dart';
+import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,7 @@ class _WorkshopsState extends State<Workshops> {
     Provider.of<WorkshopsProvider>(context, listen: false)
         .fetchData(
       howMany: 999,
+      type: EventItemType.NGPOLAND,
       confId: '2019',
     )
         .catchError((Object err) {
