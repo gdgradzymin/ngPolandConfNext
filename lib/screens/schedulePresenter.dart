@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
+import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SchedulePresenter extends StatelessWidget {
@@ -12,6 +14,7 @@ class SchedulePresenter extends StatelessWidget {
   Widget build(BuildContext context) {
     var _data =
         ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    var _darkTheme = Provider.of<ThemeNotifier>(context).darkTheme;
 
     Speaker _speaker = _data['speaker'] as Speaker;
 
@@ -29,10 +32,13 @@ class SchedulePresenter extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(24.0),
-                child: Text(
-                  _data['title'].toString(),
-                  style: Theme.of(context).textTheme.headline6,
-                ),
+                child: Text(_data['title'].toString(),
+                    style: Theme.of(context).textTheme.headline6.copyWith(
+                          color: _darkTheme
+                              ? Theme.of(context).accentColor
+                              : Theme.of(context).primaryColor,
+                        ),
+                    textAlign: TextAlign.center),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -43,7 +49,7 @@ class SchedulePresenter extends StatelessWidget {
                       Center(
                         child: ClipRRect(
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(100)),
+                              const BorderRadius.all(Radius.circular(180)),
                           child: _speaker.photoFileUrl == null
                               ? Image.asset(
                                   'assets/images/person.png',
@@ -85,27 +91,35 @@ class SchedulePresenter extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              Text(
-                _speaker.role,
-                style: Theme.of(context).textTheme.bodyText2.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  _speaker.role,
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
               ),
               Container(
                 alignment: Alignment.centerLeft,
                 child: _data['description'] != null
-                    ? Text(_data['description'].toString())
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Text(
+                          _data['description'].toString(),
+                          textAlign: TextAlign.justify,
+                        ),
+                      )
                     : Container(
+                        padding: const EdgeInsets.only(top: 40, bottom: 20),
                         height: MediaQuery.of(context).size.height * 0.2,
                         width: double.infinity,
-                        child: FittedBox(child: _data['icon'] as Icon),
+                        child: FittedBox(
+                          child: Opacity(
+                              opacity: 0.1, child: _data['icon'] as Icon),
+                        ),
                       ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
               ),
             ],
           ),
