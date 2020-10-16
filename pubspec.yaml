@@ -73,6 +73,7 @@ flutter:
     - assets/images/person.png
     - assets/images/ngpolandlogo.png
     - assets/images/jspolandlogo.png
+    - assets/images/tlo.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
