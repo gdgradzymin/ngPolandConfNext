@@ -117,22 +117,39 @@ class _MyAppState extends State<MyApp> {
               primaryColor: const Color.fromRGBO(59, 29, 130, 1),
               canvasColor: Colors.white,
               textTheme: const TextTheme(
-                headline1: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                  headline1: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  headline2: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  headline3: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(0, 0, 0, 0.8)),
+                  bodyText1: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.8))),
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
               accentColor: const Color.fromRGBO(233, 30, 99, 1),
               primaryColor: const Color.fromRGBO(59, 29, 130, 1),
               textTheme: const TextTheme(
-                headline1: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                  headline1: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  headline2: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  headline3: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(255, 255, 255, 0.9)),
+                  bodyText1:
+                      TextStyle(color: Color.fromRGBO(255, 255, 255, 0.9))),
             ),
             themeMode: theme.darkTheme ? ThemeMode.dark : ThemeMode.light,
             initialRoute: '/',

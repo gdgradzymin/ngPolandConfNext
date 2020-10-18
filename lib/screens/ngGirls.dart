@@ -10,7 +10,7 @@ class NgGirls extends StatefulWidget {
 
   final String title;
 
-  NgGirls({Key key, this.title}) : super(key: key);
+  const NgGirls({Key key, this.title}) : super(key: key);
 
   @override
   _NgGirlsState createState() => _NgGirlsState();
@@ -76,10 +76,8 @@ class _NgGirlsState extends State<NgGirls> {
                   ),
                   _simpleContent == null
                       ? const CircularProgressIndicator()
-                      : Text(
-                          _simpleContent.text,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
+                      : Text(_simpleContent.text,
+                          style: Theme.of(context).textTheme.bodyText2),
                 ],
               ),
             ),

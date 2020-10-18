@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
               width: double.infinity,
               child: Image.asset(
                 'assets/images/tlo.jpg',
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
             Container(
@@ -48,10 +48,15 @@ class Home extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      const Text(
-                        'The Biggest Angular Conference In CEE 5th Edition',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Text(
+                          'The Biggest Angular Conference In CEE 5th Edition',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 28),
+                        ),
                       ),
                       SizedBox(
                         height: _contentHeight *
@@ -61,12 +66,12 @@ class Home extends StatelessWidget {
                                 : 0.10),
                       ),
                       HomeTimer(),
-                      SizedBox(
-                        height: _contentHeight *
-                            (MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? 0.05
-                                : 0.20),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Divider(
+                          height: 10,
+                          color: Colors.white.withOpacity(0.4),
+                        ),
                       ),
                       HomeEvents(),
                     ],
