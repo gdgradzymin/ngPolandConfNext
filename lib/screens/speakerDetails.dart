@@ -30,10 +30,7 @@ class SpeakerDetails extends StatelessWidget {
         title: Hero(
           tag: 'name' + _speaker.name,
           flightShuttleBuilder: _flightShuttleBuilder,
-          child: Text(
-            _speaker.name,
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: Text(_speaker.name),
         ),
         centerTitle: true,
         actions: [ConnectionStatus()],
@@ -61,19 +58,16 @@ class SpeakerDetails extends StatelessWidget {
               Hero(
                 tag: 'role' + _speaker.name,
                 flightShuttleBuilder: _flightShuttleBuilder,
-                child: Text(
-                  _speaker.role,
-                  style: Theme.of(context).textTheme.bodyText2.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
+                child: Text(_speaker.role,
+                    style: Theme.of(context).textTheme.headline3),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                child: Text(_speaker.bio),
+                child: Text(_speaker.bio,
+                    style: Theme.of(context).textTheme.bodyText2),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,

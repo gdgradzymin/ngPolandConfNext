@@ -24,7 +24,7 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
                   height: 30,
                   width: 60,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(15),
                     ),
                     color: Theme.of(context).dividerColor,
@@ -33,7 +33,7 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
                     alignment: Alignment.center,
                     children: [
                       if (theme.darkTheme)
-                        Positioned(
+                        const Positioned(
                           left: 10.0,
                           child: Text(
                             'ON',
@@ -44,7 +44,7 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
                           ),
                         ),
                       if (!theme.darkTheme)
-                        Positioned(
+                        const Positioned(
                           left: 35.0,
                           child: Text(
                             'OFF',
@@ -55,7 +55,7 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
                           ),
                         ),
                       AnimatedPositioned(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         left: theme.darkTheme ? 25.0 : 0.0,
                         right: theme.darkTheme ? 0.0 : 25.0,
                         curve: Curves.easeIn,
@@ -81,7 +81,7 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
           ),
           Text(
             'Dark Mode',
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.bodyText1,
           ),
         ],
       ),

@@ -129,7 +129,8 @@ class _SpeakersState extends State<Speakers> {
                             flightShuttleBuilder: _flightShuttleBuilder,
                             child: Padding(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: Text(_speakers[index].role)),
+                                child: Text(_speakers[index].role,
+                                    style: const TextStyle(fontSize: 12))),
                           ),
                         ),
                         Padding(

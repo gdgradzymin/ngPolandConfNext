@@ -35,8 +35,10 @@ class _HomeTimerState extends State<HomeTimer> {
     String format,
     Color color,
   }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+    return Wrap(
+      direction: Axis.vertical,
+      spacing: 5,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text(
           '$time',
@@ -44,14 +46,14 @@ class _HomeTimerState extends State<HomeTimer> {
           style: TextStyle(
             color: color,
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 25,
           ),
         ),
         Text(
           format,
           style: TextStyle(
-            color: color,
-            fontSize: 15,
+            color: color.withOpacity(0.7),
+            fontSize: 11,
           ),
         ),
       ],
