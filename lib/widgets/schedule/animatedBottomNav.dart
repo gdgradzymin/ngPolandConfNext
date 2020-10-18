@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
+import 'package:ng_poland_conf_next/providers/workShops.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:provider/provider.dart';
 
 class AnimatedBottomNav extends StatefulWidget {
   final Size deviceSize;
+  final dynamic provider;
 
-  AnimatedBottomNav({this.deviceSize});
+  AnimatedBottomNav({
+    this.deviceSize,
+    this.provider,
+  });
 
   @override
   _AnimatedBottomNavState createState() => _AnimatedBottomNavState();
@@ -74,21 +79,40 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        Provider.of<EventItemsProvider>(context, listen: false)
-                            .fetchData(
-                          howMany: 999,
-                          confId: '2019',
-                          type: EventItemType.NGPOLAND,
-                        )
-                            .catchError(
-                          (Object err) {
-                            ConnectionSnackBar.show(
-                              context: context,
-                              message: err.toString(),
-                              scaffoldKeyCurrentState: null,
-                            );
-                          },
-                        );
+                        if (widget.provider == EventItemsProvider) {
+                          Provider.of<EventItemsProvider>(context,
+                                  listen: false)
+                              .fetchData(
+                            howMany: 999,
+                            confId: '2019',
+                            type: EventItemType.NGPOLAND,
+                          )
+                              .catchError(
+                            (Object err) {
+                              ConnectionSnackBar.show(
+                                context: context,
+                                message: err.toString(),
+                                scaffoldKeyCurrentState: null,
+                              );
+                            },
+                          );
+                        } else {
+                          Provider.of<WorkshopsProvider>(context, listen: false)
+                              .fetchData(
+                            howMany: 999,
+                            confId: '2019',
+                            type: EventItemType.NGPOLAND,
+                          )
+                              .catchError(
+                            (Object err) {
+                              ConnectionSnackBar.show(
+                                context: context,
+                                message: err.toString(),
+                                scaffoldKeyCurrentState: null,
+                              );
+                            },
+                          );
+                        }
 
                         _selected = EventItemType.NGPOLAND;
                       });
@@ -125,21 +149,40 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        Provider.of<EventItemsProvider>(context, listen: false)
-                            .fetchData(
-                          howMany: 999,
-                          confId: '2019',
-                          type: EventItemType.JSPOLAND,
-                        )
-                            .catchError(
-                          (Object err) {
-                            ConnectionSnackBar.show(
-                              context: context,
-                              message: err.toString(),
-                              scaffoldKeyCurrentState: null,
-                            );
-                          },
-                        );
+                        if (widget.provider == EventItemsProvider) {
+                          Provider.of<EventItemsProvider>(context,
+                                  listen: false)
+                              .fetchData(
+                            howMany: 999,
+                            confId: '2019',
+                            type: EventItemType.JSPOLAND,
+                          )
+                              .catchError(
+                            (Object err) {
+                              ConnectionSnackBar.show(
+                                context: context,
+                                message: err.toString(),
+                                scaffoldKeyCurrentState: null,
+                              );
+                            },
+                          );
+                        } else {
+                          Provider.of<WorkshopsProvider>(context, listen: false)
+                              .fetchData(
+                            howMany: 999,
+                            confId: '2019',
+                            type: EventItemType.JSPOLAND,
+                          )
+                              .catchError(
+                            (Object err) {
+                              ConnectionSnackBar.show(
+                                context: context,
+                                message: err.toString(),
+                                scaffoldKeyCurrentState: null,
+                              );
+                            },
+                          );
+                        }
 
                         _selected = EventItemType.JSPOLAND;
                       });
