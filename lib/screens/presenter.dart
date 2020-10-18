@@ -7,8 +7,8 @@ import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SchedulePresenter extends StatelessWidget {
-  static const routeName = '/SchedulePresenter';
+class Presenter extends StatelessWidget {
+  static const routeName = '/Presenter';
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,17 @@ class SchedulePresenter extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(24.0),
-                child: Text(_data['title'].toString(),
-                    style: Theme.of(context).textTheme.headline6.copyWith(
-                          color: _darkTheme
-                              ? Theme.of(context).accentColor
-                              : Theme.of(context).primaryColor,
-                        ),
-                    textAlign: TextAlign.center),
+                child: Text(
+                  _data['title'] != null
+                      ? _data['title'].toString()
+                      : _speaker.name,
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        color: _darkTheme
+                            ? Theme.of(context).accentColor
+                            : Theme.of(context).primaryColor,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -111,15 +115,21 @@ class SchedulePresenter extends StatelessWidget {
                           textAlign: TextAlign.justify,
                         ),
                       )
-                    : Container(
-                        padding: const EdgeInsets.only(top: 40, bottom: 20),
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: double.infinity,
-                        child: FittedBox(
-                          child: Opacity(
-                              opacity: 0.1, child: _data['icon'] as Icon),
-                        ),
-                      ),
+                    : _speaker.bio != null
+                        ? Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(_speaker.bio,
+                                style: Theme.of(context).textTheme.bodyText2),
+                          )
+                        : Container(
+                            padding: const EdgeInsets.only(top: 40, bottom: 20),
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: double.infinity,
+                            child: FittedBox(
+                              child: Opacity(
+                                  opacity: 0.1, child: _data['icon'] as Icon),
+                            ),
+                          ),
               ),
             ],
           ),

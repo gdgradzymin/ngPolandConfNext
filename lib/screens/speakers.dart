@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/speakers.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/screens/speakerDetails.dart';
+import 'package:ng_poland_conf_next/screens/presenter.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:provider/provider.dart';
@@ -92,8 +92,10 @@ class _SpeakersState extends State<Speakers> {
                           contentPadding: const EdgeInsets.all(16),
                           onTap: () {
                             Navigator.of(context).pushNamed(
-                              SpeakerDetails.routeName,
-                              arguments: _speakers[index],
+                              Presenter.routeName,
+                              arguments: {
+                                'speaker': _speakers[index],
+                              },
                             );
                           },
                           leading: ClipRRect(

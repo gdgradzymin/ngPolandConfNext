@@ -161,7 +161,7 @@ class _ScheduleState extends State<Schedule> {
                                 ? null
                                 : () {
                                     Navigator.of(context).pushNamed(
-                                      '/SchedulePresenter',
+                                      '/Presenter',
                                       arguments: {
                                         'title': _eventItems[index].title,
                                         'description':
