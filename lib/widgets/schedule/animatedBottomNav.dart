@@ -35,7 +35,9 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
     }
 
     return Container(
-      height: kToolbarHeight,
+      height: MediaQuery.of(context).orientation == Orientation.portrait
+          ? MediaQuery.of(context).size.height * 0.09
+          : MediaQuery.of(context).size.width * 0.09,
       decoration: const BoxDecoration(color: Colors.black),
       child: Container(
         decoration: _darkMode
@@ -47,27 +49,24 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
               ),
         child: Stack(
           fit: StackFit.loose,
+          alignment: Alignment.bottomCenter,
           children: [
             AnimatedPositioned(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeIn,
               left: widget.deviceSize.width * _positionAnimatedColor,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                width: widget.deviceSize.width * 0.47,
-                height: widget.deviceSize.width * 0.01,
+                width: widget.deviceSize.width * 0.5,
+                height:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? widget.deviceSize.width * 0.01
+                        : widget.deviceSize.height * 0.01,
                 child: Container(
                   width: double.infinity,
                   height: widget.deviceSize.width * 0.01,
                   child: const Card(
                     margin: EdgeInsets.all(0),
                     color: Color.fromRGBO(255, 0, 122, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(5.0),
-                        bottomRight: Radius.circular(5.0),
-                      ),
-                    ),
                   ),
                 ),
               ),
@@ -122,8 +121,17 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                       child: FittedBox(
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
                             Image.asset(
                               'assets/images/ngpolandlogo.png',
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? MediaQuery.of(context).size.height * 0.075
+                                  : MediaQuery.of(context).size.width * 0.075,
                             ),
                             Text(
                               'NG POLAND',
@@ -193,8 +201,17 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                         fit: BoxFit.scaleDown,
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
                             Image.asset(
                               'assets/images/jspolandlogo.png',
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? MediaQuery.of(context).size.height * 0.09
+                                  : MediaQuery.of(context).size.width * 0.09,
                             ),
                             Text(
                               'JS POLAND',
