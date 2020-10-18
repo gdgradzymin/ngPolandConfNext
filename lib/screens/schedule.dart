@@ -284,6 +284,7 @@ class _ScheduleState extends State<Schedule> {
       ),
       bottomNavigationBar: AnimatedBottomNav(
         deviceSize: MediaQuery.of(context).size,
+        provider: EventItemsProvider,
       ),
     );
   }
