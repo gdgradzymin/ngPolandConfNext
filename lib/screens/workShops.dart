@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/providers/workShops.dart';
+import 'package:ng_poland_conf_next/screens/presenter.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
@@ -25,27 +26,28 @@ class _WorkshopsState extends State<Workshops> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
-    Provider.of<WorkshopsProvider>(context, listen: false)
-        .fetchData(
-      howMany: 999,
-      type: EventItemType.NGPOLAND,
-      confId: '2019',
-    )
-        .catchError((Object err) {
-      ConnectionSnackBar.show(
-        context: context,
-        message: err.toString(),
-        scaffoldKeyCurrentState: _scaffoldKey.currentState,
-      );
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    EventItemType _selectedItems =
+        Provider.of<WorkshopsProvider>(context, listen: false).selectedItems;
+
     List<Workshop> _workshopsItems =
-        Provider.of<WorkshopsProvider>(context).workshopItems ?? null;
+        Provider.of<WorkshopsProvider>(context).workshopItems;
+
+    if (_workshopsItems.isEmpty) {
+      Provider.of<WorkshopsProvider>(context, listen: false)
+          .fetchData(
+        howMany: 999,
+        type: _selectedItems,
+        confId: '2019',
+      )
+          .catchError((Object err) {
+        ConnectionSnackBar.show(
+          context: context,
+          message: err.toString(),
+          scaffoldKeyCurrentState: _scaffoldKey.currentState,
+        );
+      });
+    }
 
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
@@ -81,20 +83,22 @@ class _WorkshopsState extends State<Workshops> {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: ClipRRect(
+                            leading: InkWell(
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(25),
                               ),
-                              child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  Presenter.routeName,
+                                  arguments: {
+                                    'speaker': _workshopsItems[index].speaker,
+                                  },
+                                );
+                              },
+                              child: ClipRRect(
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(25),
                                 ),
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                    '/SpeakerDetails',
-                                    arguments: _workshopsItems[index].speaker,
-                                  );
-                                },
                                 child: CachedNetworkImage(
                                   progressIndicatorBuilder: (context, url,
                                           downloadProgress) =>
@@ -135,9 +139,12 @@ class _WorkshopsState extends State<Workshops> {
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
                                             Navigator.of(context).pushNamed(
-                                              '/SpeakerDetails',
-                                              arguments: _workshopsItems[index]
-                                                  .speaker,
+                                              Presenter.routeName,
+                                              arguments: {
+                                                'speaker':
+                                                    _workshopsItems[index]
+                                                        .speaker,
+                                              },
                                             );
                                           },
                                       ),

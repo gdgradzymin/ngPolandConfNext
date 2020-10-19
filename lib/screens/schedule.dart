@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
+import 'package:ng_poland_conf_next/screens/presenter.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
@@ -99,27 +100,28 @@ class _ScheduleState extends State<Schedule> {
   }
 
   @override
-  void initState() {
-    Provider.of<EventItemsProvider>(context, listen: false)
-        .fetchData(
-      howMany: 999,
-      confId: '2019',
-      type: EventItemType.NGPOLAND,
-    )
-        .catchError((Object err) {
-      ConnectionSnackBar.show(
-        context: context,
-        message: err.toString(),
-        scaffoldKeyCurrentState: _scaffoldKey.currentState,
-      );
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    EventItemType _selectedItems =
+        Provider.of<EventItemsProvider>(context, listen: false).selectedItems;
+
     List<EventItem> _eventItems =
         Provider.of<EventItemsProvider>(context).eventItems;
+
+    if (_eventItems.isEmpty) {
+      Provider.of<EventItemsProvider>(context, listen: false)
+          .fetchData(
+        howMany: 999,
+        confId: '2019',
+        type: _selectedItems,
+      )
+          .catchError((Object err) {
+        ConnectionSnackBar.show(
+          context: context,
+          message: err.toString(),
+          scaffoldKeyCurrentState: _scaffoldKey.currentState,
+        );
+      });
+    }
 
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
@@ -161,7 +163,7 @@ class _ScheduleState extends State<Schedule> {
                                 ? null
                                 : () {
                                     Navigator.of(context).pushNamed(
-                                      '/Presenter',
+                                      Presenter.routeName,
                                       arguments: {
                                         'title': _eventItems[index].title,
                                         'description':

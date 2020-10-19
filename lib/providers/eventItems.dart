@@ -10,6 +10,14 @@ class EventItemsProvider with ChangeNotifier {
 
   List<EventItem> _jsPoland = [];
 
+  EventItemType get selectedItems => _selectedItems;
+
+  set selectedItems(EventItemType val) {
+    _selectedItems = val;
+
+    notifyListeners();
+  }
+
   List<EventItem> get eventItems =>
       _selectedItems == EventItemType.NGPOLAND ? _ngPoland : _jsPoland;
 

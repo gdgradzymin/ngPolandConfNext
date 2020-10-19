@@ -10,6 +10,14 @@ class WorkshopsProvider with ChangeNotifier {
 
   List<Workshop> _workshopItemsjsPoland = [];
 
+  EventItemType get selectedItems => _selectedItems;
+
+  set selectedItems(EventItemType val) {
+    _selectedItems = val;
+
+    notifyListeners();
+  }
+
   List<Workshop> get workshopItems => _selectedItems == EventItemType.NGPOLAND
       ? _workshopItemsngPoland
       : _workshopItemsjsPoland;
