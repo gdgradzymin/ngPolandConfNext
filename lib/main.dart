@@ -6,7 +6,7 @@ import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/infoItems.dart';
 import 'package:ng_poland_conf_next/providers/speakers.dart';
 import 'package:ng_poland_conf_next/providers/workShops.dart';
-import 'package:ng_poland_conf_next/screens/schedulePresenter.dart';
+import 'package:ng_poland_conf_next/screens/presenter.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/providers/selectedPage.dart';
 import 'package:ng_poland_conf_next/providers/ngGirls.dart';
@@ -16,7 +16,6 @@ import 'package:ng_poland_conf_next/screens/newHome.dart';
 import 'package:ng_poland_conf_next/screens/info.dart';
 import 'package:ng_poland_conf_next/screens/ngGirls.dart';
 import 'package:ng_poland_conf_next/screens/schedule.dart';
-import 'package:ng_poland_conf_next/screens/speakerDetails.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
 import 'package:ng_poland_conf_next/screens/workshops.dart';
 import 'package:provider/provider.dart';
@@ -157,14 +156,14 @@ class _MyAppState extends State<MyApp> {
               // When navigating to the "/" route, build the FirstScreen widget.
               '/': (context) => Home(title: 'ngPolandConf'),
               // When navigating to the "/second" route, build the SecondScreen widget.
-              '/Schedule': (context) => Schedule(title: 'Schedule - NG Poland'),
+              '/Schedule': (context) =>
+                  const Schedule(title: 'Schedule - NG Poland'),
               '/Workshops': (context) => Workshops(title: 'Workshops'),
-              '/NgGirls': (context) => NgGirls(title: 'ngGirls'),
+              '/NgGirls': (context) => const NgGirls(title: 'ngGirls'),
               '/Speakers': (context) => Speakers(title: 'Speakers'),
               '/Info': (context) => Info(title: 'Info'),
               '/About': (context) => About(title: 'About'),
-              '/SpeakerDetails': (context) => SpeakerDetails(),
-              '/SchedulePresenter': (context) => SchedulePresenter(),
+              '/Presenter': (context) => Presenter(),
             },
           );
         },
