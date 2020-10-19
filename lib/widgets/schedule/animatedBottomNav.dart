@@ -90,7 +90,6 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: _selectedItems,
                           )
                               .catchError(
                             (Object err) {
@@ -109,7 +108,6 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: _selectedItems,
                           )
                               .catchError(
                             (Object err) {
@@ -174,7 +172,6 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: _selectedItems,
                           )
                               .catchError(
                             (Object err) {
@@ -193,7 +190,6 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: _selectedItems,
                           )
                               .catchError(
                             (Object err) {

@@ -6,7 +6,6 @@ import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
 import 'package:ng_poland_conf_next/screens/presenter.dart';
-import 'package:ng_poland_conf_next/services/contentful.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
 import 'package:ng_poland_conf_next/widgets/drawer.dart';
 import 'package:ng_poland_conf_next/widgets/schedule/animatedBottomNav.dart';
@@ -101,9 +100,6 @@ class _ScheduleState extends State<Schedule> {
 
   @override
   Widget build(BuildContext context) {
-    EventItemType _selectedItems =
-        Provider.of<EventItemsProvider>(context, listen: false).selectedItems;
-
     List<EventItem> _eventItems =
         Provider.of<EventItemsProvider>(context).eventItems;
 
@@ -112,7 +108,6 @@ class _ScheduleState extends State<Schedule> {
           .fetchData(
         howMany: 999,
         confId: '2019',
-        type: _selectedItems,
       )
           .catchError((Object err) {
         ConnectionSnackBar.show(
