@@ -165,8 +165,13 @@ class _ScheduleContentState extends State<ScheduleContent> {
                         title: Text(
                           widget.eventItems[index].title,
                           style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1.color,
-                            fontSize: 16,
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                .color
+                                .withOpacity(0.8),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         subtitle: widget.eventItems[index].speaker == null
@@ -222,7 +227,7 @@ class _ScheduleContentState extends State<ScheduleContent> {
                             Opacity(
                               opacity: 0.6,
                               child: _getIcon(widget.eventItems[index].category,
-                                  _iconsColor),
+                                  _iconsColor.withOpacity(0.8)),
                             )
                           ],
                         ),
@@ -233,9 +238,8 @@ class _ScheduleContentState extends State<ScheduleContent> {
                           opacity: 0.9,
                           child: Divider(
                             height: 1,
-                            color: _darkMode
-                                ? Theme.of(context).backgroundColor
-                                : Theme.of(context).accentColor,
+                            color:
+                                Theme.of(context).accentColor.withOpacity(0.5),
                           ),
                         ),
                       )
