@@ -20,15 +20,21 @@ class AnimatedBottomNav extends StatefulWidget {
 }
 
 class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
-  EventItemType _selected = EventItemType.NGPOLAND;
-
   double _positionAnimatedColor;
 
   @override
   Widget build(BuildContext context) {
+    EventItemType _selectedItems;
+
+    if (widget.provider == EventItemsProvider) {
+      _selectedItems = Provider.of<EventItemsProvider>(context).selectedItems;
+    } else {
+      _selectedItems = Provider.of<WorkshopsProvider>(context).selectedItems;
+    }
+
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
-    if (_selected == EventItemType.NGPOLAND) {
+    if (_selectedItems == EventItemType.NGPOLAND) {
       _positionAnimatedColor = 0.0;
     } else {
       _positionAnimatedColor = 0.5;
@@ -84,7 +90,6 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: EventItemType.NGPOLAND,
                           )
                               .catchError(
                             (Object err) {
@@ -95,12 +100,14 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               );
                             },
                           );
+                          Provider.of<EventItemsProvider>(context,
+                                  listen: false)
+                              .selectedItems = EventItemType.NGPOLAND;
                         } else {
                           Provider.of<WorkshopsProvider>(context, listen: false)
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: EventItemType.NGPOLAND,
                           )
                               .catchError(
                             (Object err) {
@@ -111,9 +118,9 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               );
                             },
                           );
+                          Provider.of<WorkshopsProvider>(context, listen: false)
+                              .selectedItems = EventItemType.NGPOLAND;
                         }
-
-                        _selected = EventItemType.NGPOLAND;
                       });
                     },
                     child: Padding(
@@ -141,10 +148,12 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                                   .bodyText2
                                   .copyWith(
                                     color: _darkMode
-                                        ? _selected == EventItemType.NGPOLAND
+                                        ? _selectedItems ==
+                                                EventItemType.NGPOLAND
                                             ? Theme.of(context).accentColor
                                             : Colors.white
-                                        : _selected == EventItemType.NGPOLAND
+                                        : _selectedItems ==
+                                                EventItemType.NGPOLAND
                                             ? Theme.of(context).accentColor
                                             : Colors.black,
                                   ),
@@ -163,7 +172,6 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: EventItemType.JSPOLAND,
                           )
                               .catchError(
                             (Object err) {
@@ -174,12 +182,14 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               );
                             },
                           );
+                          Provider.of<EventItemsProvider>(context,
+                                  listen: false)
+                              .selectedItems = EventItemType.JSPOLAND;
                         } else {
                           Provider.of<WorkshopsProvider>(context, listen: false)
                               .fetchData(
                             howMany: 999,
                             confId: '2019',
-                            type: EventItemType.JSPOLAND,
                           )
                               .catchError(
                             (Object err) {
@@ -190,9 +200,9 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                               );
                             },
                           );
+                          Provider.of<WorkshopsProvider>(context, listen: false)
+                              .selectedItems = EventItemType.JSPOLAND;
                         }
-
-                        _selected = EventItemType.JSPOLAND;
                       });
                     },
                     child: Padding(
@@ -221,10 +231,12 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                                   .bodyText2
                                   .copyWith(
                                     color: _darkMode
-                                        ? _selected == EventItemType.JSPOLAND
+                                        ? _selectedItems ==
+                                                EventItemType.JSPOLAND
                                             ? Theme.of(context).accentColor
                                             : Colors.white
-                                        : _selected == EventItemType.JSPOLAND
+                                        : _selectedItems ==
+                                                EventItemType.JSPOLAND
                                             ? Theme.of(context).accentColor
                                             : Colors.black,
                                   ),

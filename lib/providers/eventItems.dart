@@ -4,11 +4,19 @@ import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/services/contentful.dart';
 
 class EventItemsProvider with ChangeNotifier {
-  EventItemType _selectedItems;
+  EventItemType _selectedItems = EventItemType.NGPOLAND;
 
   List<EventItem> _ngPoland = [];
 
   List<EventItem> _jsPoland = [];
+
+  EventItemType get selectedItems => _selectedItems;
+
+  set selectedItems(EventItemType val) {
+    _selectedItems = val;
+
+    notifyListeners();
+  }
 
   List<EventItem> get eventItems =>
       _selectedItems == EventItemType.NGPOLAND ? _ngPoland : _jsPoland;
@@ -18,28 +26,25 @@ class EventItemsProvider with ChangeNotifier {
   Future fetchData({
     @required int howMany,
     @required String confId,
-    @required EventItemType type,
   }) async {
     try {
-      if (type == EventItemType.NGPOLAND) {
-        _selectedItems = EventItemType.NGPOLAND;
+      if (_selectedItems == EventItemType.NGPOLAND) {
         _ngPoland = await _contentfulService.getEventItems(
           howMany: howMany,
-          type: type,
           confId: confId,
+          type: _selectedItems,
         );
       } else {
-        _selectedItems = EventItemType.JSPOLAND;
         _jsPoland = await _contentfulService.getEventItems(
           howMany: howMany,
-          type: type,
           confId: confId,
+          type: _selectedItems,
         );
       }
     } catch (err) {
       var _err = err as Failure;
 
-      if (type == EventItemType.NGPOLAND) {
+      if (_selectedItems == EventItemType.NGPOLAND) {
         _ngPoland = _err.localdata as List<EventItem>;
       } else {
         _jsPoland = _err.localdata as List<EventItem>;
@@ -61,14 +66,12 @@ class EventItemsProvider with ChangeNotifier {
       clear(_selectedItems);
 
       if (_selectedItems == EventItemType.NGPOLAND) {
-        _selectedItems = EventItemType.NGPOLAND;
         _ngPoland = await _contentfulService.getEventItems(
           howMany: howMany,
           type: _selectedItems,
           confId: confId,
         );
       } else {
-        _selectedItems = EventItemType.JSPOLAND;
         _jsPoland = await _contentfulService.getEventItems(
           howMany: howMany,
           type: _selectedItems,
