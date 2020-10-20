@@ -12,12 +12,14 @@ class _HomeTimerState extends State<HomeTimer> {
 
   Duration duration;
 
+  int _millisecondsSinceEpochToEvent;
+
   void startTimeout() {
-    var duration = const Duration(seconds: 1);
+    var timerDuration = const Duration(seconds: 1);
     _timer = Timer.periodic(
-      duration,
+      timerDuration,
       (Timer timer) => setState(() {
-        if (100 < 1) {
+        if (duration.inSeconds <= 0) {
           timer.cancel();
         }
       }),
@@ -68,9 +70,13 @@ class _HomeTimerState extends State<HomeTimer> {
 
   @override
   Widget build(BuildContext context) {
-    int _millisecondsSinceEpochToEvent =
-        DateTime.parse('2020-11-18 13:00:00z').millisecondsSinceEpoch -
-            DateTime.now().millisecondsSinceEpoch;
+    _millisecondsSinceEpochToEvent =
+        DateTime.parse('2020-11-18 09:00:00z').millisecondsSinceEpoch -
+                    DateTime.now().millisecondsSinceEpoch <
+                0
+            ? 0
+            : DateTime.parse('2020-11-18 09:00:00z').millisecondsSinceEpoch -
+                DateTime.now().millisecondsSinceEpoch;
 
     duration = Duration(
       days: 0,
@@ -79,6 +85,7 @@ class _HomeTimerState extends State<HomeTimer> {
       seconds: 0,
       milliseconds: _millisecondsSinceEpochToEvent,
     );
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.end,
