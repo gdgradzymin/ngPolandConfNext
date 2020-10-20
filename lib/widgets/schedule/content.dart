@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/screens/presenter.dart';
 import 'package:ng_poland_conf_next/widgets/connection.dart';
+import 'package:ng_poland_conf_next/widgets/schedule/event.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleContent extends StatefulWidget {
@@ -19,77 +18,25 @@ class ScheduleContent extends StatefulWidget {
 }
 
 class _ScheduleContentState extends State<ScheduleContent> {
-  Widget _getIcon(String category, Color color) {
-    switch (category) {
-      case 'registration':
-        {
-          return Icon(
-            FontAwesomeIcons.addressCard,
-            color: color,
-          );
-        }
-        break;
+  Timer _timer;
 
-      case 'welcome':
-        {
-          return Icon(
-            FontAwesomeIcons.child,
-            color: color,
-          );
-        }
-        break;
+  bool _animation = false;
 
-      case 'presentation':
-        {
-          return Icon(
-            FontAwesomeIcons.microphoneAlt,
-            color: color,
-          );
-        }
-        break;
+  @override
+  void initState() {
+    _timer = Timer.periodic(
+      const Duration(seconds: 3),
+      (Timer timer) => setState(() {
+        _animation = !_animation;
+      }),
+    );
+    super.initState();
+  }
 
-      case 'eating':
-        {
-          return Icon(
-            FontAwesomeIcons.utensils,
-            color: color,
-          );
-        }
-        break;
-
-      case 'award':
-        {
-          return Icon(
-            FontAwesomeIcons.trophy,
-            color: color,
-          );
-        }
-        break;
-
-      case 'break':
-        {
-          return Icon(
-            FontAwesomeIcons.solidComments,
-            color: color,
-          );
-        }
-        break;
-
-      case 'final':
-        {
-          return Icon(
-            FontAwesomeIcons.doorOpen,
-            color: color,
-          );
-        }
-        break;
-
-      default:
-        {
-          return const SizedBox();
-        }
-        break;
-    }
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -109,7 +56,16 @@ class _ScheduleContentState extends State<ScheduleContent> {
     }
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
-    Color _iconsColor = Theme.of(context).accentColor;
+    bool checkTimeEventToAnimation(
+      DateTime dateNow,
+      String dateStartEvent,
+      String dateEndEvent,
+    ) {
+      return DateTime.parse(dateStartEvent).millisecondsSinceEpoch <
+              dateNow.add(dateNow.timeZoneOffset).millisecondsSinceEpoch &&
+          dateNow.add(dateNow.timeZoneOffset).millisecondsSinceEpoch <
+              DateTime.parse(dateEndEvent).millisecondsSinceEpoch;
+    }
 
     return Center(
       child: widget.eventItems.isEmpty
@@ -117,134 +73,44 @@ class _ScheduleContentState extends State<ScheduleContent> {
           : ListView.builder(
               itemCount: widget.eventItems.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        onTap: widget.eventItems[index].speaker == null
-                            ? null
-                            : () {
-                                Navigator.of(context).pushNamed(
-                                  Presenter.routeName,
-                                  arguments: {
-                                    'title': widget.eventItems[index].title,
-                                    'description':
-                                        widget.eventItems[index].description,
-                                    'icon': _getIcon(
-                                      widget.eventItems[index].category,
-                                      _iconsColor,
-                                    ),
-                                    'speaker': widget.eventItems[index].speaker,
-                                  },
-                                );
-                              },
-                        leading: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              DateFormat.Hm().format(
-                                DateTime.parse(
-                                    widget.eventItems[index].startDate),
-                              ),
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .color),
+                DateTime timeNow = DateTime.now();
+
+                return Column(
+                  children: [
+                    checkTimeEventToAnimation(
+                            timeNow,
+                            widget.eventItems[index].startDate,
+                            widget.eventItems[index].endDate)
+                        ? AnimatedContainer(
+                            duration: const Duration(seconds: 3),
+                            curve: Curves.easeIn,
+                            decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: _animation
+                                      ? Theme.of(context).accentColor
+                                      : Theme.of(context).primaryColor,
+                                  blurRadius: 50,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
                             ),
-                            Text(
-                                DateFormat.Hm().format(
-                                  DateTime.parse(
-                                      widget.eventItems[index].endDate),
-                                ),
-                                style: const TextStyle(fontSize: 12)),
-                          ],
-                        ),
-                        title: Text(
-                          widget.eventItems[index].title,
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .color
-                                .withOpacity(0.8),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: widget.eventItems[index].speaker == null
-                            ? const Text('')
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Wrap(
-                                      direction: Axis.horizontal,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      spacing: 10,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
-                                          child: CachedNetworkImage(
-                                            width: 20,
-                                            progressIndicatorBuilder: (context,
-                                                    url, downloadProgress) =>
-                                                Image.asset(
-                                                    'assets/images/person.png'),
-                                            imageUrl:
-                                                'http:${widget.eventItems[index].speaker.photoFileUrl}',
-                                          ),
-                                        ),
-                                        Text(
-                                          widget.eventItems[index].speaker.name,
-                                          style: TextStyle(
-                                              color: _darkMode
-                                                  ? Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1
-                                                      .color
-                                                      .withOpacity(0.7)
-                                                  : Theme.of(context)
-                                                      .primaryColor,
-                                              fontSize: 13),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                        trailing: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Opacity(
-                              opacity: 0.6,
-                              child: _getIcon(widget.eventItems[index].category,
-                                  _iconsColor.withOpacity(0.8)),
-                            )
-                          ],
+                            child: ScheduleEvent(widget.eventItems[index]),
+                          )
+                        : ScheduleEvent(widget.eventItems[index]),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      child: Opacity(
+                        opacity: 0.9,
+                        child: Divider(
+                          height: 1,
+                          color: _darkMode
+                              ? Theme.of(context).backgroundColor
+                              : Theme.of(context).accentColor,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: Opacity(
-                          opacity: 0.9,
-                          child: Divider(
-                            height: 1,
-                            color:
-                                Theme.of(context).accentColor.withOpacity(0.5),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 );
               },
             ),
