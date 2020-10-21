@@ -70,13 +70,16 @@ class _HomeTimerState extends State<HomeTimer> {
 
   @override
   Widget build(BuildContext context) {
-    _millisecondsSinceEpochToEvent =
-        DateTime.parse('2020-11-18 09:00:00z').millisecondsSinceEpoch -
-                    DateTime.now().millisecondsSinceEpoch <
-                0
-            ? 0
-            : DateTime.parse('2020-11-18 09:00:00z').millisecondsSinceEpoch -
-                DateTime.now().millisecondsSinceEpoch;
+    _millisecondsSinceEpochToEvent = DateTime.parse('2020-11-19 09:00:00z')
+                    .add(DateTime.now().timeZoneOffset)
+                    .millisecondsSinceEpoch -
+                DateTime.now().millisecondsSinceEpoch <
+            0
+        ? 0
+        : DateTime.parse('2020-11-19 09:00:00z')
+                .add(DateTime.now().timeZoneOffset)
+                .millisecondsSinceEpoch -
+            DateTime.now().millisecondsSinceEpoch;
 
     duration = Duration(
       days: 0,
@@ -97,7 +100,8 @@ class _HomeTimerState extends State<HomeTimer> {
         ),
         timeField(
           time: DateTime.fromMillisecondsSinceEpoch(
-                  _millisecondsSinceEpochToEvent)
+                  _millisecondsSinceEpochToEvent,
+                  isUtc: true)
               .hour,
           format: 'HOURS',
           color: const Color.fromRGBO(255, 193, 7, 1),
