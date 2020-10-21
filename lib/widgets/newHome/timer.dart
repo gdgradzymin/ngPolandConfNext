@@ -70,13 +70,13 @@ class _HomeTimerState extends State<HomeTimer> {
 
   @override
   Widget build(BuildContext context) {
-    _millisecondsSinceEpochToEvent = DateTime.parse('2020-11-18 09:00:00z')
+    _millisecondsSinceEpochToEvent = DateTime.parse('2020-11-19 09:00:00z')
                     .add(DateTime.now().timeZoneOffset)
                     .millisecondsSinceEpoch -
                 DateTime.now().millisecondsSinceEpoch <
             0
         ? 0
-        : DateTime.parse('2020-11-18 09:00:00z')
+        : DateTime.parse('2020-11-19 09:00:00z')
                 .add(DateTime.now().timeZoneOffset)
                 .millisecondsSinceEpoch -
             DateTime.now().millisecondsSinceEpoch;
