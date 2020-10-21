@@ -117,9 +117,8 @@ class _ScheduleContentState extends State<ScheduleContent> {
                           opacity: 0.9,
                           child: Divider(
                             height: 1,
-                            color: _darkMode
-                                ? Theme.of(context).backgroundColor
-                                : Theme.of(context).accentColor,
+                            color:
+                                Theme.of(context).accentColor.withOpacity(0.5),
                           ),
                         ),
                       )

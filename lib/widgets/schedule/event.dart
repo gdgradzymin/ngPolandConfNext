@@ -136,8 +136,9 @@ class _ScheduleEventState extends State<ScheduleEvent> {
         title: Text(
           widget.eventItem.title,
           style: TextStyle(
-            color: Theme.of(context).textTheme.bodyText1.color,
-            fontSize: 16,
+            color: Theme.of(context).textTheme.bodyText1.color.withOpacity(0.8),
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
           ),
         ),
         subtitle: widget.eventItem.speaker == null
@@ -188,7 +189,7 @@ class _ScheduleEventState extends State<ScheduleEvent> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Opacity(
-              opacity: 0.6,
+              opacity: 0.4,
               child: _getIcon(widget.eventItem.category, _iconsColor),
             )
           ],
