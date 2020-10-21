@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -122,7 +120,7 @@ class _ScheduleEventState extends State<ScheduleEvent> {
           children: [
             Text(
               DateFormat.Hm().format(
-                DateTime.parse(widget.eventItem.startDate),
+                DateTime.parse(widget.eventItem.startDate.substring(0, 16)),
               ),
               style: TextStyle(
                   fontSize: 12,
@@ -130,7 +128,7 @@ class _ScheduleEventState extends State<ScheduleEvent> {
             ),
             Text(
                 DateFormat.Hm().format(
-                  DateTime.parse(widget.eventItem.endDate),
+                  DateTime.parse(widget.eventItem.endDate.substring(0, 16)),
                 ),
                 style: const TextStyle(fontSize: 12)),
           ],

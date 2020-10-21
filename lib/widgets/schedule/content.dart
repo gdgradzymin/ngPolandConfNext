@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:ng_poland_conf_next/providers/eventItems.dart';
 import 'package:ng_poland_conf_next/providers/themeManager.dart';
@@ -61,10 +60,10 @@ class _ScheduleContentState extends State<ScheduleContent> {
       String dateStartEvent,
       String dateEndEvent,
     ) {
-      return DateTime.parse(dateStartEvent).millisecondsSinceEpoch <
-              dateNow.add(dateNow.timeZoneOffset).millisecondsSinceEpoch &&
-          dateNow.add(dateNow.timeZoneOffset).millisecondsSinceEpoch <
-              DateTime.parse(dateEndEvent).millisecondsSinceEpoch;
+      return DateTime.parse(dateStartEvent).toLocal().millisecondsSinceEpoch <
+              dateNow.millisecondsSinceEpoch &&
+          dateNow.millisecondsSinceEpoch <
+              DateTime.parse(dateEndEvent).toLocal().millisecondsSinceEpoch;
     }
 
     return Center(
@@ -75,42 +74,57 @@ class _ScheduleContentState extends State<ScheduleContent> {
               itemBuilder: (context, index) {
                 DateTime timeNow = DateTime.now();
 
-                return Column(
-                  children: [
-                    checkTimeEventToAnimation(
-                            timeNow,
-                            widget.eventItems[index].startDate,
-                            widget.eventItems[index].endDate)
-                        ? AnimatedContainer(
-                            duration: const Duration(seconds: 3),
-                            curve: Curves.easeIn,
-                            decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: _animation
-                                      ? Theme.of(context).accentColor
-                                      : Theme.of(context).primaryColor,
-                                  blurRadius: 50,
-                                  offset: const Offset(0, 0),
-                                ),
-                              ],
-                            ),
-                            child: ScheduleEvent(widget.eventItems[index]),
-                          )
-                        : ScheduleEvent(widget.eventItems[index]),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Opacity(
-                        opacity: 0.9,
-                        child: Divider(
-                          height: 1,
-                          color: _darkMode
-                              ? Theme.of(context).backgroundColor
-                              : Theme.of(context).accentColor,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(
+                    children: [
+                      checkTimeEventToAnimation(
+                              timeNow,
+                              widget.eventItems[index].startDate,
+                              widget.eventItems[index].endDate)
+                          ? AnimatedContainer(
+                              duration: const Duration(seconds: 3),
+                              curve: Curves.easeIn,
+                              decoration: BoxDecoration(
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: _animation
+                                        ? _darkMode
+                                            ? Theme.of(context)
+                                                .accentColor
+                                                .withOpacity(0.8)
+                                            : Theme.of(context)
+                                                .accentColor
+                                                .withOpacity(0.4)
+                                        : _darkMode
+                                            ? Theme.of(context)
+                                                .primaryColor
+                                                .withOpacity(0.8)
+                                            : Theme.of(context)
+                                                .primaryColor
+                                                .withOpacity(0.4),
+                                    blurRadius: 50,
+                                    offset: const Offset(0, 0),
+                                  ),
+                                ],
+                              ),
+                              child: ScheduleEvent(widget.eventItems[index]),
+                            )
+                          : ScheduleEvent(widget.eventItems[index]),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Opacity(
+                          opacity: 0.9,
+                          child: Divider(
+                            height: 1,
+                            color: _darkMode
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).accentColor,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 );
               },
             ),
