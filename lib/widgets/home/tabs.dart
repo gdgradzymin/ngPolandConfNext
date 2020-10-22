@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ng_poland_conf_next/models/pages.dart';
-import 'package:ng_poland_conf_next/screens/about.dart';
-import 'package:ng_poland_conf_next/screens/info.dart';
-import 'package:ng_poland_conf_next/screens/ngGirls.dart';
-import 'package:ng_poland_conf_next/screens/schedule.dart';
-import 'package:ng_poland_conf_next/screens/speakers.dart';
-import 'package:ng_poland_conf_next/screens/workshops.dart';
-import 'package:ng_poland_conf_next/widgets/home/button.dart';
+import 'package:ngPolandConf/models/pages.dart';
+import 'package:ngPolandConf/screens/about.dart';
+import 'package:ngPolandConf/screens/info.dart';
+import 'package:ngPolandConf/screens/ngGirls.dart';
+import 'package:ngPolandConf/screens/schedule.dart';
+import 'package:ngPolandConf/screens/speakers.dart';
+import 'package:ngPolandConf/screens/workshops.dart';
+import 'package:ngPolandConf/widgets/home/button.dart';
 
 class HomeTabs extends StatelessWidget {
   @override

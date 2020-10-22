@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/eventItems.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
-import 'package:ng_poland_conf_next/widgets/schedule/event.dart';
+import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/providers/eventItems.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
+import 'package:ngPolandConf/widgets/schedule/event.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleContent extends StatefulWidget {

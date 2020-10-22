@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/providers/connection.dart';
+import 'package:ngPolandConf/providers/connection.dart';
 import 'package:provider/provider.dart';
 
 class ConnectionStatus extends StatelessWidget {

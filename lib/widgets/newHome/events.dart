@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ng_poland_conf_next/providers/eventItems.dart';
-import 'package:ng_poland_conf_next/providers/workShops.dart';
-import 'package:ng_poland_conf_next/screens/schedule.dart';
-import 'package:ng_poland_conf_next/screens/workShops.dart';
-import 'package:ng_poland_conf_next/services/contentful.dart';
+import 'package:ngPolandConf/providers/eventItems.dart';
+import 'package:ngPolandConf/providers/workShops.dart';
+import 'package:ngPolandConf/screens/schedule.dart';
+import 'package:ngPolandConf/screens/workShops.dart';
+import 'package:ngPolandConf/services/contentful.dart';
 import 'package:provider/provider.dart';
 
 class HomeEvents extends StatelessWidget {

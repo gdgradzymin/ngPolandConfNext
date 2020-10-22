@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
 import 'package:provider/provider.dart';
 
 class SwitchDarkMode extends StatefulWidget {

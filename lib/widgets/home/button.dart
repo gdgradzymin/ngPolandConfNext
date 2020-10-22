@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/models/pages.dart';
-import 'package:ng_poland_conf_next/providers/selectedPage.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
+import 'package:ngPolandConf/models/pages.dart';
+import 'package:ngPolandConf/providers/selectedPage.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
 import 'package:provider/provider.dart';
 
 class HomeButton extends StatelessWidget {

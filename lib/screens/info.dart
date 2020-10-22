@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/providers/infoItems.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
-import 'package:ng_poland_conf_next/widgets/drawer.dart';
-import 'package:ng_poland_conf_next/widgets/info/content.dart';
-import 'package:ng_poland_conf_next/widgets/info/navigation.dart';
+import 'package:ngPolandConf/providers/infoItems.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
+import 'package:ngPolandConf/widgets/drawer.dart';
+import 'package:ngPolandConf/widgets/info/content.dart';
+import 'package:ngPolandConf/widgets/info/navigation.dart';
 import 'package:provider/provider.dart';
 
 enum InfoContents {
