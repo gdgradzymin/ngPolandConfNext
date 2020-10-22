@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/providers/eventItems.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/providers/workShops.dart';
-import 'package:ng_poland_conf_next/services/contentful.dart';
+import 'package:ngPolandConf/providers/eventItems.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/providers/workShops.dart';
+import 'package:ngPolandConf/services/contentful.dart';
 import 'package:provider/provider.dart';
 
 class AnimatedBottomNav extends StatefulWidget {

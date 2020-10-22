@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/screens/presenter.dart';
+import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/screens/presenter.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleEvent extends StatefulWidget {

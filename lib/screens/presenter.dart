@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
+import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 

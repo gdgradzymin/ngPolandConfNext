@@ -1,4 +1,4 @@
-package com.example.ng_poland_conf_next
+package pl.ngPoland.ngPolandConf
 
 import io.flutter.embedding.android.FlutterActivity
 

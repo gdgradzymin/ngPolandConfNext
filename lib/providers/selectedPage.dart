@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/models/pages.dart';
+import 'package:ngPolandConf/models/pages.dart';
 
 class SelectedPage with ChangeNotifier {
   Pages _selectedPage = Pages(name: PagesName.home, number: 0);

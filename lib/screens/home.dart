@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
-import 'package:ng_poland_conf_next/widgets/drawer.dart';
-import 'package:ng_poland_conf_next/widgets/home/tabs.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
+import 'package:ngPolandConf/widgets/drawer.dart';
+import 'package:ngPolandConf/widgets/home/tabs.dart';
 
 class Home extends StatelessWidget {
   static const routeName = '/';

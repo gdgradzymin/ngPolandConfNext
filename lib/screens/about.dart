@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/models/authors.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
-import 'package:ng_poland_conf_next/widgets/drawer.dart';
+import 'package:ngPolandConf/models/authors.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
+import 'package:ngPolandConf/widgets/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatelessWidget {

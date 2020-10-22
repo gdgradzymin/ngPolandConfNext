@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/services/contentful.dart';
+import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/services/contentful.dart';
 
 class EventItemsProvider with ChangeNotifier {
   EventItemType _selectedItems = EventItemType.NGPOLAND;

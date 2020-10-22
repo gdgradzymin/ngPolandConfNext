@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/ngGirls.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
-import 'package:ng_poland_conf_next/widgets/drawer.dart';
+import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/providers/ngGirls.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
+import 'package:ngPolandConf/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
 class NgGirls extends StatefulWidget {

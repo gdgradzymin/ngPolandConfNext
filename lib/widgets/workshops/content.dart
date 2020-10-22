@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/providers/workShops.dart';
-import 'package:ng_poland_conf_next/screens/presenter.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
+import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/providers/workShops.dart';
+import 'package:ngPolandConf/screens/presenter.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:provider/provider.dart';
 
 class WorkshopsContent extends StatefulWidget {

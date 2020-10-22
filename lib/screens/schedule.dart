@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/models/contentful.dart';
-import 'package:ng_poland_conf_next/providers/eventItems.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
-import 'package:ng_poland_conf_next/widgets/drawer.dart';
-import 'package:ng_poland_conf_next/shared/widgets/animatedBottomNav.dart';
-import 'package:ng_poland_conf_next/widgets/schedule/content.dart';
+import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/providers/eventItems.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
+import 'package:ngPolandConf/widgets/drawer.dart';
+import 'package:ngPolandConf/shared/widgets/animatedBottomNav.dart';
+import 'package:ngPolandConf/widgets/schedule/content.dart';
 import 'package:provider/provider.dart';
 
 class Schedule extends StatefulWidget {

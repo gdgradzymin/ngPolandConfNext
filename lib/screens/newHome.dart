@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ng_poland_conf_next/widgets/connection.dart';
-import 'package:ng_poland_conf_next/widgets/drawer.dart';
-import 'package:ng_poland_conf_next/widgets/newHome/events.dart';
-import 'package:ng_poland_conf_next/widgets/newHome/timer.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
+import 'package:ngPolandConf/widgets/drawer.dart';
+import 'package:ngPolandConf/widgets/newHome/events.dart';
+import 'package:ngPolandConf/widgets/newHome/timer.dart';
 
 class Home extends StatelessWidget {
   static const routeName = '/';

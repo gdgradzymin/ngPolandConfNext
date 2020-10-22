@@ -1,26 +1,25 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:ng_poland_conf_next/providers/connection.dart';
-import 'package:ng_poland_conf_next/providers/eventItems.dart';
-import 'package:ng_poland_conf_next/providers/infoItems.dart';
-import 'package:ng_poland_conf_next/providers/speakers.dart';
-import 'package:ng_poland_conf_next/providers/workShops.dart';
-import 'package:ng_poland_conf_next/screens/presenter.dart';
-import 'package:ng_poland_conf_next/services/contentful.dart';
-import 'package:ng_poland_conf_next/providers/selectedPage.dart';
-import 'package:ng_poland_conf_next/providers/ngGirls.dart';
-import 'package:ng_poland_conf_next/providers/themeManager.dart';
-import 'package:ng_poland_conf_next/screens/about.dart';
-import 'package:ng_poland_conf_next/screens/newHome.dart';
-import 'package:ng_poland_conf_next/screens/info.dart';
-import 'package:ng_poland_conf_next/screens/ngGirls.dart';
-import 'package:ng_poland_conf_next/screens/schedule.dart';
-import 'package:ng_poland_conf_next/screens/speakers.dart';
-import 'package:ng_poland_conf_next/screens/workshops.dart';
+import 'package:ngPolandConf/providers/connection.dart';
+import 'package:ngPolandConf/providers/eventItems.dart';
+import 'package:ngPolandConf/providers/infoItems.dart';
+import 'package:ngPolandConf/providers/speakers.dart';
+import 'package:ngPolandConf/providers/workShops.dart';
+import 'package:ngPolandConf/screens/presenter.dart';
+import 'package:ngPolandConf/services/contentful.dart';
+import 'package:ngPolandConf/providers/selectedPage.dart';
+import 'package:ngPolandConf/providers/ngGirls.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/screens/about.dart';
+import 'package:ngPolandConf/screens/newHome.dart';
+import 'package:ngPolandConf/screens/info.dart';
+import 'package:ngPolandConf/screens/ngGirls.dart';
+import 'package:ngPolandConf/screens/schedule.dart';
+import 'package:ngPolandConf/screens/speakers.dart';
+import 'package:ngPolandConf/screens/workshops.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 
 GetIt locator = GetIt.instance;
 
