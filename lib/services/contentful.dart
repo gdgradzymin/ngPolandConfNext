@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ng_poland_conf_next/models/contentful.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_config/flutter_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum EventContentTypes {
@@ -19,8 +19,8 @@ enum EventItemType {
   JSPOLAND,
 }
 
-final String _accessToken = FlutterConfig.get('access_token') as String;
-final String _spaceId = FlutterConfig.get('space_id') as String;
+final String _accessToken = DotEnv().env['access_token'];
+final String _spaceId = DotEnv().env['space_id'];
 
 const String _url = 'https://cdn.contentful.com/';
 

@@ -19,7 +19,8 @@ import 'package:ng_poland_conf_next/screens/schedule.dart';
 import 'package:ng_poland_conf_next/screens/speakers.dart';
 import 'package:ng_poland_conf_next/screens/workshops.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 GetIt locator = GetIt.instance;
 
@@ -27,12 +28,11 @@ void setupSingletons() async {
   locator.registerLazySingleton<ContentfulService>(() => ContentfulService());
 }
 
-void main() async {
+Future main() async {
+  await DotEnv().load('.env');
   setupSingletons();
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  await FlutterConfig.loadEnvVariables();
 
   runApp(MyApp());
 }
