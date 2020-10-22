@@ -153,13 +153,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.2"
-  flutter_config:
-    dependency: "direct dev"
+  flutter_dotenv:
+    dependency: "direct main"
     description:
-      name: flutter_config
+      name: flutter_dotenv
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.7"
+    version: "2.1.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
