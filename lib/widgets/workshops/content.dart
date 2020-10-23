@@ -8,19 +8,25 @@ import 'package:ngPolandConf/screens/presenter.dart';
 import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:provider/provider.dart';
 
-class WorkshopsContent extends StatefulWidget {
-  WorkshopsContent({this.workshopsItems});
+class WorkshopsContent extends StatelessWidget {
+  WorkshopsContent({
+    this.refreshIndicatorKey,
+  });
 
-  final List<Workshop> workshopsItems;
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-  @override
-  _WorkshopsContentState createState() => _WorkshopsContentState();
-}
+  bool _loadingData = false;
 
-class _WorkshopsContentState extends State<WorkshopsContent> {
   @override
   Widget build(BuildContext context) {
-    if (widget.workshopsItems.isEmpty) {
+    List<Workshop> _workshopsItems =
+        Provider.of<WorkshopsProvider>(context).workshopItems;
+
+    if (_workshopsItems.isEmpty && !_loadingData) {
+      _loadingData = true;
+
+      refreshIndicatorKey.currentState?.show();
+
       Provider.of<WorkshopsProvider>(context, listen: false)
           .fetchData(
         howMany: 999,
@@ -36,101 +42,94 @@ class _WorkshopsContentState extends State<WorkshopsContent> {
 
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
     return Center(
-      child: widget.workshopsItems.isEmpty
-          ? const CircularProgressIndicator()
-          : ListView.builder(
-              itemCount: widget.workshopsItems.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
+      child: ListView.builder(
+        itemCount: _workshopsItems.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: InkWell(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        Presenter.routeName,
+                        arguments: {
+                          'speaker': _workshopsItems[index].speaker,
+                        },
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(25),
+                      ),
+                      child: CachedNetworkImage(
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                Image.asset('assets/images/person.png'),
+                        imageUrl:
+                            'http:${_workshopsItems[index].speaker.photoFileUrl}',
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    _workshopsItems[index].title,
+                    style: TextStyle(
+                      color: Provider.of<ThemeNotifier>(context).darkTheme
+                          ? Theme.of(context).accentColor
+                          : Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ListTile(
-                        leading: InkWell(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(25),
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              Presenter.routeName,
-                              arguments: {
-                                'speaker': widget.workshopsItems[index].speaker,
-                              },
-                            );
-                          },
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(25),
-                            ),
-                            child: CachedNetworkImage(
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) =>
-                                      Image.asset('assets/images/person.png'),
-                              imageUrl:
-                                  'http:${widget.workshopsItems[index].speaker.photoFileUrl}',
-                            ),
-                          ),
-                        ),
-                        title: Text(
-                          widget.workshopsItems[index].title,
-                          style: TextStyle(
-                            color: Provider.of<ThemeNotifier>(context).darkTheme
-                                ? Theme.of(context).accentColor
-                                : Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.010,
+                      ),
+                      RichText(
+                        text: TextSpan(
                           children: [
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.010,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: widget
-                                        .workshopsItems[index].speaker.name,
-                                    style: TextStyle(
-                                      color: _darkMode
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        Navigator.of(context).pushNamed(
-                                          Presenter.routeName,
-                                          arguments: {
-                                            'speaker': widget
-                                                .workshopsItems[index].speaker,
-                                          },
-                                        );
-                                      },
-                                  ),
-                                ],
+                            TextSpan(
+                              text: _workshopsItems[index].speaker.name,
+                              style: TextStyle(
+                                color: _darkMode ? Colors.white : Colors.black,
                               ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context).pushNamed(
+                                    Presenter.routeName,
+                                    arguments: {
+                                      'speaker': _workshopsItems[index].speaker,
+                                    },
+                                  );
+                                },
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.025,
-                      ),
-                      Text(widget.workshopsItems[index].description),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.035,
-                      ),
-                      Divider(
-                        height: 0,
-                        color: Theme.of(context).accentColor,
-                      )
                     ],
                   ),
-                );
-              },
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.025,
+                ),
+                Text(_workshopsItems[index].description),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.035,
+                ),
+                Divider(
+                  height: 0,
+                  color: Theme.of(context).accentColor,
+                )
+              ],
             ),
+          );
+        },
+      ),
     );
   }
 }
