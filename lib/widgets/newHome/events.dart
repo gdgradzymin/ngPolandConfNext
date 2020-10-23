@@ -5,6 +5,8 @@ import 'package:ngPolandConf/providers/workShops.dart';
 import 'package:ngPolandConf/screens/schedule.dart';
 import 'package:ngPolandConf/screens/workShops.dart';
 import 'package:ngPolandConf/services/contentful.dart';
+import 'package:ngPolandConf/models/pages.dart';
+import 'package:ngPolandConf/providers/selectedPage.dart';
 import 'package:provider/provider.dart';
 
 class HomeEvents extends StatelessWidget {
@@ -14,24 +16,28 @@ class HomeEvents extends StatelessWidget {
       'name': 'NG WORKSHOPS',
       'screen': Workshops.routeName,
       'type': EventItemType.NGPOLAND,
+      'pageName': PagesName.workshops,
     },
     {
       'date': '19-11-2020',
       'name': 'NG POLAND',
       'screen': Schedule.routeName,
       'type': EventItemType.NGPOLAND,
+      'pageName': PagesName.schedule,
     },
     {
       'date': '20-11-2020',
       'name': 'JS POLAND',
       'screen': Schedule.routeName,
       'type': EventItemType.JSPOLAND,
+      'pageName': PagesName.schedule,
     },
     {
       'date': '21-11-2020',
       'name': 'JS WORKSHOPS',
       'screen': Workshops.routeName,
       'type': EventItemType.JSPOLAND,
+      'pageName': PagesName.workshops,
     },
   ];
 
@@ -41,6 +47,7 @@ class HomeEvents extends StatelessWidget {
     String name,
     String screen,
     EventItemType eventItemType,
+    PagesName pageName,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -72,6 +79,16 @@ class HomeEvents extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
+            if (pageName == PagesName.workshops) {
+              Provider.of<SelectedPage>(context, listen: false).changeSelected(
+                name: PagesName.workshops,
+              );
+            } else if (pageName == PagesName.schedule) {
+              Provider.of<SelectedPage>(context, listen: false).changeSelected(
+                name: PagesName.schedule,
+              );
+            }
+
             if (screen == Workshops.routeName) {
               Provider.of<WorkshopsProvider>(context, listen: false)
                   .selectedItems = eventItemType;
@@ -111,6 +128,7 @@ class HomeEvents extends StatelessWidget {
                     event['name'] as String,
                     event['screen'] as String,
                     event['type'] as EventItemType,
+                    event['pageName'] as PagesName,
                   ),
                 )
                 .toList(),
@@ -126,6 +144,7 @@ class HomeEvents extends StatelessWidget {
                       event['name'] as String,
                       event['screen'] as String,
                       event['type'] as EventItemType,
+                      event['pageName'] as PagesName,
                     ),
                   )
                   .toList(),
