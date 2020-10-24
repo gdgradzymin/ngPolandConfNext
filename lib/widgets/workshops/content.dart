@@ -64,16 +64,19 @@ class WorkshopsContent extends StatelessWidget {
                         },
                       );
                     },
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(25),
-                      ),
-                      child: CachedNetworkImage(
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                Image.asset('assets/images/person.png'),
-                        imageUrl:
-                            'http:${_workshopsItems[index].speaker.photoFileUrl}',
+                    child: Hero(
+                      tag: _workshopsItems[index].speaker.photoFileUrl,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                        child: CachedNetworkImage(
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  Image.asset('assets/images/person.png'),
+                          imageUrl:
+                              'http:${_workshopsItems[index].speaker.photoFileUrl}',
+                        ),
                       ),
                     ),
                   ),

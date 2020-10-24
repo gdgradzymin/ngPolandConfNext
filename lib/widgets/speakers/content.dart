@@ -16,19 +16,6 @@ class SpeakersContent extends StatelessWidget {
 
   bool _loadingData = false;
 
-  Widget _flightShuttleBuilder(
-    BuildContext flightContext,
-    Animation<double> animation,
-    HeroFlightDirection flightDirection,
-    BuildContext fromHeroContext,
-    BuildContext toHeroContext,
-  ) {
-    return DefaultTextStyle(
-      style: DefaultTextStyle.of(toHeroContext).style,
-      child: toHeroContext.widget,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Speaker> _speakers = Provider.of<SpeakersProvider>(context).speakers;
@@ -66,12 +53,12 @@ class SpeakersContent extends StatelessWidget {
                   },
                 );
               },
-              leading: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(25),
-                ),
-                child: Hero(
-                  tag: 'image' + _speakers[index].name,
+              leading: Hero(
+                tag: _speakers[index].photoFileUrl,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(25),
+                  ),
                   child: CachedNetworkImage(
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) =>
@@ -80,33 +67,27 @@ class SpeakersContent extends StatelessWidget {
                   ),
                 ),
               ),
-              title: Hero(
-                tag: 'name' + _speakers[index].name,
-                flightShuttleBuilder: _flightShuttleBuilder,
-                child: Text(
-                  _speakers[index].name,
-                  style: TextStyle(
-                      color: Provider.of<ThemeNotifier>(context).darkTheme
-                          ? Theme.of(context).accentColor
-                          : Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w600),
-                ),
+              title: Text(
+                _speakers[index].name,
+                style: TextStyle(
+                    color: Provider.of<ThemeNotifier>(context).darkTheme
+                        ? Theme.of(context).accentColor
+                        : Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.w600),
               ),
-              subtitle: Hero(
-                tag: 'role' + _speakers[index].name,
-                flightShuttleBuilder: _flightShuttleBuilder,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text(_speakers[index].role,
-                        style: const TextStyle(fontSize: 12))),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(_speakers[index].role,
+                    style: const TextStyle(fontSize: 12)),
               ),
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Divider(
-                  height: 0,
-                  color: Theme.of(context).accentColor,
-                )),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Divider(
+                height: 0,
+                color: Theme.of(context).accentColor,
+              ),
+            ),
           ],
         );
       },
