@@ -37,7 +37,9 @@ class WorkshopsContent extends StatelessWidget {
           context: context,
           message: err.toString(),
         );
-      });
+      }).whenComplete(
+        () => _loadingData = false,
+      );
     }
 
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
