@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:ngPolandConf/widgets/drawer.dart';
@@ -38,7 +40,14 @@ class Home extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.black54,
+              height: double.infinity,
+              width: double.infinity,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
+                child: Container(
+                  color: Colors.black.withOpacity(0.55),
+                ),
+              ),
             ),
             ListView(
               addRepaintBoundaries: false,
