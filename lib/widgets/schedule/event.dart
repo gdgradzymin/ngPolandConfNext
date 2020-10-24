@@ -154,17 +154,20 @@ class _ScheduleEventState extends State<ScheduleEvent> {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       spacing: 10,
                       children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          child: CachedNetworkImage(
-                            width: 20,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    Image.asset('assets/images/person.png'),
-                            imageUrl:
-                                'http:${widget.eventItem.speaker.photoFileUrl}',
+                        Hero(
+                          tag: widget.eventItem.speaker.photoFileUrl,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            child: CachedNetworkImage(
+                              width: 20,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      Image.asset('assets/images/person.png'),
+                              imageUrl:
+                                  'http:${widget.eventItem.speaker.photoFileUrl}',
+                            ),
                           ),
                         ),
                         Text(

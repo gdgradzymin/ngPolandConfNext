@@ -51,20 +51,23 @@ class Presenter extends StatelessWidget {
                   child: Stack(
                     children: [
                       Center(
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(180)),
-                          child: _speaker.photoFileUrl == null
-                              ? Image.asset(
-                                  'assets/images/person.png',
-                                  width: double.infinity,
-                                )
-                              : CachedNetworkImage(
-                                  progressIndicatorBuilder: (context, url,
-                                          downloadProgress) =>
-                                      Image.asset('assets/images/person.png'),
-                                  imageUrl: 'http:${_speaker.photoFileUrl}',
-                                ),
+                        child: Hero(
+                          tag: _speaker.photoFileUrl,
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(180)),
+                            child: _speaker.photoFileUrl == null
+                                ? Image.asset(
+                                    'assets/images/person.png',
+                                    width: double.infinity,
+                                  )
+                                : CachedNetworkImage(
+                                    progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
+                                        Image.asset('assets/images/person.png'),
+                                    imageUrl: 'http:${_speaker.photoFileUrl}',
+                                  ),
+                          ),
                         ),
                       ),
                       Container(
