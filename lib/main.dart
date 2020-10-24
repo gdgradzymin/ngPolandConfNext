@@ -155,9 +155,9 @@ class _MyAppState extends State<MyApp> {
               // When navigating to the "/" route, build the FirstScreen widget.
               '/': (context) => Home(title: 'ngPolandConf'),
               // When navigating to the "/second" route, build the SecondScreen widget.
-              '/Schedule': (context) => const Schedule(title: 'Schedule'),
+              '/Schedule': (context) => Schedule(title: 'Schedule'),
               '/Workshops': (context) => Workshops(title: 'Workshops'),
-              '/NgGirls': (context) => const NgGirls(title: 'ngGirls'),
+              '/NgGirls': (context) => NgGirls(title: 'ngGirls'),
               '/Speakers': (context) => Speakers(title: 'Speakers'),
               '/Info': (context) => Info(title: 'Info'),
               '/About': (context) => About(title: 'About'),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
 import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:ngPolandConf/widgets/drawer.dart';
@@ -7,34 +6,30 @@ import 'package:ngPolandConf/shared/widgets/animatedBottomNav.dart';
 import 'package:ngPolandConf/widgets/schedule/content.dart';
 import 'package:provider/provider.dart';
 
-class Schedule extends StatefulWidget {
+class Schedule extends StatelessWidget {
   static const routeName = '/Schedule';
+
+  Schedule({Key key, this.title}) : super(key: key);
 
   final String title;
 
-  const Schedule({Key key, this.title}) : super(key: key);
-
-  @override
-  _ScheduleState createState() => _ScheduleState();
-}
-
-class _ScheduleState extends State<Schedule> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
-    List<EventItem> _eventItems =
-        Provider.of<EventItemsProvider>(context).eventItems;
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
       drawer: DrawerNg(),
       body: RefreshIndicator(
+        key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<EventItemsProvider>(context, listen: false)
             .refreshData(
           howMany: 999,
@@ -47,7 +42,7 @@ class _ScheduleState extends State<Schedule> {
             scaffoldKeyCurrentState: _scaffoldKey.currentState,
           );
         }),
-        child: ScheduleContent(eventItems: _eventItems),
+        child: ScheduleContent(refreshIndicatorKey: _refreshIndicatorKey),
       ),
       bottomNavigationBar: AnimatedBottomNav(
         deviceSize: MediaQuery.of(context).size,

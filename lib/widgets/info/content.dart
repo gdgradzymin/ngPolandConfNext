@@ -3,17 +3,43 @@ import 'package:flutter/material.dart';
 import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/infoItems.dart';
 import 'package:ngPolandConf/screens/info.dart';
+import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoContent extends StatelessWidget {
+  InfoContent({
+    this.selectedContent,
+    this.refreshIndicatorKey,
+  });
+
   final InfoContents selectedContent;
 
-  InfoContent({this.selectedContent});
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+
+  bool _loadingData = false;
 
   @override
   Widget build(BuildContext context) {
     List<InfoItem> _info = Provider.of<InfoItemsProvider>(context).infoItems;
+
+    if (_info.isEmpty && !_loadingData) {
+      _loadingData = true;
+
+      refreshIndicatorKey.currentState?.show();
+
+      Provider.of<InfoItemsProvider>(context, listen: false)
+          .fetchData(
+        howMany: 999,
+        confId: '2019',
+      )
+          .catchError((Object err) {
+        ConnectionSnackBar.show(
+          context: context,
+          message: err.toString(),
+        );
+      });
+    }
 
     return Container(
       child: _info.isEmpty
