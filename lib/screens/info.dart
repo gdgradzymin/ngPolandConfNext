@@ -27,6 +27,9 @@ class Info extends StatefulWidget {
 class _InfoState extends State<Info> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   InfoContents _currentContent = InfoContents.location;
   int _whoColorIcon = 0;
 
@@ -46,23 +49,6 @@ class _InfoState extends State<Info> {
         });
       });
     }
-  }
-
-  @override
-  void initState() {
-    Provider.of<InfoItemsProvider>(context, listen: false)
-        .fetchData(
-      howMany: 999,
-      confId: '2019',
-    )
-        .catchError((Object err) {
-      ConnectionSnackBar.show(
-        context: context,
-        message: err.toString(),
-        scaffoldKeyCurrentState: _scaffoldKey.currentState,
-      );
-    });
-    super.initState();
   }
 
   @override
@@ -90,6 +76,7 @@ class _InfoState extends State<Info> {
             ),
             Expanded(
               child: RefreshIndicator(
+                key: _refreshIndicatorKey,
                 onRefresh: () async =>
                     await Provider.of<InfoItemsProvider>(context, listen: false)
                         .refreshData(
@@ -105,7 +92,10 @@ class _InfoState extends State<Info> {
                 }),
                 child: ListView(
                   children: [
-                    InfoContent(selectedContent: _currentContent),
+                    InfoContent(
+                      selectedContent: _currentContent,
+                      refreshIndicatorKey: _refreshIndicatorKey,
+                    ),
                   ],
                 ),
               ),

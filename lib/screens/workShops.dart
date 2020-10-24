@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/workShops.dart';
 import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:ngPolandConf/widgets/drawer.dart';
@@ -21,11 +20,11 @@ class Workshops extends StatefulWidget {
 class _WorkshopsState extends State<Workshops> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   @override
   Widget build(BuildContext context) {
-    List<Workshop> _workshopsItems =
-        Provider.of<WorkshopsProvider>(context).workshopItems;
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -35,6 +34,7 @@ class _WorkshopsState extends State<Workshops> {
       ),
       drawer: DrawerNg(),
       body: RefreshIndicator(
+        key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<WorkshopsProvider>(context, listen: false)
             .refreshData(
           howMany: 999,
@@ -47,7 +47,9 @@ class _WorkshopsState extends State<Workshops> {
             scaffoldKeyCurrentState: _scaffoldKey.currentState,
           );
         }),
-        child: WorkshopsContent(workshopsItems: _workshopsItems),
+        child: WorkshopsContent(
+          refreshIndicatorKey: _refreshIndicatorKey,
+        ),
       ),
       bottomNavigationBar: AnimatedBottomNav(
         deviceSize: MediaQuery.of(context).size,
