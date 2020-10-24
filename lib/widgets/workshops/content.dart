@@ -96,8 +96,14 @@ class WorkshopsContent extends StatelessWidget {
                             TextSpan(
                               text: _workshopsItems[index].speaker.name,
                               style: TextStyle(
-                                color: _darkMode ? Colors.white : Colors.black,
-                              ),
+                                  color: _darkMode
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(0.7)
+                                      : Theme.of(context).primaryColor,
+                                  fontSize: 13),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.of(context).pushNamed(
