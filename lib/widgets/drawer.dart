@@ -66,8 +66,12 @@ class _DrawerNgState extends State<DrawerNg> {
                       title: const Text('Schedule'),
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.schedule);
-                        Navigator.of(context)
-                            .pushReplacementNamed(Schedule.routeName);
+                        Navigator.of(context).pushReplacementNamed(
+                          Schedule.routeName,
+                          arguments: {
+                            'route': 'left',
+                          },
+                        );
                       },
                     ),
                   ),
@@ -85,8 +89,12 @@ class _DrawerNgState extends State<DrawerNg> {
                       title: const Text('Workshops'),
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.workshops);
-                        Navigator.of(context)
-                            .pushReplacementNamed(Workshops.routeName);
+                        Navigator.of(context).pushReplacementNamed(
+                          Workshops.routeName,
+                          arguments: {
+                            'route': 'left',
+                          },
+                        );
                       },
                     ),
                   ),

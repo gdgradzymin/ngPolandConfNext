@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/connection.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
 import 'package:ngPolandConf/providers/infoItems.dart';
@@ -18,6 +19,7 @@ import 'package:ngPolandConf/screens/ngGirls.dart';
 import 'package:ngPolandConf/screens/schedule.dart';
 import 'package:ngPolandConf/screens/speakers.dart';
 import 'package:ngPolandConf/screens/workshops.dart';
+import 'package:ngPolandConf/shared/widgets/slideRoutes.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -151,17 +153,76 @@ class _MyAppState extends State<MyApp> {
             ),
             themeMode: theme.darkTheme ? ThemeMode.dark : ThemeMode.light,
             initialRoute: '/',
-            routes: {
-              // When navigating to the "/" route, build the FirstScreen widget.
-              '/': (context) => Home(title: 'ngPolandConf'),
-              // When navigating to the "/second" route, build the SecondScreen widget.
-              '/Schedule': (context) => Schedule(title: 'Schedule'),
-              '/Workshops': (context) => Workshops(title: 'Workshops'),
-              '/NgGirls': (context) => NgGirls(title: 'ngGirls'),
-              '/Speakers': (context) => Speakers(title: 'Speakers'),
-              '/Info': (context) => Info(title: 'Info'),
-              '/About': (context) => About(title: 'About'),
-              '/Presenter': (context) => Presenter(),
+            onGenerateRoute: (RouteSettings settings) {
+              var defaultRoutes = {
+                '/': (dynamic context) => Home(title: 'ngPolandConf'),
+                '/NgGirls': (dynamic context) => NgGirls(title: 'ngGirls'),
+                '/Speakers': (dynamic context) => Speakers(title: 'Speakers'),
+                '/Info': (dynamic context) => Info(title: 'Info'),
+                '/About': (dynamic context) => About(title: 'About'),
+              };
+
+              switch (settings.name) {
+                case '/Presenter':
+                  {
+                    final Map<String, Object> _data =
+                        settings.arguments as Map<String, Object>;
+
+                    final Speaker _speaker = _data['speaker'] as Speaker;
+
+                    return PresenterRoute(
+                      page: Presenter(
+                        data: _data,
+                        speaker: _speaker,
+                      ),
+                    );
+                  }
+                  break;
+
+                case '/Workshops':
+                  {
+                    final Map<String, Object> _data =
+                        settings.arguments as Map<String, Object>;
+
+                    final String _route = _data['route'] as String;
+
+                    return _route == 'scale'
+                        ? ScaleRoute(
+                            page: Workshops(title: 'Workshops'),
+                          )
+                        : LeftRoute(
+                            page: Workshops(title: 'Workshops'),
+                          );
+                  }
+                  break;
+
+                case '/Schedule':
+                  {
+                    final Map<String, Object> _data =
+                        settings.arguments as Map<String, Object>;
+
+                    final String _route = _data['route'] as String;
+
+                    return _route == 'scale'
+                        ? ScaleRoute(
+                            page: Schedule(title: 'Schedule'),
+                          )
+                        : LeftRoute(
+                            page: Schedule(title: 'Schedule'),
+                          );
+                  }
+                  break;
+
+                default:
+                  {
+                    return MaterialPageRoute<dynamic>(
+                      builder: (context) =>
+                          defaultRoutes[settings.name](context),
+                      settings: settings,
+                    );
+                  }
+                  break;
+              }
             },
           );
         },

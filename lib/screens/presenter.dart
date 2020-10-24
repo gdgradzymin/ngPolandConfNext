@@ -10,13 +10,20 @@ import 'package:url_launcher/url_launcher.dart';
 class Presenter extends StatelessWidget {
   static const routeName = '/Presenter';
 
+  Presenter({
+    this.data,
+    this.speaker,
+  });
+
+  final Map<String, Object> data;
+  final Speaker speaker;
+
   @override
   Widget build(BuildContext context) {
-    var _data =
-        ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    // var _data = ModalRoute.of(context).settings.arguments as Map<String, Object>;
     var _darkTheme = Provider.of<ThemeNotifier>(context).darkTheme;
 
-    Speaker _speaker = _data['speaker'] as Speaker;
+    // Speaker _speaker = _data['speaker'] as Speaker;
 
     return Scaffold(
       appBar: AppBar(
@@ -33,9 +40,9 @@ class Presenter extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Text(
-                  _data['title'] != null
-                      ? _data['title'].toString()
-                      : _speaker.name,
+                  data['title'] != null
+                      ? data['title'].toString()
+                      : speaker.name,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         color: _darkTheme
                             ? Theme.of(context).accentColor
@@ -52,11 +59,11 @@ class Presenter extends StatelessWidget {
                     children: [
                       Center(
                         child: Hero(
-                          tag: _speaker.photoFileUrl,
+                          tag: speaker.photoFileUrl,
                           child: ClipRRect(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(180)),
-                            child: _speaker.photoFileUrl == null
+                            child: speaker.photoFileUrl == null
                                 ? Image.asset(
                                     'assets/images/person.png',
                                     width: double.infinity,
@@ -65,7 +72,7 @@ class Presenter extends StatelessWidget {
                                     progressIndicatorBuilder: (context, url,
                                             downloadProgress) =>
                                         Image.asset('assets/images/person.png'),
-                                    imageUrl: 'http:${_speaker.photoFileUrl}',
+                                    imageUrl: 'http:${speaker.photoFileUrl}',
                                   ),
                           ),
                         ),
@@ -79,7 +86,7 @@ class Presenter extends StatelessWidget {
                               borderRadius: BorderRadius.circular(100.0),
                             ),
                             onPressed: () {
-                              launch(_speaker.urlTwitter);
+                              launch(speaker.urlTwitter);
                             },
                             color: Colors.white,
                             height: 50,
@@ -101,7 +108,7 @@ class Presenter extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
-                  _speaker.role,
+                  speaker.role,
                   style: Theme.of(context).textTheme.bodyText2.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -110,18 +117,18 @@ class Presenter extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                child: _data['description'] != null
+                child: data['description'] != null
                     ? Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: Text(
-                          _data['description'].toString(),
+                          data['description'].toString(),
                           textAlign: TextAlign.justify,
                         ),
                       )
-                    : _speaker.bio != null
+                    : speaker.bio != null
                         ? Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(_speaker.bio,
+                            child: Text(speaker.bio,
                                 style: Theme.of(context).textTheme.bodyText2),
                           )
                         : Container(
@@ -130,7 +137,7 @@ class Presenter extends StatelessWidget {
                             width: double.infinity,
                             child: FittedBox(
                               child: Opacity(
-                                  opacity: 0.1, child: _data['icon'] as Icon),
+                                  opacity: 0.1, child: data['icon'] as Icon),
                             ),
                           ),
               ),
