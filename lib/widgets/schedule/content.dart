@@ -64,8 +64,11 @@ class _ScheduleContentState extends State<ScheduleContent> {
           context: context,
           message: err.toString(),
         );
-      });
+      }).whenComplete(
+        () => _loadingData = false,
+      );
     }
+
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
     bool checkTimeEventToAnimation(
