@@ -68,7 +68,7 @@ class HomeEvents extends StatelessWidget {
             Text(
               date,
               style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Colors.white.withOpacity(0.75),
+                    color: Colors.white.withOpacity(0.65),
                     fontSize: 15,
                   ),
             )
@@ -104,7 +104,7 @@ class HomeEvents extends StatelessWidget {
           child: Text(
             name,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).accentColor.withOpacity(0.95),
                   fontSize: 18,
                 ),
           ),
