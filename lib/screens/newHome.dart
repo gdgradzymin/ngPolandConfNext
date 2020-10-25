@@ -35,19 +35,12 @@ class Home extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: Image.asset(
-                'assets/images/tlo.jpg',
+                'assets/images/background_blured.jpg',
                 fit: BoxFit.cover,
               ),
             ),
             Container(
-              height: double.infinity,
-              width: double.infinity,
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
-                child: Container(
-                  color: Colors.black.withOpacity(0.55),
-                ),
-              ),
+              color: Colors.black.withOpacity(0.65),
             ),
             ListView(
               addRepaintBoundaries: false,
@@ -64,7 +57,8 @@ class Home extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white.withOpacity(0.7),
-                              fontSize: 28),
+                              fontSize: 28,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                       SizedBox(
