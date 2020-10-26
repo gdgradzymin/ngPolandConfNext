@@ -4,6 +4,7 @@ import 'package:ngPolandConf/screens/presenter.dart';
 import 'package:ngPolandConf/providers/themeManager.dart';
 import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/speakers.dart';
+import 'package:ngPolandConf/shared/widgets/emptyListInformation.dart';
 import 'package:provider/provider.dart';
 
 class SpeakersContent extends StatefulWidget {
@@ -29,27 +30,7 @@ class _SpeakersContentState extends State<SpeakersContent> {
     List<Speaker> _speakers = Provider.of<SpeakersProvider>(context).speakers;
 
     return _speakers == null
-        ? Stack(
-            children: [
-              ListView(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'We\'re in the process of updating this information, please check again later.',
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  const Icon(
-                    Icons.update,
-                    size: 35,
-                  )
-                ],
-              )
-            ],
-          )
+        ? EmptyListInformation()
         : ListView.builder(
             itemCount: _speakers.length,
             itemBuilder: (context, index) {
