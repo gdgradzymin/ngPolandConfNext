@@ -4,93 +4,105 @@ import 'package:ngPolandConf/screens/presenter.dart';
 import 'package:ngPolandConf/providers/themeManager.dart';
 import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/speakers.dart';
-import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:provider/provider.dart';
 
-class SpeakersContent extends StatelessWidget {
+class SpeakersContent extends StatefulWidget {
   SpeakersContent(
     this.refreshIndicatorKey,
   );
 
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-  bool _loadingData = false;
+  @override
+  _SpeakersContentState createState() => _SpeakersContentState();
+}
+
+class _SpeakersContentState extends State<SpeakersContent> {
+  @override
+  void initState() {
+    widget.refreshIndicatorKey.currentState?.show();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     List<Speaker> _speakers = Provider.of<SpeakersProvider>(context).speakers;
 
-    if (_speakers.isEmpty && !_loadingData) {
-      _loadingData = true;
-
-      refreshIndicatorKey.currentState?.show();
-
-      Provider.of<SpeakersProvider>(context, listen: false)
-          .fetchData(
-        howMany: 999,
-        confId: '2019',
-      )
-          .catchError((Object err) {
-        ConnectionSnackBar.show(
-          context: context,
-          message: err.toString(),
-        );
-      });
-    }
-
-    return ListView.builder(
-      itemCount: _speakers.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            ListTile(
-              contentPadding: const EdgeInsets.all(16),
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  Presenter.routeName,
-                  arguments: {
-                    'speaker': _speakers[index],
-                  },
-                );
-              },
-              leading: Hero(
-                tag: _speakers[index].photoFileUrl,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(25),
+    return _speakers == null
+        ? Stack(
+            children: [
+              ListView(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'We\'re in the process of updating this information, please check again later.',
+                    textAlign: TextAlign.center,
                   ),
-                  child: CachedNetworkImage(
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            Image.asset('assets/images/person.png'),
-                    imageUrl: 'http:${_speakers[index].photoFileUrl}',
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
                   ),
-                ),
-              ),
-              title: Text(
-                _speakers[index].name,
-                style: TextStyle(
-                    color: Provider.of<ThemeNotifier>(context).darkTheme
-                        ? Theme.of(context).accentColor
-                        : Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.w600),
-              ),
-              subtitle: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(_speakers[index].role,
-                    style: const TextStyle(fontSize: 12)),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Divider(
-                height: 0,
-                color: Theme.of(context).accentColor,
-              ),
-            ),
-          ],
-        );
-      },
-    );
+                  const Icon(
+                    Icons.update,
+                    size: 35,
+                  )
+                ],
+              )
+            ],
+          )
+        : ListView.builder(
+            itemCount: _speakers.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  ListTile(
+                    contentPadding: const EdgeInsets.all(16),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        Presenter.routeName,
+                        arguments: {
+                          'speaker': _speakers[index],
+                        },
+                      );
+                    },
+                    leading: Hero(
+                      tag: _speakers[index].photoFileUrl,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                        child: CachedNetworkImage(
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  Image.asset('assets/images/person.png'),
+                          imageUrl: 'http:${_speakers[index].photoFileUrl}',
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      _speakers[index].name,
+                      style: TextStyle(
+                          color: Provider.of<ThemeNotifier>(context).darkTheme
+                              ? Theme.of(context).accentColor
+                              : Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(_speakers[index].role,
+                          style: const TextStyle(fontSize: 12)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Divider(
+                      height: 0,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
   }
 }

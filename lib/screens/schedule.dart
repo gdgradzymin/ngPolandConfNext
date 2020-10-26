@@ -31,7 +31,7 @@ class Schedule extends StatelessWidget {
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<EventItemsProvider>(context, listen: false)
-            .refreshData(
+            .fetchData(
           howMany: 999,
           confId: '2019',
         )
@@ -42,11 +42,12 @@ class Schedule extends StatelessWidget {
             scaffoldKeyCurrentState: _scaffoldKey.currentState,
           );
         }),
-        child: ScheduleContent(refreshIndicatorKey: _refreshIndicatorKey),
+        child: ScheduleContent(),
       ),
       bottomNavigationBar: AnimatedBottomNav(
         deviceSize: MediaQuery.of(context).size,
         provider: EventItemsProvider,
+        refreshIndicatorKey: _refreshIndicatorKey,
       ),
     );
   }

@@ -30,7 +30,7 @@ class Speakers extends StatelessWidget {
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<SpeakersProvider>(context, listen: false)
-            .refreshData(
+            .fetchData(
           howMany: 999,
           confId: '2019',
         )
