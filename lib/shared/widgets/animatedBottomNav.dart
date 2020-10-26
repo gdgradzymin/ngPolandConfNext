@@ -109,12 +109,13 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           Provider.of<WorkshopsProvider>(context, listen: false)
                               .selectedItems = EventItemType.NGPOLAND;
 
-                          List<Workshop> _eventItems =
+                          List<Workshop> _workshopItems =
                               Provider.of<WorkshopsProvider>(context,
                                       listen: false)
                                   .workshopItems;
 
-                          if (_eventItems == null || _eventItems.isEmpty) {
+                          if (_workshopItems == null ||
+                              _workshopItems.isEmpty) {
                             widget.refreshIndicatorKey.currentState?.show();
                           }
                         }
@@ -180,12 +181,13 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           Provider.of<WorkshopsProvider>(context, listen: false)
                               .selectedItems = EventItemType.JSPOLAND;
 
-                          List<Workshop> _eventItems =
+                          List<Workshop> _workshopItems =
                               Provider.of<WorkshopsProvider>(context,
                                       listen: false)
                                   .workshopItems;
 
-                          if (_eventItems == null || _eventItems.isEmpty) {
+                          if (_workshopItems == null ||
+                              _workshopItems.isEmpty) {
                             widget.refreshIndicatorKey.currentState?.show();
                           }
                         }

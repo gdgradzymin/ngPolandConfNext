@@ -46,7 +46,7 @@ class SpeakersProvider with ChangeNotifier {
   void clear() {
     _speakers = [];
 
-    _loadedSpeakers = true;
+    _loadedSpeakers = false;
 
     notifyListeners();
   }
