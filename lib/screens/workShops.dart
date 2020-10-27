@@ -36,7 +36,7 @@ class _WorkshopsState extends State<Workshops> {
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<WorkshopsProvider>(context, listen: false)
-            .refreshData(
+            .fetchData(
           howMany: 999,
           confId: '2019',
         )
@@ -47,13 +47,12 @@ class _WorkshopsState extends State<Workshops> {
             scaffoldKeyCurrentState: _scaffoldKey.currentState,
           );
         }),
-        child: WorkshopsContent(
-          refreshIndicatorKey: _refreshIndicatorKey,
-        ),
+        child: WorkshopsContent(),
       ),
       bottomNavigationBar: AnimatedBottomNav(
         deviceSize: MediaQuery.of(context).size,
         provider: WorkshopsProvider,
+        refreshIndicatorKey: _refreshIndicatorKey,
       ),
     );
   }

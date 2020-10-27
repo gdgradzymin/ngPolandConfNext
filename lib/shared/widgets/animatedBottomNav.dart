@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
 import 'package:ngPolandConf/providers/themeManager.dart';
 import 'package:ngPolandConf/providers/workShops.dart';
@@ -8,10 +9,12 @@ import 'package:provider/provider.dart';
 class AnimatedBottomNav extends StatefulWidget {
   final Size deviceSize;
   final dynamic provider;
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   AnimatedBottomNav({
     this.deviceSize,
     this.provider,
+    this.refreshIndicatorKey,
   });
 
   @override
@@ -20,6 +23,12 @@ class AnimatedBottomNav extends StatefulWidget {
 
 class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
   double _positionAnimatedColor;
+
+  @override
+  void initState() {
+    widget.refreshIndicatorKey.currentState?.show();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +96,28 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           Provider.of<EventItemsProvider>(context,
                                   listen: false)
                               .selectedItems = EventItemType.NGPOLAND;
+
+                          List<EventItem> _eventItems =
+                              Provider.of<EventItemsProvider>(context,
+                                      listen: false)
+                                  .eventItems;
+
+                          if (_eventItems == null || _eventItems.isEmpty) {
+                            widget.refreshIndicatorKey.currentState?.show();
+                          }
                         } else {
                           Provider.of<WorkshopsProvider>(context, listen: false)
                               .selectedItems = EventItemType.NGPOLAND;
+
+                          List<Workshop> _workshopItems =
+                              Provider.of<WorkshopsProvider>(context,
+                                      listen: false)
+                                  .workshopItems;
+
+                          if (_workshopItems == null ||
+                              _workshopItems.isEmpty) {
+                            widget.refreshIndicatorKey.currentState?.show();
+                          }
                         }
                       });
                     },
@@ -140,9 +168,28 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                           Provider.of<EventItemsProvider>(context,
                                   listen: false)
                               .selectedItems = EventItemType.JSPOLAND;
+
+                          List<EventItem> _eventItems =
+                              Provider.of<EventItemsProvider>(context,
+                                      listen: false)
+                                  .eventItems;
+
+                          if (_eventItems == null || _eventItems.isEmpty) {
+                            widget.refreshIndicatorKey.currentState?.show();
+                          }
                         } else {
                           Provider.of<WorkshopsProvider>(context, listen: false)
                               .selectedItems = EventItemType.JSPOLAND;
+
+                          List<Workshop> _workshopItems =
+                              Provider.of<WorkshopsProvider>(context,
+                                      listen: false)
+                                  .workshopItems;
+
+                          if (_workshopItems == null ||
+                              _workshopItems.isEmpty) {
+                            widget.refreshIndicatorKey.currentState?.show();
+                          }
                         }
                       });
                     },
