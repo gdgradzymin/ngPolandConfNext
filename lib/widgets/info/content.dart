@@ -31,7 +31,6 @@ class InfoContent extends StatelessWidget {
       Provider.of<InfoItemsProvider>(context, listen: false)
           .fetchData(
         howMany: 999,
-        confId: '2019',
       )
           .catchError((Object err) {
         ConnectionSnackBar.show(

@@ -34,7 +34,6 @@ class EventItemsProvider with ChangeNotifier {
 
   Future fetchData({
     @required int howMany,
-    @required String confId,
   }) async {
     try {
       if (_selectedItems == EventItemType.NGPOLAND && _ngPoland.isNotEmpty) {
@@ -48,7 +47,6 @@ class EventItemsProvider with ChangeNotifier {
         _ngPoland = await _contentfulService.getEventItems(
           howMany: howMany,
           type: _selectedItems,
-          confId: confId,
         );
 
         _loadedNgPoland = true;
@@ -56,7 +54,6 @@ class EventItemsProvider with ChangeNotifier {
         _jsPoland = await _contentfulService.getEventItems(
           howMany: howMany,
           type: _selectedItems,
-          confId: confId,
         );
 
         _loadedJsPoland = true;

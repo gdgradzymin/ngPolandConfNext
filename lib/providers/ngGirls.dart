@@ -12,12 +12,10 @@ class NgGirlsProvider with ChangeNotifier {
 
   Future fetchData({
     String myId,
-    String confId,
   }) async {
     try {
       _data = await _contentfulService.getSimpleContentById(
         myId: myId,
-        confId: confId,
       );
     } catch (err) {
       var _err = err as Failure;
@@ -41,7 +39,6 @@ class NgGirlsProvider with ChangeNotifier {
     try {
       _data = await _contentfulService.getSimpleContentById(
         myId: myId,
-        confId: confId,
       );
     } catch (err) {
       var _err = err as Failure;

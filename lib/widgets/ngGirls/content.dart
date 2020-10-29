@@ -26,7 +26,6 @@ class NgGirlsContent extends StatelessWidget {
       Provider.of<NgGirlsProvider>(context, listen: false)
           .fetchData(
         myId: 'ng-girls-workshops',
-        confId: '2019',
       )
           .catchError((Object err) {
         ConnectionSnackBar.show(
