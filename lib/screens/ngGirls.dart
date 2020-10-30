@@ -40,10 +40,7 @@ class NgGirls extends StatelessWidget {
                 key: _refreshIndicatorKey,
                 onRefresh: () =>
                     Provider.of<NgGirlsProvider>(context, listen: false)
-                        .refreshData(
-                  myId: 'ng-girls-workshops',
-                  confId: '2019',
-                )
+                        .refreshData(myId: 'ng-girls-workshops')
                         .catchError((Object err) {
                   ConnectionSnackBar.show(
                     context: context,

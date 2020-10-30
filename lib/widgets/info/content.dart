@@ -64,22 +64,24 @@ class InfoContent extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: 'More Info: ',
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'here',
-                        style: const TextStyle(color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            launch(_info[selectedContent.index].urlLink);
-                          },
-                      ),
-                    ],
-                  ),
-                )
+                _info[selectedContent.index].urlLink != null
+                    ? RichText(
+                        text: TextSpan(
+                          text: 'More Info: ',
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'here',
+                              style: const TextStyle(color: Colors.blue),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  launch(_info[selectedContent.index].urlLink);
+                                },
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container()
               ],
             ),
     );

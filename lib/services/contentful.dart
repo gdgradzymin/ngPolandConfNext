@@ -31,7 +31,7 @@ class ContentfulService {
   static const String _connectionLostMessage =
       'No Internet connection, please try later.';
 
-  static const String _confID = '2019';
+  static const String _confID = '2020';
 
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
