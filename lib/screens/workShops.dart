@@ -38,7 +38,6 @@ class _WorkshopsState extends State<Workshops> {
         onRefresh: () => Provider.of<WorkshopsProvider>(context, listen: false)
             .fetchData(
           howMany: 999,
-          confId: '2019',
         )
             .catchError((Object err) {
           ConnectionSnackBar.show(

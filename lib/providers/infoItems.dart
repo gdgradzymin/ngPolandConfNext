@@ -12,12 +12,10 @@ class InfoItemsProvider with ChangeNotifier {
 
   Future fetchData({
     @required int howMany,
-    @required String confId,
   }) async {
     try {
       _infoItems = await _contentfulService.getInfoItems(
         howMany: howMany,
-        confId: confId,
       );
     } catch (err) {
       var _err = err as Failure;
@@ -41,7 +39,6 @@ class InfoItemsProvider with ChangeNotifier {
     try {
       _infoItems = await _contentfulService.getInfoItems(
         howMany: howMany,
-        confId: confId,
       );
     } catch (err) {
       var _err = err as Failure;

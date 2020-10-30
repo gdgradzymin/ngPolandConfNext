@@ -31,6 +31,8 @@ class ContentfulService {
   static const String _connectionLostMessage =
       'No Internet connection, please try later.';
 
+  static const String _confID = '2019';
+
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
       case EventContentTypes.SPEAKER:
@@ -115,7 +117,6 @@ class ContentfulService {
 
   Future<List<InfoItem>> getInfoItems({
     int howMany,
-    String confId,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -127,7 +128,7 @@ class ContentfulService {
             contentType: getStringFromEventContentTypes(
               EventContentTypes.INFO_ITEM,
             ),
-            fields: ['confId=$confId'],
+            fields: ['confId=$_confID'],
             order: 'fields.order',
             limit: howMany.toString(),
           ));
@@ -175,7 +176,6 @@ class ContentfulService {
   Future<List<EventItem>> getEventItems({
     int howMany,
     EventItemType type,
-    String confId,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -189,7 +189,7 @@ class ContentfulService {
             ),
             fields: [
               'type=${getStringFromEventItemType(type)}',
-              'confId=$confId'
+              'confId=$_confID'
             ],
             order: 'fields.startDate',
             limit: howMany.toString(),
@@ -278,7 +278,6 @@ class ContentfulService {
 
   Future<SimpleContent> getSimpleContentById({
     String myId,
-    String confId,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -290,7 +289,7 @@ class ContentfulService {
             contentType: getStringFromEventContentTypes(
               EventContentTypes.SIMPLE_CONTENT,
             ),
-            fields: ['myId=$myId', 'confId=$confId'],
+            fields: ['myId=$myId', 'confId=$_confID'],
           ));
 
       dynamic dataDecode = jsonDecode(utf8.decode(response.bodyBytes));
@@ -330,7 +329,6 @@ class ContentfulService {
   Future<List<Workshop>> getWorkshops({
     int howMany,
     EventItemType type,
-    String confId,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -344,7 +342,7 @@ class ContentfulService {
             ),
             fields: [
               'type=${getStringFromEventItemType(type)}',
-              'confId=$confId'
+              'confId=$_confID'
             ],
             order: 'sys.createdAt',
             limit: howMany.toString(),
@@ -424,7 +422,6 @@ class ContentfulService {
 
   Future<List<Speaker>> getSpeakers({
     int howMany,
-    String confId,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -436,7 +433,7 @@ class ContentfulService {
             contentType: getStringFromEventContentTypes(
               EventContentTypes.SPEAKER,
             ),
-            fields: ['confIds=$confId'],
+            fields: ['confIds=$_confID'],
             order: 'fields.name',
             limit: howMany.toString(),
           ));

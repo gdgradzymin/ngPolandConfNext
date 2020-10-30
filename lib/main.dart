@@ -77,35 +77,35 @@ class _MyAppState extends State<MyApp> {
         Provider.of<SpeakersProvider>(context, listen: false);
 
     if (_info.infoItems.isEmpty) {
-      _info.fetchData(howMany: 999, confId: '2019');
+      _info.fetchData(howMany: 999);
     }
 
     if (_events.eventItems.isEmpty) {
-      _events.fetchData(howMany: 999, confId: '2019');
+      _events.fetchData(howMany: 999);
 
       _events.selectedItems = EventItemType.JSPOLAND;
 
-      _events.fetchData(howMany: 999, confId: '2019');
+      _events.fetchData(howMany: 999);
 
       _events.selectedItems = EventItemType.NGPOLAND;
     }
 
     if (_ngGirls.data == null) {
-      _ngGirls.fetchData(myId: 'ng-girls-workshops', confId: '2019');
+      _ngGirls.fetchData(myId: 'ng-girls-workshops');
     }
 
     if (_workshops.workshopItems.isEmpty) {
-      _workshops.fetchData(howMany: 999, confId: '2019');
+      _workshops.fetchData(howMany: 999);
 
       _workshops.selectedItems = EventItemType.JSPOLAND;
 
-      _workshops.fetchData(howMany: 999, confId: '2019');
+      _workshops.fetchData(howMany: 999);
 
       _workshops.selectedItems = EventItemType.NGPOLAND;
     }
 
     if (_speakers.speakers.isEmpty) {
-      _speakers.fetchData(howMany: 999, confId: '2019');
+      _speakers.fetchData(howMany: 999);
     }
   }
 
