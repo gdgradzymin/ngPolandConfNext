@@ -10,9 +10,7 @@ class NgGirlsProvider with ChangeNotifier {
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
-  Future fetchData({
-    String myId,
-  }) async {
+  Future fetchData({String myId}) async {
     try {
       _data = await _contentfulService.getSimpleContentById(
         myId: myId,
@@ -30,10 +28,7 @@ class NgGirlsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future refreshData({
-    String myId,
-    String confId,
-  }) async {
+  Future refreshData({String myId}) async {
     clear();
 
     try {

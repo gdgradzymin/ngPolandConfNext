@@ -30,10 +30,7 @@ class InfoItemsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future refreshData({
-    @required int howMany,
-    @required String confId,
-  }) async {
+  Future refreshData({@required int howMany}) async {
     clear();
 
     try {
