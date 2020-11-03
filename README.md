@@ -1,16 +1,15 @@
-# ng_poland_conf_next
+The offical app for ngPoland and jsPoland conference.
 
-A new Flutter project.
+Now completly rewritten with Flutter 🚀
 
-## Getting Started
+It is faster, prettier and more powerfull 💪
 
-This project is a starting point for a Flutter application.
+If you would like to help us, your're welcome. There will be always something you can work on.
 
-A few resources to get you started if this is your first Flutter project:
+You can download the app here:
+- Android: [https://play.google.com/store/apps/details?id=pl.ngPoland.ngPolandConf](https://play.google.com/store/apps/details?id=pl.ngPoland.ngPolandConf)
+- iOS: coming soon
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[<img src="media/screens/screens.png">](media/screens/screens.png)
