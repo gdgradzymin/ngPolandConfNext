@@ -78,7 +78,7 @@ class _SpeakersContentState extends State<SpeakersContent> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Divider(
                       height: 0,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).dividerTheme.color,
                     ),
                   ),
                 ],

@@ -22,7 +22,7 @@ class _DrawerNgState extends State<DrawerNg> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         children: <Widget>[
           DrawerHeader(
             child: Image.asset('assets/images/logo.png'),
@@ -31,6 +31,7 @@ class _DrawerNgState extends State<DrawerNg> {
             builder: (context, selectedPage, _) {
               Color _shadowColor = Theme.of(context).dividerColor;
 
+              var getPage = selectedPage.getPage;
               return Column(
                 children: [
                   Container(
@@ -38,9 +39,7 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.home
-                          ? true
-                          : false,
+                      selected: getPage.name == PagesName.home ? true : false,
                       leading: const Icon(
                         FontAwesomeIcons.gripVertical,
                       ),
@@ -176,13 +175,16 @@ class _DrawerNgState extends State<DrawerNg> {
                       },
                     ),
                   ),
-                  const Divider(
-                    thickness: 2,
-                    height: 25,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Divider(
+                      height: 25,
+                      color: Theme.of(context).dividerTheme.color,
+                    ),
                   ),
-                  SwitchDarkMode(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.03,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12.0, bottom: 24.0),
+                    child: SwitchDarkMode(),
                   ),
                 ],
               );
