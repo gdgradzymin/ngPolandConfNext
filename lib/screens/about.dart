@@ -53,7 +53,7 @@ class About extends StatelessWidget {
                 'This app is built with Flutter!',
               ),
               Divider(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).dividerTheme.color,
                 height: 35,
               ),
               Container(
@@ -94,7 +94,7 @@ class About extends StatelessWidget {
                     .toList(),
               ),
               Divider(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).dividerTheme.color,
                 height: 35,
               ),
               ListTile(

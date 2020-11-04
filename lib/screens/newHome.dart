@@ -73,7 +73,7 @@ class Home extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: Divider(
                           height: 10,
-                          color: Colors.white.withOpacity(0.4),
+                          color: Theme.of(context).dividerTheme.color,
                         ),
                       ),
                       HomeEvents(),

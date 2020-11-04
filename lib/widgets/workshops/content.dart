@@ -109,7 +109,7 @@ class WorkshopsContent extends StatelessWidget {
                     ),
                     Divider(
                       height: 0,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).dividerTheme.color,
                     )
                   ],
                 ),

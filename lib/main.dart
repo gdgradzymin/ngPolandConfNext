@@ -167,11 +167,11 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'ngPolandConf 2020',
             theme: ThemeData(
-              brightness: Brightness.light,
-              accentColor: const Color.fromRGBO(255, 0, 122, 1),
-              primaryColor: const Color.fromRGBO(59, 29, 130, 1),
-              canvasColor: Colors.white,
-              textTheme: const TextTheme(
+                brightness: Brightness.light,
+                accentColor: const Color.fromRGBO(255, 0, 122, 1),
+                primaryColor: const Color.fromRGBO(59, 29, 130, 1),
+                canvasColor: Colors.white,
+                textTheme: const TextTheme(
                   headline1: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -184,28 +184,33 @@ class _MyAppState extends State<MyApp> {
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: Color.fromRGBO(0, 0, 0, 0.8)),
-                  bodyText1: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.8))),
-            ),
+                  bodyText1: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.8)),
+                ),
+                dividerTheme: const DividerThemeData(
+                  color: Color.fromRGBO(255, 0, 122, 0.3),
+                )),
             darkTheme: ThemeData(
-              brightness: Brightness.dark,
-              accentColor: const Color.fromRGBO(233, 30, 99, 1),
-              primaryColor: const Color.fromRGBO(59, 29, 130, 1),
-              textTheme: const TextTheme(
-                  headline1: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  headline2: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  headline3: TextStyle(
-                      fontSize: 17,
+                brightness: Brightness.dark,
+                accentColor: const Color.fromRGBO(233, 30, 99, 1),
+                primaryColor: const Color.fromRGBO(59, 29, 130, 1),
+                textTheme: const TextTheme(
+                    headline1: TextStyle(
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(255, 255, 255, 0.9)),
-                  bodyText1:
-                      TextStyle(color: Color.fromRGBO(255, 255, 255, 0.9))),
-            ),
+                    ),
+                    headline2: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    headline3: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(255, 255, 255, 0.9)),
+                    bodyText1:
+                        TextStyle(color: Color.fromRGBO(255, 255, 255, 0.9))),
+                dividerTheme: const DividerThemeData(
+                  color: Color.fromRGBO(255, 0, 122, 0.4),
+                )),
             themeMode: theme.darkTheme ? ThemeMode.dark : ThemeMode.light,
             initialRoute: '/',
             onGenerateRoute: (RouteSettings settings) {
