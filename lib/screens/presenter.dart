@@ -60,40 +60,49 @@ class Presenter extends StatelessWidget {
                       Center(
                         child: Hero(
                           tag: speaker.photoFileUrl,
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(100)),
-                            child: speaker.photoFileUrl == null
-                                ? Image.asset(
-                                    'assets/images/person.png',
-                                    width: double.infinity,
-                                  )
-                                : CachedNetworkImage(
-                                    progressIndicatorBuilder: (context, url,
-                                            downloadProgress) =>
-                                        Image.asset('assets/images/person.png'),
-                                    imageUrl: 'http:${speaker.photoFileUrl}',
-                                  ),
+                          child: CachedNetworkImage(
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    Image.asset('assets/images/person.png'),
+                            imageUrl: 'http:${speaker.photoFileUrl}',
+                            imageBuilder: (context, imageProvider) => Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.width * 0.4,
+                              child: CircleAvatar(
+                                radius: 25,
+                                backgroundImage: imageProvider,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? MediaQuery.of(context).size.width * 0.40
+                            : MediaQuery.of(context).size.width * 0.37,
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? null
+                            : MediaQuery.of(context).size.width * 0.43,
                         child: Align(
                           alignment: Alignment.bottomRight,
-                          child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                            onPressed: () {
-                              launch(speaker.urlTwitter);
-                            },
-                            color: Colors.white,
-                            height: 50,
-                            minWidth: 50,
-                            child: const Icon(
-                              FontAwesomeIcons.twitter,
-                              color: Colors.blue,
+                          child: CircleAvatar(
+                            radius: 25,
+                            backgroundColor: Colors.white,
+                            child: FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100.0),
+                              ),
+                              onPressed: () {
+                                launch(speaker.urlTwitter);
+                              },
+                              height: 50,
+                              minWidth: 50,
+                              child: const Icon(
+                                FontAwesomeIcons.twitter,
+                                color: Colors.blue,
+                              ),
                             ),
                           ),
                         ),
