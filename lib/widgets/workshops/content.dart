@@ -42,7 +42,7 @@ class WorkshopsContent extends StatelessWidget {
                           tag: _workshopsItems[index].speaker.photoFileUrl,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(25),
+                              Radius.circular(100),
                             ),
                             child: CachedNetworkImage(
                               progressIndicatorBuilder:

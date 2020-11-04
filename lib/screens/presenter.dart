@@ -62,7 +62,7 @@ class Presenter extends StatelessWidget {
                           tag: speaker.photoFileUrl,
                           child: ClipRRect(
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(180)),
+                                const BorderRadius.all(Radius.circular(100)),
                             child: speaker.photoFileUrl == null
                                 ? Image.asset(
                                     'assets/images/person.png',

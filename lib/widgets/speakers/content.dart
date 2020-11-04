@@ -50,7 +50,7 @@ class _SpeakersContentState extends State<SpeakersContent> {
                       tag: _speakers[index].photoFileUrl,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(
-                          Radius.circular(25),
+                          Radius.circular(100),
                         ),
                         child: CachedNetworkImage(
                           progressIndicatorBuilder:
