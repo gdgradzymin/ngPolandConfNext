@@ -23,7 +23,7 @@ class HomeButton extends StatelessWidget {
       onTap: () {
         Provider.of<SelectedPage>(context, listen: false)
             .changeSelected(name: selectedPage);
-        Navigator.of(context).pushReplacementNamed(routeName);
+        Navigator.of(context).pushNamed(routeName);
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

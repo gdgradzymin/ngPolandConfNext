@@ -30,7 +30,6 @@ class _DrawerNgState extends State<DrawerNg> {
           Consumer<SelectedPage>(
             builder: (context, selectedPage, _) {
               Color _shadowColor = Theme.of(context).dividerColor;
-
               return Column(
                 children: [
                   Container(
@@ -46,9 +45,10 @@ class _DrawerNgState extends State<DrawerNg> {
                       ),
                       title: const Text('Home'),
                       onTap: () {
-                        selectedPage.changeSelected(name: PagesName.home);
-                        Navigator.of(context)
-                            .pushReplacementNamed(Home.routeName);
+                        if (selectedPage.getPage.name != PagesName.home) {
+                          selectedPage.changeSelected(name: PagesName.home);
+                          Navigator.of(context).popAndPushNamed(Home.routeName);
+                        }
                       },
                     ),
                   ),
@@ -65,13 +65,15 @@ class _DrawerNgState extends State<DrawerNg> {
                       ),
                       title: const Text('Schedule'),
                       onTap: () {
-                        selectedPage.changeSelected(name: PagesName.schedule);
-                        Navigator.of(context).pushReplacementNamed(
-                          Schedule.routeName,
-                          arguments: {
-                            'route': 'left',
-                          },
-                        );
+                        if (selectedPage.getPage.name != PagesName.schedule) {
+                          selectedPage.changeSelected(name: PagesName.schedule);
+                          Navigator.of(context).popAndPushNamed(
+                            Schedule.routeName,
+                            arguments: {
+                              'route': 'left',
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
@@ -88,13 +90,16 @@ class _DrawerNgState extends State<DrawerNg> {
                       ),
                       title: const Text('Workshops'),
                       onTap: () {
-                        selectedPage.changeSelected(name: PagesName.workshops);
-                        Navigator.of(context).pushReplacementNamed(
-                          Workshops.routeName,
-                          arguments: {
-                            'route': 'left',
-                          },
-                        );
+                        if (selectedPage.getPage.name != PagesName.workshops) {
+                          selectedPage.changeSelected(
+                              name: PagesName.workshops);
+                          Navigator.of(context).popAndPushNamed(
+                            Workshops.routeName,
+                            arguments: {
+                              'route': 'left',
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
@@ -112,9 +117,11 @@ class _DrawerNgState extends State<DrawerNg> {
                       ),
                       title: const Text('ngGirls'),
                       onTap: () {
-                        selectedPage.changeSelected(name: PagesName.ngGirls);
-                        Navigator.of(context)
-                            .pushReplacementNamed(NgGirls.routeName);
+                        if (selectedPage.getPage.name != PagesName.ngGirls) {
+                          selectedPage.changeSelected(name: PagesName.ngGirls);
+                          Navigator.of(context)
+                              .popAndPushNamed(NgGirls.routeName);
+                        }
                       },
                     ),
                   ),
@@ -132,9 +139,11 @@ class _DrawerNgState extends State<DrawerNg> {
                       ),
                       title: const Text('Speakers'),
                       onTap: () {
-                        selectedPage.changeSelected(name: PagesName.speakers);
-                        Navigator.of(context)
-                            .pushReplacementNamed(Speakers.routeName);
+                        if (selectedPage.getPage.name != PagesName.speakers) {
+                          selectedPage.changeSelected(name: PagesName.speakers);
+                          Navigator.of(context)
+                              .popAndPushNamed(Speakers.routeName);
+                        }
                       },
                     ),
                   ),
@@ -151,9 +160,10 @@ class _DrawerNgState extends State<DrawerNg> {
                       ),
                       title: const Text('Info'),
                       onTap: () {
-                        selectedPage.changeSelected(name: PagesName.info);
-                        Navigator.of(context)
-                            .pushReplacementNamed(Info.routeName);
+                        if (selectedPage.getPage.name != PagesName.info) {
+                          selectedPage.changeSelected(name: PagesName.info);
+                          Navigator.of(context).popAndPushNamed(Info.routeName);
+                        }
                       },
                     ),
                   ),
@@ -171,8 +181,7 @@ class _DrawerNgState extends State<DrawerNg> {
                       title: const Text('About'),
                       onTap: () {
                         selectedPage.changeSelected(name: PagesName.about);
-                        Navigator.of(context)
-                            .pushReplacementNamed(About.routeName);
+                        Navigator.of(context).popAndPushNamed(About.routeName);
                       },
                     ),
                   ),

@@ -97,7 +97,7 @@ class HomeEvents extends StatelessWidget {
                   .selectedItems = eventItemType;
             }
 
-            Navigator.of(context).pushReplacementNamed(screen, arguments: {
+            Navigator.of(context).pushNamed(screen, arguments: {
               'route': 'scale',
             });
           },
