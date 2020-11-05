@@ -30,11 +30,6 @@ class _DrawerNgState extends State<DrawerNg> {
           Consumer<SelectedPage>(
             builder: (context, selectedPage, _) {
               Color _shadowColor = Theme.of(context).dividerColor;
-<<<<<<< HEAD
-=======
-
-              var getPage = selectedPage.getPage;
->>>>>>> master
               return Column(
                 children: [
                   Container(
@@ -42,7 +37,7 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: getPage.name == PagesName.home ? true : false,
+                      selected: selectedPage.getPage.name == PagesName.home,
                       leading: const Icon(
                         FontAwesomeIcons.gripVertical,
                       ),
@@ -60,10 +55,8 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.schedule
-                          ? true
-                          : false,
-                      leading: Icon(
+                      selected: selectedPage.getPage.name == PagesName.schedule,
+                      leading: const Icon(
                         FontAwesomeIcons.solidClock,
                       ),
                       title: const Text('Schedule'),
@@ -85,9 +78,8 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.workshops
-                          ? true
-                          : false,
+                      selected:
+                          selectedPage.getPage.name == PagesName.workshops,
                       leading: const Icon(
                         FontAwesomeIcons.solidKeyboard,
                       ),
@@ -111,9 +103,7 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.ngGirls
-                          ? true
-                          : false,
+                      selected: selectedPage.getPage.name == PagesName.ngGirls,
                       leading: const Icon(
                         FontAwesomeIcons.female,
                         size: 30,
@@ -133,9 +123,7 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.speakers
-                          ? true
-                          : false,
+                      selected: selectedPage.getPage.name == PagesName.speakers,
                       leading: const Icon(
                         FontAwesomeIcons.users,
                         size: 23,
@@ -155,9 +143,7 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.info
-                          ? true
-                          : false,
+                      selected: selectedPage.getPage.name == PagesName.info,
                       leading: const Icon(
                         FontAwesomeIcons.info,
                       ),
@@ -175,16 +161,17 @@ class _DrawerNgState extends State<DrawerNg> {
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.about
-                          ? true
-                          : false,
+                      selected: selectedPage.getPage.name == PagesName.about,
                       leading: const Icon(
                         FontAwesomeIcons.code,
                       ),
                       title: const Text('About'),
                       onTap: () {
-                        selectedPage.changeSelected(name: PagesName.about);
-                        Navigator.of(context).popAndPushNamed(About.routeName);
+                        if (selectedPage.getPage.name != PagesName.about) {
+                          selectedPage.changeSelected(name: PagesName.about);
+                          Navigator.of(context)
+                              .popAndPushNamed(About.routeName);
+                        }
                       },
                     ),
                   ),
