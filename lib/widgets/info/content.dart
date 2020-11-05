@@ -53,7 +53,7 @@ class InfoContent extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Divider(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).dividerTheme.color,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.01,

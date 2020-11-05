@@ -48,15 +48,20 @@ class _SpeakersContentState extends State<SpeakersContent> {
                     },
                     leading: Hero(
                       tag: _speakers[index].photoFileUrl,
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(25),
-                        ),
-                        child: CachedNetworkImage(
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  Image.asset('assets/images/person.png'),
-                          imageUrl: 'http:${_speakers[index].photoFileUrl}',
+                      child: CachedNetworkImage(
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                Image.asset('assets/images/person.png'),
+                        imageUrl: 'http:${_speakers[index].photoFileUrl}',
+                        imageBuilder: (context, imageProvider) => Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -78,7 +83,7 @@ class _SpeakersContentState extends State<SpeakersContent> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Divider(
                       height: 0,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).dividerTheme.color,
                     ),
                   ),
                 ],

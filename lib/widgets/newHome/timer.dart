@@ -46,7 +46,7 @@ class _HomeTimerState extends State<HomeTimer> {
           '$time',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: color,
+            color: color.withOpacity(0.85),
             fontWeight: FontWeight.bold,
             fontSize: 25,
           ),
@@ -54,7 +54,7 @@ class _HomeTimerState extends State<HomeTimer> {
         Text(
           format,
           style: TextStyle(
-            color: color.withOpacity(0.7),
+            color: color.withOpacity(0.6),
             fontSize: 11,
           ),
         ),

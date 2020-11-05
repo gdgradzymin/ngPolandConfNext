@@ -40,16 +40,21 @@ class WorkshopsContent extends StatelessWidget {
                         },
                         child: Hero(
                           tag: _workshopsItems[index].speaker.photoFileUrl,
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(25),
-                            ),
-                            child: CachedNetworkImage(
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) =>
-                                      Image.asset('assets/images/person.png'),
-                              imageUrl:
-                                  'http:${_workshopsItems[index].speaker.photoFileUrl}',
+                          child: CachedNetworkImage(
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    Image.asset('assets/images/person.png'),
+                            imageUrl:
+                                'http:${_workshopsItems[index].speaker.photoFileUrl}',
+                            imageBuilder: (context, imageProvider) => Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -109,7 +114,7 @@ class WorkshopsContent extends StatelessWidget {
                     ),
                     Divider(
                       height: 0,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).dividerTheme.color,
                     )
                   ],
                 ),
