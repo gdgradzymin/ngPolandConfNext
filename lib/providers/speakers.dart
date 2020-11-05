@@ -9,7 +9,7 @@ class SpeakersProvider with ChangeNotifier {
   bool _loadedSpeakers = false;
 
   List<Speaker> get speakers =>
-      _loadedSpeakers && _speakers.isEmpty ? null : _speakers;
+      _loadedSpeakers && _speakers.isEmpty ? null : [..._speakers];
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 

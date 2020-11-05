@@ -25,10 +25,10 @@ class WorkshopsProvider with ChangeNotifier {
   List<Workshop> get workshopItems => _selectedItems == EventItemType.NGPOLAND
       ? _loadedNgPoland && _workshopItemsngPoland.isEmpty
           ? null
-          : _workshopItemsngPoland
+          : [..._workshopItemsngPoland]
       : _loadedJsPoland && _workshopItemsjsPoland.isEmpty
           ? null
-          : _workshopItemsjsPoland;
+          : [..._workshopItemsjsPoland];
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 

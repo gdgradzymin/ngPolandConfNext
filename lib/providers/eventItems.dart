@@ -25,10 +25,10 @@ class EventItemsProvider with ChangeNotifier {
   List<EventItem> get eventItems => _selectedItems == EventItemType.NGPOLAND
       ? _loadedNgPoland && _ngPoland.isEmpty
           ? null
-          : _ngPoland
+          : [..._ngPoland]
       : _loadedJsPoland && _jsPoland.isEmpty
           ? null
-          : _jsPoland;
+          : [..._jsPoland];
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 

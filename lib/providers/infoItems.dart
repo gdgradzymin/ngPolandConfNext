@@ -6,7 +6,7 @@ import 'package:ngPolandConf/services/contentful.dart';
 class InfoItemsProvider with ChangeNotifier {
   List<InfoItem> _infoItems = [];
 
-  List<InfoItem> get infoItems => _infoItems;
+  List<InfoItem> get infoItems => [..._infoItems];
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
