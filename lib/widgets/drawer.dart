@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ngPolandConf/models/pages.dart';
 import 'package:ngPolandConf/providers/selectedPage.dart';
 import 'package:ngPolandConf/screens/about.dart';
-import 'package:ngPolandConf/screens/home.dart';
+import 'package:ngPolandConf/screens/newHome.dart';
 import 'package:ngPolandConf/screens/info.dart';
 import 'package:ngPolandConf/screens/ngGirls.dart';
 import 'package:ngPolandConf/screens/schedule.dart';
@@ -20,6 +20,34 @@ class DrawerNg extends StatefulWidget {
 class _DrawerNgState extends State<DrawerNg> {
   @override
   Widget build(BuildContext context) {
+    void _popAndPushNamed({
+      @required String routeName,
+      String route = '',
+    }) {
+      Navigator.of(context).popAndPushNamed(
+        routeName,
+        arguments: {
+          'route': route,
+        },
+      );
+      Provider.of<SelectedPage>(context, listen: false)
+          .changeSelected(name: routeName);
+    }
+
+    void _pushReplacement({
+      @required String routeName,
+      String route = '',
+    }) {
+      Navigator.of(context).pushReplacementNamed(
+        routeName,
+        arguments: {
+          'route': route,
+        },
+      );
+      Provider.of<SelectedPage>(context, listen: false)
+          .changeSelected(name: routeName);
+    }
+
     return Drawer(
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -33,144 +61,160 @@ class _DrawerNgState extends State<DrawerNg> {
               return Column(
                 children: [
                   Container(
-                    color: selectedPage.getPage.name == PagesName.home
+                    color: selectedPage.getPage.name == Home.routeName
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.home,
+                      selected: selectedPage.getPage.name == Home.routeName,
                       leading: const Icon(
                         FontAwesomeIcons.gripVertical,
                       ),
                       title: const Text('Home'),
                       onTap: () {
-                        if (selectedPage.getPage.name != PagesName.home) {
-                          selectedPage.changeSelected(name: PagesName.home);
-                          Navigator.of(context).popAndPushNamed(Home.routeName);
+                        if (selectedPage.getPage.name != Home.routeName) {
+                          Navigator.popUntil(
+                            context,
+                            ModalRoute.withName(Home.routeName),
+                          );
                         }
                       },
                     ),
                   ),
                   Container(
-                    color: selectedPage.getPage.name == PagesName.schedule
+                    color: selectedPage.getPage.name == Schedule.routeName
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.schedule,
+                      selected: selectedPage.getPage.name == Schedule.routeName,
                       leading: const Icon(
                         FontAwesomeIcons.solidClock,
                       ),
                       title: const Text('Schedule'),
                       onTap: () {
-                        if (selectedPage.getPage.name != PagesName.schedule) {
-                          selectedPage.changeSelected(name: PagesName.schedule);
-                          Navigator.of(context).popAndPushNamed(
-                            Schedule.routeName,
-                            arguments: {
-                              'route': 'left',
-                            },
-                          );
+                        if (selectedPage.getPage.name != Schedule.routeName) {
+                          if (ModalRoute.of(context).settings.name ==
+                              Home.routeName) {
+                            _popAndPushNamed(
+                                routeName: Schedule.routeName, route: 'left');
+                          } else {
+                            _pushReplacement(
+                                routeName: Schedule.routeName, route: 'left');
+                          }
                         }
                       },
                     ),
                   ),
                   Container(
-                    color: selectedPage.getPage.name == PagesName.workshops
+                    color: selectedPage.getPage.name == Workshops.routeName
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
                       selected:
-                          selectedPage.getPage.name == PagesName.workshops,
+                          selectedPage.getPage.name == Workshops.routeName,
                       leading: const Icon(
                         FontAwesomeIcons.solidKeyboard,
                       ),
                       title: const Text('Workshops'),
                       onTap: () {
-                        if (selectedPage.getPage.name != PagesName.workshops) {
-                          selectedPage.changeSelected(
-                              name: PagesName.workshops);
-                          Navigator.of(context).popAndPushNamed(
-                            Workshops.routeName,
-                            arguments: {
-                              'route': 'left',
-                            },
-                          );
+                        if (selectedPage.getPage.name != Workshops.routeName) {
+                          if (ModalRoute.of(context).settings.name ==
+                              Home.routeName) {
+                            _popAndPushNamed(
+                                routeName: Workshops.routeName, route: 'left');
+                          } else {
+                            _pushReplacement(
+                                routeName: Workshops.routeName, route: 'left');
+                          }
                         }
                       },
                     ),
                   ),
                   Container(
-                    color: selectedPage.getPage.name == PagesName.ngGirls
+                    color: selectedPage.getPage.name == NgGirls.routeName
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.ngGirls,
+                      selected: selectedPage.getPage.name == NgGirls.routeName,
                       leading: const Icon(
                         FontAwesomeIcons.female,
                         size: 30,
                       ),
                       title: const Text('ngGirls'),
                       onTap: () {
-                        if (selectedPage.getPage.name != PagesName.ngGirls) {
-                          selectedPage.changeSelected(name: PagesName.ngGirls);
-                          Navigator.of(context)
-                              .popAndPushNamed(NgGirls.routeName);
+                        if (selectedPage.getPage.name != NgGirls.routeName) {
+                          if (ModalRoute.of(context).settings.name ==
+                              Home.routeName) {
+                            _popAndPushNamed(routeName: NgGirls.routeName);
+                          } else {
+                            _pushReplacement(routeName: NgGirls.routeName);
+                          }
                         }
                       },
                     ),
                   ),
                   Container(
-                    color: selectedPage.getPage.name == PagesName.speakers
+                    color: selectedPage.getPage.name == Speakers.routeName
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.speakers,
+                      selected: selectedPage.getPage.name == Speakers.routeName,
                       leading: const Icon(
                         FontAwesomeIcons.users,
                         size: 23,
                       ),
                       title: const Text('Speakers'),
                       onTap: () {
-                        if (selectedPage.getPage.name != PagesName.speakers) {
-                          selectedPage.changeSelected(name: PagesName.speakers);
-                          Navigator.of(context)
-                              .popAndPushNamed(Speakers.routeName);
+                        if (selectedPage.getPage.name != Speakers.routeName) {
+                          if (ModalRoute.of(context).settings.name ==
+                              Home.routeName) {
+                            _popAndPushNamed(routeName: Speakers.routeName);
+                          } else {
+                            _pushReplacement(routeName: Speakers.routeName);
+                          }
                         }
                       },
                     ),
                   ),
                   Container(
-                    color: selectedPage.getPage.name == PagesName.info
+                    color: selectedPage.getPage.name == Info.routeName
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.info,
+                      selected: selectedPage.getPage.name == Info.routeName,
                       leading: const Icon(
                         FontAwesomeIcons.info,
                       ),
                       title: const Text('Info'),
                       onTap: () {
-                        if (selectedPage.getPage.name != PagesName.info) {
-                          selectedPage.changeSelected(name: PagesName.info);
-                          Navigator.of(context).popAndPushNamed(Info.routeName);
+                        if (selectedPage.getPage.name != Info.routeName) {
+                          if (ModalRoute.of(context).settings.name ==
+                              Home.routeName) {
+                            _popAndPushNamed(routeName: Info.routeName);
+                          } else {
+                            _pushReplacement(routeName: Info.routeName);
+                          }
                         }
                       },
                     ),
                   ),
                   Container(
-                    color: selectedPage.getPage.name == PagesName.about
+                    color: selectedPage.getPage.name == About.routeName
                         ? _shadowColor
                         : Colors.transparent,
                     child: ListTile(
-                      selected: selectedPage.getPage.name == PagesName.about,
+                      selected: selectedPage.getPage.name == About.routeName,
                       leading: const Icon(
                         FontAwesomeIcons.code,
                       ),
                       title: const Text('About'),
                       onTap: () {
-                        if (selectedPage.getPage.name != PagesName.about) {
-                          selectedPage.changeSelected(name: PagesName.about);
-                          Navigator.of(context)
-                              .popAndPushNamed(About.routeName);
+                        if (selectedPage.getPage.name != About.routeName) {
+                          if (ModalRoute.of(context).settings.name ==
+                              Home.routeName) {
+                            _popAndPushNamed(routeName: About.routeName);
+                          } else {
+                            _pushReplacement(routeName: About.routeName);
+                          }
                         }
                       },
                     ),

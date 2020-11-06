@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
 
-enum PagesName {
-  home,
-  schedule,
-  workshops,
-  ngGirls,
-  speakers,
-  info,
-  about,
-}
-
 class Pages {
-  final PagesName name;
-  final double number;
-
   Pages({
     @required this.name,
-    @required this.number,
   });
 
-  factory Pages.setPage({PagesName pagesName}) {
+  factory Pages.setPage({String pagesName}) {
     return Pages(
       name: pagesName,
-      number: pagesName.index.toDouble(),
     );
   }
+
+  final String name;
 }
