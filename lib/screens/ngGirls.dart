@@ -33,7 +33,10 @@ class NgGirls extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Image.asset('assets/images/nggirls.png'),
+              child: SizedBox(
+                child: Image.asset('assets/images/nggirls.png'),
+                height: MediaQuery.of(context).size.height * 0.20,
+              ),
             ),
             Expanded(
               child: RefreshIndicator(
