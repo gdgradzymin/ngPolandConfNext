@@ -48,9 +48,11 @@ dev_dependencies:
 # https://pub.dev/packages/flutter_launcher_icons
 # to generate run: flutter pub run flutter_launcher_icons:main
 flutter_icons:
-  android: 'launcher_icon'
+  android: true
   ios: true
   image_path: 'assets/icons/app_icon.png'
+  adaptive_icon_background: '#FFFFFF'
+  adaptive_icon_foreground: 'assets/icons/app_icon_adaptive.png'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
