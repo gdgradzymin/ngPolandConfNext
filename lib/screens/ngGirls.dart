@@ -26,7 +26,9 @@ class NgGirls extends StatelessWidget {
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
-      drawer: DrawerNg(),
+      drawer: const DrawerNg(
+        pageName: NgGirls.routeName,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(

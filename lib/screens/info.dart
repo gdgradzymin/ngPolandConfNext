@@ -60,7 +60,9 @@ class _InfoState extends State<Info> {
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
-      drawer: DrawerNg(),
+      drawer: const DrawerNg(
+        pageName: Info.routeName,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
