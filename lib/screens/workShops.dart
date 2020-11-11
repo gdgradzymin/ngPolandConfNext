@@ -32,7 +32,9 @@ class _WorkshopsState extends State<Workshops> {
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
-      drawer: DrawerNg(),
+      drawer: const DrawerNg(
+        pageName: Workshops.routeName,
+      ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<WorkshopsProvider>(context, listen: false)

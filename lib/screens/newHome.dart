@@ -27,7 +27,9 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       appBar: appBar,
-      drawer: DrawerNg(),
+      drawer: const DrawerNg(
+        pageName: Home.routeName,
+      ),
       body: Center(
         child: Stack(
           children: <Widget>[

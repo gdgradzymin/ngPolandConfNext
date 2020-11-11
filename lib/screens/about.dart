@@ -37,7 +37,9 @@ class About extends StatelessWidget {
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
-      drawer: DrawerNg(),
+      drawer: const DrawerNg(
+        pageName: About.routeName,
+      ),
       body: SingleChildScrollView(
         clipBehavior: Clip.none,
         child: Padding(

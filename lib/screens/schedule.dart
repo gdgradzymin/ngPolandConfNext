@@ -27,7 +27,9 @@ class Schedule extends StatelessWidget {
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
-      drawer: DrawerNg(),
+      drawer: const DrawerNg(
+        pageName: Schedule.routeName,
+      ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<EventItemsProvider>(context, listen: false)

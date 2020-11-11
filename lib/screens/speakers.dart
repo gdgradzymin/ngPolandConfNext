@@ -26,7 +26,9 @@ class Speakers extends StatelessWidget {
         centerTitle: true,
         actions: [ConnectionStatus()],
       ),
-      drawer: DrawerNg(),
+      drawer: const DrawerNg(
+        pageName: Speakers.routeName,
+      ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<SpeakersProvider>(context, listen: false)

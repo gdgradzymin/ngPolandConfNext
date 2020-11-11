@@ -5,7 +5,6 @@ import 'package:ngPolandConf/providers/workShops.dart';
 import 'package:ngPolandConf/screens/schedule.dart';
 import 'package:ngPolandConf/screens/workShops.dart';
 import 'package:ngPolandConf/services/contentful.dart';
-import 'package:ngPolandConf/models/pages.dart';
 import 'package:ngPolandConf/providers/selectedPage.dart';
 import 'package:provider/provider.dart';
 
@@ -16,28 +15,28 @@ class HomeEvents extends StatelessWidget {
       'name': 'NG WORKSHOPS',
       'screen': Workshops.routeName,
       'type': EventItemType.NGPOLAND,
-      'pageName': PagesName.workshops,
+      'pageName': Workshops.routeName,
     },
     {
       'date': '19-11-2020',
       'name': 'NG POLAND',
       'screen': Schedule.routeName,
       'type': EventItemType.NGPOLAND,
-      'pageName': PagesName.schedule,
+      'pageName': Schedule.routeName,
     },
     {
       'date': '20-11-2020',
       'name': 'JS POLAND',
       'screen': Schedule.routeName,
       'type': EventItemType.JSPOLAND,
-      'pageName': PagesName.schedule,
+      'pageName': Schedule.routeName,
     },
     {
       'date': '21-11-2020',
       'name': 'JS WORKSHOPS',
       'screen': Workshops.routeName,
       'type': EventItemType.JSPOLAND,
-      'pageName': PagesName.workshops,
+      'pageName': Workshops.routeName,
     },
   ];
 
@@ -47,7 +46,7 @@ class HomeEvents extends StatelessWidget {
     String name,
     String screen,
     EventItemType eventItemType,
-    PagesName pageName,
+    String pageName,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -79,13 +78,13 @@ class HomeEvents extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            if (pageName == PagesName.workshops) {
+            if (pageName == Workshops.routeName) {
               Provider.of<SelectedPage>(context, listen: false).changeSelected(
-                name: PagesName.workshops,
+                name: Workshops.routeName,
               );
-            } else if (pageName == PagesName.schedule) {
+            } else if (pageName == Schedule.routeName) {
               Provider.of<SelectedPage>(context, listen: false).changeSelected(
-                name: PagesName.schedule,
+                name: Schedule.routeName,
               );
             }
 
@@ -97,7 +96,7 @@ class HomeEvents extends StatelessWidget {
                   .selectedItems = eventItemType;
             }
 
-            Navigator.of(context).pushReplacementNamed(screen, arguments: {
+            Navigator.of(context).pushNamed(screen, arguments: {
               'route': 'scale',
             });
           },
@@ -128,7 +127,7 @@ class HomeEvents extends StatelessWidget {
                     event['name'] as String,
                     event['screen'] as String,
                     event['type'] as EventItemType,
-                    event['pageName'] as PagesName,
+                    event['pageName'] as String,
                   ),
                 )
                 .toList(),
@@ -144,7 +143,7 @@ class HomeEvents extends StatelessWidget {
                       event['name'] as String,
                       event['screen'] as String,
                       event['type'] as EventItemType,
-                      event['pageName'] as PagesName,
+                      event['pageName'] as String,
                     ),
                   )
                   .toList(),
