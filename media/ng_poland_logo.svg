@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.20632285"
-     inkscape:cx="6172.7395"
-     inkscape:cy="2892.0678"
+     inkscape:zoom="0.14827999"
+     inkscape:cx="6748.1258"
+     inkscape:cy="2508.6031"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -697,6 +697,172 @@
             <path
                inkscape:connector-curvature="0"
                id="path1162"
+               d="m 1587.0688,-490.60346 -25.4163,55.45523 8.9583,-0.039 5.1743,-12.07497 22.4789,-0.10839 5.4986,12.31788 9.0833,-0.0529 z m 0.036,17.70917 7.4937,17.33063 h -15.0134 c 0.1079,-0.0269 7.5197,-17.33063 7.5197,-17.33063 z"
+               style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.60374814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <rect
+       style="opacity:1;fill:#303030;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4.26236057;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect956-0"
+       width="249.2375"
+       height="450.85001"
+       x="2465.1099"
+       y="-887.78625"
+       rx="0"
+       ry="0"
+       inkscape:export-filename="G:\GitHub\ngPolandConfNext\ios\Runner\Assets.xcassets\LaunchImage.imageset\Default-568h@3x.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="g1240-3"
+       transform="matrix(1.2029108,0,0,1.2029108,681.13308,-122.95983)"
+       inkscape:export-filename="G:\GitHub\ngPolandConfNext\ios\Runner\Assets.xcassets\LaunchImage.imageset\Default-568h@3x.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <g
+         style="opacity:0.95"
+         id="g1182-3">
+        <flowRoot
+           transform="matrix(0.50297357,0,0,0.49540486,1372.0717,-713.00184)"
+           style="font-style:normal;font-weight:normal;font-size:42.66666794px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+           id="flowRoot972-8"
+           xml:space="preserve"><flowRegion
+             style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+             id="flowRegion968-3"><rect
+               style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+               y="633.55536"
+               x="286.37823"
+               height="50.204582"
+               width="290.26733"
+               id="rect966-1" /></flowRegion><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Heavy';fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+             id="flowPara970-6">NG</flowPara></flowRoot>        <flowRoot
+           xml:space="preserve"
+           id="flowRoot980-8"
+           style="font-style:normal;font-weight:normal;font-size:42.66666794px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+           transform="matrix(0.50297357,0,0,0.49540486,1413.4479,-713.00184)"><flowRegion
+             style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+             id="flowRegion976-1"><rect
+               style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+               id="rect974-0"
+               width="290.26733"
+               height="50.204582"
+               x="286.37823"
+               y="633.55536" /></flowRegion><flowPara
+             id="flowPara978-4"
+             style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Heavy';fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8">POLAND</flowPara></flowRoot>      </g>
+      <g
+         transform="translate(-1.10252e-6)"
+         style="opacity:0.95"
+         id="g1189-9">
+        <path
+           style="opacity:1;fill:#ffffff;fill-opacity:0.93333333;fill-rule:evenodd;stroke:none;stroke-width:3.08866811;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 1590.6924,-516.90045 c -17.7802,4.52228 -36.2111,8.78606 -54.0448,13.09629 l 7.4226,72.41404 43.0156,22.15071 5e-4,-5.4e-4 v 9.9e-4 l 43.4246,-22.1507 6.1367,-67.35617 -45.8611,-6.50369 c 0,-4.09737 -0.09,-7.55356 -0.094,-11.65093 z"
+           id="path958-0-7"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccccccccc" />
+        <g
+           id="g1164-3"
+           transform="translate(1.05896e-4)">
+          <path
+             id="path1158-9"
+             d="m 1587.0517,-512.27274 -46.5207,11.26598 6.8461,66.78972 39.6746,20.43028 0.038,-0.0367 0.014,-0.0135 -0.014,-0.0145 v -0.26252 h 0.309 v -5.47357 h 4.4286 v -81.63015 h -4.6756 v -0.82992 h -0.1003 z"
+             style="opacity:1;fill:#e41a3f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.84877443;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#c5203e;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.60374814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 1587.0479,-502.08434 45.7161,6.6301 -5.6601,61.23732 -40.0519,20.4304 z"
+             id="path1160-3"
+             inkscape:connector-curvature="0"
+             sodipodi:nodetypes="ccccc" />
+          <path
+             style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.60374814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 1587.0688,-490.60346 -25.4163,55.45523 8.9583,-0.039 5.1743,-12.07497 22.4789,-0.10839 5.4986,12.31788 9.0833,-0.0529 z m 0.036,17.70917 7.4937,17.33063 h -15.0134 c 0.1079,-0.0269 7.5197,-17.33063 7.5197,-17.33063 z"
+             id="path1162-8"
+             inkscape:connector-curvature="0" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g1087"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         inkscape:export-ydpi="96.000008"
+         inkscape:export-xdpi="96.000008"
+         inkscape:export-filename="N:\ngPoland\App_Resources\Android\src\main\res\drawable-xxxhdpi\background.png"
+         ry="0"
+         rx="0"
+         y="-41.882515"
+         x="2292.9971"
+         height="270.93332"
+         width="203.2"
+         id="rect956-06"
+         style="opacity:1;fill:#303030;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.98346186;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <g
+         transform="matrix(0.98046245,0,0,0.98046245,838.94868,533.23672)"
+         id="g1240-39">
+        <g
+           id="g1182-4"
+           style="opacity:0.95">
+          <flowRoot
+             xml:space="preserve"
+             id="flowRoot972-2"
+             style="font-style:normal;font-weight:normal;font-size:42.66666794px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+             transform="matrix(0.50297357,0,0,0.49540486,1372.0717,-713.00184)"><flowRegion
+               id="flowRegion968-6"
+               style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"><rect
+                 id="rect966-5"
+                 width="290.26733"
+                 height="50.204582"
+                 x="286.37823"
+                 y="633.55536"
+                 style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8" /></flowRegion><flowPara
+               id="flowPara970-68"
+               style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Heavy';fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8">NG</flowPara></flowRoot>          <flowRoot
+             transform="matrix(0.50297357,0,0,0.49540486,1413.4479,-713.00184)"
+             style="font-style:normal;font-weight:normal;font-size:42.66666794px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+             id="flowRoot980-5"
+             xml:space="preserve"><flowRegion
+               id="flowRegion976-0"
+               style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"><rect
+                 y="633.55536"
+                 x="286.37823"
+                 height="50.204582"
+                 width="290.26733"
+                 id="rect974-3"
+                 style="fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8" /></flowRegion><flowPara
+               style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Heavy';fill:#ffffff;fill-opacity:0.93333333;stroke:none;stroke-width:1.81043959;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8"
+               id="flowPara978-2">POLAND</flowPara></flowRoot>        </g>
+        <g
+           id="g1189-4"
+           style="opacity:0.95"
+           transform="translate(-1.10252e-6)">
+          <path
+             sodipodi:nodetypes="cccccccccc"
+             inkscape:connector-curvature="0"
+             id="path958-0-70"
+             d="m 1590.6924,-516.90045 c -17.7802,4.52228 -36.2111,8.78606 -54.0448,13.09629 l 7.4226,72.41404 43.0156,22.15071 5e-4,-5.4e-4 v 9.9e-4 l 43.4246,-22.1507 6.1367,-67.35617 -45.8611,-6.50369 c 0,-4.09737 -0.09,-7.55356 -0.094,-11.65093 z"
+             style="opacity:1;fill:#ffffff;fill-opacity:0.93333333;fill-rule:evenodd;stroke:none;stroke-width:3.08866811;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+          <g
+             transform="translate(1.05896e-4)"
+             id="g1164-34">
+            <path
+               inkscape:connector-curvature="0"
+               style="opacity:1;fill:#e41a3f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.84877443;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+               d="m 1587.0517,-512.27274 -46.5207,11.26598 6.8461,66.78972 39.6746,20.43028 0.038,-0.0367 0.014,-0.0135 -0.014,-0.0145 v -0.26252 h 0.309 v -5.47357 h 4.4286 v -81.63015 h -4.6756 v -0.82992 h -0.1003 z"
+               id="path1158-4" />
+            <path
+               sodipodi:nodetypes="ccccc"
+               inkscape:connector-curvature="0"
+               id="path1160-5"
+               d="m 1587.0479,-502.08434 45.7161,6.6301 -5.6601,61.23732 -40.0519,20.4304 z"
+               style="fill:#c5203e;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.60374814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+            <path
+               inkscape:connector-curvature="0"
+               id="path1162-9"
                d="m 1587.0688,-490.60346 -25.4163,55.45523 8.9583,-0.039 5.1743,-12.07497 22.4789,-0.10839 5.4986,12.31788 9.0833,-0.0529 z m 0.036,17.70917 7.4937,17.33063 h -15.0134 c 0.1079,-0.0269 7.5197,-17.33063 7.5197,-17.33063 z"
                style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.60374814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
           </g>
