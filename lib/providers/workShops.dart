@@ -34,6 +34,7 @@ class WorkshopsProvider with ChangeNotifier {
 
   Future fetchData({
     @required int howMany,
+    bool reload = false,
   }) async {
     try {
       if (_selectedItems == EventItemType.NGPOLAND &&
@@ -48,6 +49,7 @@ class WorkshopsProvider with ChangeNotifier {
         _workshopItemsngPoland = await _contentfulService.getWorkshops(
           howMany: howMany,
           type: _selectedItems,
+          reload: reload,
         );
 
         _loadedNgPoland = true;
@@ -55,6 +57,7 @@ class WorkshopsProvider with ChangeNotifier {
         _workshopItemsjsPoland = await _contentfulService.getWorkshops(
           howMany: howMany,
           type: _selectedItems,
+          reload: reload,
         );
 
         _loadedJsPoland = true;

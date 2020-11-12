@@ -10,30 +10,14 @@ class NgGirlsProvider with ChangeNotifier {
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
-  Future fetchData({String myId}) async {
+  Future fetchData({
+    String myId,
+    bool reload = false,
+  }) async {
     try {
       _data = await _contentfulService.getSimpleContentById(
         myId: myId,
-      );
-    } catch (err) {
-      var _err = err as Failure;
-
-      _data = _err.localdata as SimpleContent;
-
-      notifyListeners();
-
-      throw _err.fail;
-    }
-
-    notifyListeners();
-  }
-
-  Future refreshData({String myId}) async {
-    clear();
-
-    try {
-      _data = await _contentfulService.getSimpleContentById(
-        myId: myId,
+        reload: reload,
       );
     } catch (err) {
       var _err = err as Failure;

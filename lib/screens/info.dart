@@ -81,7 +81,7 @@ class _InfoState extends State<Info> {
                 key: _refreshIndicatorKey,
                 onRefresh: () async =>
                     await Provider.of<InfoItemsProvider>(context, listen: false)
-                        .refreshData(howMany: 999)
+                        .fetchData(howMany: 999, reload: true)
                         .catchError((Object err) {
                   ConnectionSnackBar.show(
                     context: context,

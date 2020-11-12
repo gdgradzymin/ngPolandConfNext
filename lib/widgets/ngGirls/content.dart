@@ -21,12 +21,8 @@ class NgGirlsContent extends StatelessWidget {
     if (_simpleContent == null && !_loadingData) {
       _loadingData = true;
 
-      refreshIndicatorKey.currentState?.show();
-
       Provider.of<NgGirlsProvider>(context, listen: false)
-          .fetchData(
-        myId: 'ng-girls-workshops',
-      )
+          .fetchData(myId: 'ng-girls-workshops', reload: true)
           .catchError((Object err) {
         ConnectionSnackBar.show(
           context: context,

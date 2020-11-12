@@ -33,9 +33,7 @@ class Schedule extends StatelessWidget {
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<EventItemsProvider>(context, listen: false)
-            .fetchData(
-          howMany: 999,
-        )
+            .fetchData(howMany: 999, reload: true)
             .catchError((Object err) {
           ConnectionSnackBar.show(
             context: context,

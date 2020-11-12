@@ -15,6 +15,7 @@ class SpeakersProvider with ChangeNotifier {
 
   Future fetchData({
     @required int howMany,
+    bool reload = false,
   }) async {
     if (_speakers.isNotEmpty) {
       clear();
@@ -23,6 +24,7 @@ class SpeakersProvider with ChangeNotifier {
     try {
       _speakers = await _contentfulService.getSpeakers(
         howMany: howMany,
+        reload: reload,
       );
 
       _loadedSpeakers = true;

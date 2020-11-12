@@ -8,12 +8,6 @@ import 'package:ngPolandConf/shared/widgets/emptyListInformation.dart';
 import 'package:provider/provider.dart';
 
 class SpeakersContent extends StatefulWidget {
-  SpeakersContent(
-    this.refreshIndicatorKey,
-  );
-
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
   @override
   _SpeakersContentState createState() => _SpeakersContentState();
 }
@@ -21,7 +15,6 @@ class SpeakersContent extends StatefulWidget {
 class _SpeakersContentState extends State<SpeakersContent> {
   @override
   void initState() {
-    widget.refreshIndicatorKey.currentState?.show();
     super.initState();
   }
 

@@ -12,30 +12,12 @@ class InfoItemsProvider with ChangeNotifier {
 
   Future fetchData({
     @required int howMany,
+    bool reload = false,
   }) async {
     try {
       _infoItems = await _contentfulService.getInfoItems(
         howMany: howMany,
-      );
-    } catch (err) {
-      var _err = err as Failure;
-
-      _infoItems = _err.localdata as List<InfoItem>;
-
-      notifyListeners();
-
-      throw _err.fail;
-    }
-
-    notifyListeners();
-  }
-
-  Future refreshData({@required int howMany}) async {
-    clear();
-
-    try {
-      _infoItems = await _contentfulService.getInfoItems(
-        howMany: howMany,
+        reload: reload,
       );
     } catch (err) {
       var _err = err as Failure;

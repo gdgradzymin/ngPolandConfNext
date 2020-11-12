@@ -26,7 +26,6 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
 
   @override
   void initState() {
-    widget.refreshIndicatorKey.currentState?.show();
     super.initState();
   }
 

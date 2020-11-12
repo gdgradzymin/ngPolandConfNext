@@ -26,12 +26,8 @@ class InfoContent extends StatelessWidget {
     if (_info.isEmpty && !_loadingData) {
       _loadingData = true;
 
-      refreshIndicatorKey.currentState?.show();
-
       Provider.of<InfoItemsProvider>(context, listen: false)
-          .fetchData(
-        howMany: 999,
-      )
+          .fetchData(howMany: 999, reload: true)
           .catchError((Object err) {
         ConnectionSnackBar.show(
           context: context,
