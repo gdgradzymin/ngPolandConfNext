@@ -81,14 +81,7 @@ class _InfoState extends State<Info> {
                 key: _refreshIndicatorKey,
                 onRefresh: () async =>
                     await Provider.of<InfoItemsProvider>(context, listen: false)
-                        .refreshData(howMany: 999)
-                        .catchError((Object err) {
-                  ConnectionSnackBar.show(
-                    context: context,
-                    message: err.toString(),
-                    scaffoldKeyCurrentState: _scaffoldKey.currentState,
-                  );
-                }),
+                        .fetchData(howMany: 999, reload: true),
                 child: ListView(
                   children: [
                     InfoContent(

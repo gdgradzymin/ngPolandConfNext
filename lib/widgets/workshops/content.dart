@@ -16,7 +16,7 @@ class WorkshopsContent extends StatelessWidget {
 
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
-    return _workshopsItems == null
+    return _workshopsItems.isEmpty
         ? EmptyListInformation()
         : ListView.builder(
             itemCount: _workshopsItems.length,

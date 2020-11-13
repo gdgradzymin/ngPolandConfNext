@@ -5,91 +5,40 @@ import 'package:ngPolandConf/services/contentful.dart';
 
 class WorkshopsProvider with ChangeNotifier {
   EventItemType _selectedItems = EventItemType.NGPOLAND;
-
-  List<Workshop> _workshopItemsngPoland = [];
-
-  List<Workshop> _workshopItemsjsPoland = [];
-
-  bool _loadedNgPoland = false;
-
-  bool _loadedJsPoland = false;
-
+  List<Workshop> _workshopItemsNgPoland = [];
+  List<Workshop> _workshopItemsJsPoland = [];
   EventItemType get selectedItems => _selectedItems;
 
   set selectedItems(EventItemType val) {
     _selectedItems = val;
-
     notifyListeners();
   }
 
-  List<Workshop> get workshopItems => _selectedItems == EventItemType.NGPOLAND
-      ? _loadedNgPoland && _workshopItemsngPoland.isEmpty
-          ? null
-          : [..._workshopItemsngPoland]
-      : _loadedJsPoland && _workshopItemsjsPoland.isEmpty
-          ? null
-          : [..._workshopItemsjsPoland];
+  List<Workshop> get workshopItems {
+    if (_selectedItems == EventItemType.NGPOLAND) {
+      return [..._workshopItemsNgPoland];
+    } else {
+      return [..._workshopItemsJsPoland];
+    }
+  }
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
   Future fetchData({
     @required int howMany,
+    bool reload = false,
   }) async {
-    try {
-      if (_selectedItems == EventItemType.NGPOLAND &&
-          _workshopItemsngPoland.isNotEmpty) {
-        clear(_selectedItems);
-      } else if (_selectedItems == EventItemType.JSPOLAND &&
-          _workshopItemsjsPoland.isNotEmpty) {
-        clear(_selectedItems);
-      }
+    _workshopItemsNgPoland = await _contentfulService.getWorkshops(
+      howMany: howMany,
+      type: EventItemType.NGPOLAND,
+      reload: reload,
+    );
 
-      if (_selectedItems == EventItemType.NGPOLAND) {
-        _workshopItemsngPoland = await _contentfulService.getWorkshops(
-          howMany: howMany,
-          type: _selectedItems,
-        );
-
-        _loadedNgPoland = true;
-      } else {
-        _workshopItemsjsPoland = await _contentfulService.getWorkshops(
-          howMany: howMany,
-          type: _selectedItems,
-        );
-
-        _loadedJsPoland = true;
-      }
-    } catch (err) {
-      var _err = err as Failure;
-
-      if (_selectedItems == EventItemType.NGPOLAND) {
-        _workshopItemsngPoland = _err.localdata as List<Workshop>;
-
-        _loadedNgPoland = true;
-      } else {
-        _workshopItemsjsPoland = _err.localdata as List<Workshop>;
-
-        _loadedJsPoland = true;
-      }
-
-      notifyListeners();
-
-      throw _err.fail;
-    }
-
-    notifyListeners();
-  }
-
-  void clear(EventItemType type) {
-    if (type == EventItemType.NGPOLAND) {
-      _workshopItemsngPoland = [];
-
-      _loadedNgPoland = false;
-    } else {
-      _workshopItemsjsPoland = [];
-
-      _loadedJsPoland = false;
-    }
+    _workshopItemsJsPoland = await _contentfulService.getWorkshops(
+      howMany: howMany,
+      type: EventItemType.JSPOLAND,
+      reload: reload,
+    );
 
     notifyListeners();
   }

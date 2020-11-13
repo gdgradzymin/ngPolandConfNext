@@ -6,45 +6,18 @@ import 'package:ngPolandConf/services/contentful.dart';
 class SpeakersProvider with ChangeNotifier {
   List<Speaker> _speakers = [];
 
-  bool _loadedSpeakers = false;
-
-  List<Speaker> get speakers =>
-      _loadedSpeakers && _speakers.isEmpty ? null : [..._speakers];
+  List<Speaker> get speakers => _speakers.isEmpty ? [] : [..._speakers];
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
   Future fetchData({
     @required int howMany,
+    bool reload = false,
   }) async {
-    if (_speakers.isNotEmpty) {
-      clear();
-    }
-
-    try {
-      _speakers = await _contentfulService.getSpeakers(
-        howMany: howMany,
-      );
-
-      _loadedSpeakers = true;
-    } catch (err) {
-      var _err = err as Failure;
-
-      _speakers = _err.localdata as List<Speaker>;
-
-      _loadedSpeakers = true;
-
-      notifyListeners();
-
-      throw _err.fail;
-    }
-
-    notifyListeners();
-  }
-
-  void clear() {
-    _speakers = [];
-
-    _loadedSpeakers = false;
+    _speakers = await _contentfulService.getSpeakers(
+      howMany: howMany,
+      reload: reload,
+    );
 
     notifyListeners();
   }
