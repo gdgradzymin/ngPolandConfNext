@@ -5,30 +5,22 @@ import 'package:ngPolandConf/services/contentful.dart';
 
 class EventItemsProvider with ChangeNotifier {
   EventItemType _selectedItems = EventItemType.NGPOLAND;
-
   List<EventItem> _ngPoland = [];
-
   List<EventItem> _jsPoland = [];
-
-  bool _loadedNgPoland = false;
-
-  bool _loadedJsPoland = false;
-
   EventItemType get selectedItems => _selectedItems;
 
   set selectedItems(EventItemType val) {
     _selectedItems = val;
-
     notifyListeners();
   }
 
-  List<EventItem> get eventItems => _selectedItems == EventItemType.NGPOLAND
-      ? _loadedNgPoland && _ngPoland.isEmpty
-          ? null
-          : [..._ngPoland]
-      : _loadedJsPoland && _jsPoland.isEmpty
-          ? null
-          : [..._jsPoland];
+  List<EventItem> get eventItems {
+    if (_selectedItems == EventItemType.NGPOLAND) {
+      return [..._ngPoland];
+    } else {
+      return [..._jsPoland];
+    }
+  }
 
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
@@ -36,63 +28,17 @@ class EventItemsProvider with ChangeNotifier {
     @required int howMany,
     bool reload = false,
   }) async {
-    try {
-      if (_selectedItems == EventItemType.NGPOLAND && _ngPoland.isNotEmpty) {
-        clear(_selectedItems);
-      } else if (_selectedItems == EventItemType.JSPOLAND &&
-          _jsPoland.isNotEmpty) {
-        clear(_selectedItems);
-      }
+    _ngPoland = await _contentfulService.getEventItems(
+      howMany: howMany,
+      type: EventItemType.NGPOLAND,
+      reload: reload,
+    );
 
-      if (_selectedItems == EventItemType.NGPOLAND) {
-        _ngPoland = await _contentfulService.getEventItems(
-          howMany: howMany,
-          type: _selectedItems,
-          reload: reload,
-        );
-
-        _loadedNgPoland = true;
-      } else {
-        _jsPoland = await _contentfulService.getEventItems(
-          howMany: howMany,
-          type: _selectedItems,
-          reload: reload,
-        );
-
-        _loadedJsPoland = true;
-      }
-    } catch (err) {
-      var _err = err as Failure;
-
-      if (_selectedItems == EventItemType.NGPOLAND) {
-        _ngPoland = _err.localdata as List<EventItem>;
-
-        _loadedNgPoland = true;
-      } else {
-        _jsPoland = _err.localdata as List<EventItem>;
-
-        _loadedJsPoland = true;
-      }
-
-      notifyListeners();
-
-      throw _err.fail;
-    }
-
-    notifyListeners();
-  }
-
-  void clear(EventItemType type) {
-    if (type == EventItemType.NGPOLAND) {
-      _ngPoland = [];
-
-      _loadedNgPoland = false;
-    } else {
-      _jsPoland = [];
-
-      _loadedJsPoland = false;
-    }
-
+    _jsPoland = await _contentfulService.getEventItems(
+      howMany: howMany,
+      type: EventItemType.JSPOLAND,
+      reload: reload,
+    );
     notifyListeners();
   }
 }

@@ -32,14 +32,7 @@ class Speakers extends StatelessWidget {
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<SpeakersProvider>(context, listen: false)
-            .fetchData(howMany: 999, reload: true)
-            .catchError((Object err) {
-          ConnectionSnackBar.show(
-            context: context,
-            message: err.toString(),
-            scaffoldKeyCurrentState: _scaffoldKey.currentState,
-          );
-        }),
+            .fetchData(howMany: 999, reload: true),
         child: Center(
           child: SpeakersContent(),
         ),

@@ -14,26 +14,10 @@ class NgGirlsProvider with ChangeNotifier {
     String myId,
     bool reload = false,
   }) async {
-    try {
-      _data = await _contentfulService.getSimpleContentById(
-        myId: myId,
-        reload: reload,
-      );
-    } catch (err) {
-      var _err = err as Failure;
-
-      _data = _err.localdata as SimpleContent;
-
-      notifyListeners();
-
-      throw _err.fail;
-    }
-
-    notifyListeners();
-  }
-
-  void clear() {
-    _data = null;
+    _data = await _contentfulService.getSimpleContentById(
+      myId: myId,
+      reload: reload,
+    );
     notifyListeners();
   }
 }

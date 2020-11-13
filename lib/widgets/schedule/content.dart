@@ -54,7 +54,7 @@ class _ScheduleContentState extends State<ScheduleContent> {
               DateTime.parse(dateEndEvent).toLocal().millisecondsSinceEpoch;
     }
 
-    return _eventItems == null
+    return _eventItems.isEmpty
         ? EmptyListInformation()
         : ListView.builder(
             itemCount: _eventItems.length,

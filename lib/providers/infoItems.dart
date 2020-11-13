@@ -5,35 +5,17 @@ import 'package:ngPolandConf/services/contentful.dart';
 
 class InfoItemsProvider with ChangeNotifier {
   List<InfoItem> _infoItems = [];
-
   List<InfoItem> get infoItems => [..._infoItems];
-
   final ContentfulService _contentfulService = GetIt.I.get<ContentfulService>();
 
   Future fetchData({
     @required int howMany,
     bool reload = false,
   }) async {
-    try {
-      _infoItems = await _contentfulService.getInfoItems(
-        howMany: howMany,
-        reload: reload,
-      );
-    } catch (err) {
-      var _err = err as Failure;
-
-      _infoItems = _err.localdata as List<InfoItem>;
-
-      notifyListeners();
-
-      throw _err.fail;
-    }
-
-    notifyListeners();
-  }
-
-  void clear() {
-    _infoItems = [];
+    _infoItems = await _contentfulService.getInfoItems(
+      howMany: howMany,
+      reload: reload,
+    );
     notifyListeners();
   }
 }

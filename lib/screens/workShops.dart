@@ -38,14 +38,7 @@ class _WorkshopsState extends State<Workshops> {
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<WorkshopsProvider>(context, listen: false)
-            .fetchData(howMany: 999, reload: true)
-            .catchError((Object err) {
-          ConnectionSnackBar.show(
-            context: context,
-            message: err.toString(),
-            scaffoldKeyCurrentState: _scaffoldKey.currentState,
-          );
-        }),
+            .fetchData(howMany: 999, reload: true),
         child: WorkshopsContent(),
       ),
       bottomNavigationBar: AnimatedBottomNav(

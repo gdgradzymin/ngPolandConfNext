@@ -22,7 +22,7 @@ class _SpeakersContentState extends State<SpeakersContent> {
   Widget build(BuildContext context) {
     List<Speaker> _speakers = Provider.of<SpeakersProvider>(context).speakers;
 
-    return _speakers == null
+    return _speakers.isEmpty
         ? EmptyListInformation()
         : ListView.builder(
             itemCount: _speakers.length,

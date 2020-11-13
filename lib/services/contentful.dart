@@ -28,10 +28,7 @@ final String _contentfulEntries =
     '${_url}spaces/$_spaceId/environments/master/entries?access_token=$_accessToken';
 
 class ContentfulService {
-  static const String _connectionLostMessage =
-      'No Internet connection, please try later.';
-
-  static const String _confID = '2020';
+  static const String _confID = '2019';
 
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
@@ -170,16 +167,14 @@ class ContentfulService {
                 (e) => InfoItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-
-      throw Failure(
-        fail: _connectionLostMessage,
-        localdata: _infoItems,
-      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
       print('Bad response format.');
+    } catch (err) {
+      print('An unknown error occurred.');
     }
+
     return _infoItems;
   }
 
@@ -191,7 +186,6 @@ class ContentfulService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<EventItem> _eventItems = [];
-
     try {
       if (prefs.containsKey('EventItems-$type') && !reload) {
         List<String> _data = prefs.getStringList('EventItems-$type');
@@ -281,16 +275,12 @@ class ContentfulService {
                 EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-      throw Failure(
-        fail: _connectionLostMessage,
-        localdata: _eventItems,
-      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
       print('Bad response format.');
     } catch (err) {
-      print('cos');
+      print('An unknown error occurred.');
     }
 
     return _eventItems;
@@ -341,15 +331,12 @@ class ContentfulService {
           ) as Map<String, dynamic>,
         );
       }
-
-      throw Failure(
-        fail: _connectionLostMessage,
-        localdata: _simpleContent,
-      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
       print('Bad response format.');
+    } catch (err) {
+      print('An unknown error occurred.');
     }
 
     return _simpleContent;
@@ -446,15 +433,12 @@ class ContentfulService {
                 (e) => Workshop.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-
-      throw Failure(
-        fail: _connectionLostMessage,
-        localdata: _workshops,
-      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
       print('Bad response format.');
+    } catch (err) {
+      print('An unknown error occurred.');
     }
 
     return _workshops;
@@ -526,15 +510,12 @@ class ContentfulService {
             .map((e) => Speaker.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       }
-
-      throw Failure(
-        fail: _connectionLostMessage,
-        localdata: _speakers,
-      );
     } on HttpException {
       print('Couldn\'t find the post.');
     } on FormatException {
       print('Bad response format.');
+    } catch (err) {
+      print('An unknown error occurred.');
     }
 
     return _speakers;

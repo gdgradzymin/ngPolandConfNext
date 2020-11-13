@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  void _fetchAllData(BuildContext context) {
+  void _fetchAllData({BuildContext context, bool reload = false}) {
     InfoItemsProvider _info =
         Provider.of<InfoItemsProvider>(context, listen: false);
 
@@ -77,35 +77,32 @@ class _MyAppState extends State<MyApp> {
         Provider.of<SpeakersProvider>(context, listen: false);
 
     if (_info.infoItems.isEmpty) {
-      _info.fetchData(howMany: 999);
+      _info.fetchData(howMany: 999, reload: reload);
     }
 
     if (_events.eventItems.isEmpty) {
-      _events.fetchData(howMany: 999);
-
+      _events.fetchData(howMany: 999, reload: reload);
       _events.selectedItems = EventItemType.JSPOLAND;
-
-      _events.fetchData(howMany: 999);
-
+      _events.fetchData(howMany: 999, reload: reload);
       _events.selectedItems = EventItemType.NGPOLAND;
     }
 
     if (_ngGirls.data == null) {
-      _ngGirls.fetchData(myId: 'ng-girls-workshops');
+      _ngGirls.fetchData(myId: 'ng-girls-workshops', reload: reload);
     }
 
     if (_workshops.workshopItems.isEmpty) {
-      _workshops.fetchData(howMany: 999);
+      _workshops.fetchData(howMany: 999, reload: reload);
 
       _workshops.selectedItems = EventItemType.JSPOLAND;
 
-      _workshops.fetchData(howMany: 999);
+      _workshops.fetchData(howMany: 999, reload: reload);
 
       _workshops.selectedItems = EventItemType.NGPOLAND;
     }
 
     if (_speakers.speakers.isEmpty) {
-      _speakers.fetchData(howMany: 999);
+      _speakers.fetchData(howMany: 999, reload: reload);
     }
   }
 
@@ -150,16 +147,17 @@ class _MyAppState extends State<MyApp> {
               Provider.of<Connection>(context, listen: false).status = true;
 
               // if data is empty - will download all data
-              _fetchAllData(context);
+              _fetchAllData(context: context, reload: true);
             } else if (result == ConnectivityResult.mobile) {
               Provider.of<Connection>(context, listen: false).viewedSnackBar =
                   0;
               Provider.of<Connection>(context, listen: false).status = true;
 
               // if data is empty - will download all data
-              _fetchAllData(context);
+              _fetchAllData(context: context, reload: true);
             } else {
               Provider.of<Connection>(context, listen: false).status = false;
+              _fetchAllData(context: context, reload: true);
             }
           });
           //
