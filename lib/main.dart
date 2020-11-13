@@ -213,10 +213,10 @@ class _MyAppState extends State<MyApp> {
             initialRoute: '/',
             onGenerateRoute: (RouteSettings settings) {
               var defaultRoutes = {
-                '/': (dynamic context) => Home(title: 'ngPolandConf'),
+                '/': (dynamic context) => const Home(title: 'ngPolandConf'),
                 '/NgGirls': (dynamic context) => NgGirls(title: 'ngGirls'),
                 '/Speakers': (dynamic context) => Speakers(title: 'Speakers'),
-                '/Info': (dynamic context) => Info(title: 'Info'),
+                '/Info': (dynamic context) => const Info(title: 'Info'),
                 '/About': (dynamic context) => About(title: 'About'),
               };
 

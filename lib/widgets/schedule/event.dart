@@ -8,7 +8,7 @@ import 'package:ngPolandConf/screens/presenter.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleEvent extends StatefulWidget {
-  ScheduleEvent(this.eventItem);
+  const ScheduleEvent(this.eventItem);
 
   final EventItem eventItem;
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PresenterRoute extends PageRouteBuilder<dynamic> {
-  final Widget page;
-
   PresenterRoute({this.page})
       : super(
           pageBuilder: (
@@ -25,10 +23,11 @@ class PresenterRoute extends PageRouteBuilder<dynamic> {
             child: child,
           ),
         );
+
+  final Widget page;
 }
 
 class ScaleRoute extends PageRouteBuilder<dynamic> {
-  final Widget page;
   ScaleRoute({this.page})
       : super(
           pageBuilder: (
@@ -56,11 +55,11 @@ class ScaleRoute extends PageRouteBuilder<dynamic> {
             child: child,
           ),
         );
+
+  final Widget page;
 }
 
 class LeftRoute extends PageRouteBuilder<dynamic> {
-  final Widget page;
-
   LeftRoute({this.page})
       : super(
           pageBuilder: (
@@ -83,4 +82,6 @@ class LeftRoute extends PageRouteBuilder<dynamic> {
             child: child,
           ),
         );
+
+  final Widget page;
 }

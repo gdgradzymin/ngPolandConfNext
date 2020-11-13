@@ -6,14 +6,11 @@ import 'package:ngPolandConf/widgets/ngGirls/content.dart';
 import 'package:provider/provider.dart';
 
 class NgGirls extends StatelessWidget {
-  static const routeName = '/NgGirls';
-
-  final String title;
-
   NgGirls({Key key, this.title}) : super(key: key);
 
+  static const routeName = '/NgGirls';
+  final String title;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 

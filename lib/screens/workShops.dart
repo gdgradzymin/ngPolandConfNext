@@ -7,11 +7,10 @@ import 'package:ngPolandConf/widgets/workshops/content.dart';
 import 'package:provider/provider.dart';
 
 class Workshops extends StatefulWidget {
+  const Workshops({Key key, this.title}) : super(key: key);
+
   static const routeName = '/Workshops';
-
   final String title;
-
-  Workshops({Key key, this.title}) : super(key: key);
 
   @override
   _WorkshopsState createState() => _WorkshopsState();

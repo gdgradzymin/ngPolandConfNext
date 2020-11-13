@@ -8,13 +8,12 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Presenter extends StatelessWidget {
-  static const routeName = '/Presenter';
-
-  Presenter({
+  const Presenter({
     this.data,
     this.speaker,
   });
 
+  static const routeName = '/Presenter';
   final Map<String, Object> data;
   final Speaker speaker;
 

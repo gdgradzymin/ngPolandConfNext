@@ -7,15 +7,15 @@ import 'package:ngPolandConf/services/contentful.dart';
 import 'package:provider/provider.dart';
 
 class AnimatedBottomNav extends StatefulWidget {
-  final Size deviceSize;
-  final dynamic provider;
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-  AnimatedBottomNav({
+  const AnimatedBottomNav({
     this.deviceSize,
     this.provider,
     this.refreshIndicatorKey,
   });
+
+  final Size deviceSize;
+  final dynamic provider;
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   @override
   _AnimatedBottomNavState createState() => _AnimatedBottomNavState();

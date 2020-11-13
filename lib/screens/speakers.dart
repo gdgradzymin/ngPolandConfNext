@@ -6,14 +6,11 @@ import 'package:ngPolandConf/widgets/speakers/content.dart';
 import 'package:provider/provider.dart';
 
 class Speakers extends StatelessWidget {
-  static const routeName = '/Speakers';
-
-  final String title;
-
   Speakers({Key key, this.title}) : super(key: key);
 
+  static const routeName = '/Speakers';
+  final String title;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 

@@ -7,11 +7,10 @@ import 'package:ngPolandConf/widgets/newHome/events.dart';
 import 'package:ngPolandConf/widgets/newHome/timer.dart';
 
 class Home extends StatelessWidget {
+  const Home({Key key, this.title}) : super(key: key);
+
   static const routeName = '/';
-
   final String title;
-
-  Home({Key key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -5,15 +5,15 @@ import 'package:ngPolandConf/screens/info.dart';
 import 'package:provider/provider.dart';
 
 class InfoNavigation extends StatelessWidget {
-  final InfoContents currentContent;
-  final int whoColorIcon;
-  final Function changeContent;
-
-  InfoNavigation({
+  const InfoNavigation({
     this.currentContent,
     this.whoColorIcon,
     this.changeContent,
   });
+
+  final InfoContents currentContent;
+  final int whoColorIcon;
+  final Function changeContent;
 
   @override
   Widget build(BuildContext context) {

@@ -14,11 +14,10 @@ enum InfoContents {
 }
 
 class Info extends StatefulWidget {
+  const Info({Key key, this.title}) : super(key: key);
+
   static const routeName = '/Info';
-
   final String title;
-
-  Info({Key key, this.title}) : super(key: key);
 
   @override
   _InfoState createState() => _InfoState();

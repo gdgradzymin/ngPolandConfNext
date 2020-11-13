@@ -5,13 +5,12 @@ import 'package:ngPolandConf/widgets/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatelessWidget {
-  static const routeName = '/About';
-
-  final String title;
-
   About({Key key, this.title}) : super(key: key);
 
-  List<Author> _dataAuthors = [
+  static const routeName = '/About';
+  final String title;
+
+  final List<Author> _dataAuthors = [
     Author(
       name: 'Daniel Michalak',
       image: 'danielmichalak',

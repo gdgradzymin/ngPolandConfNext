@@ -7,14 +7,11 @@ import 'package:ngPolandConf/widgets/schedule/content.dart';
 import 'package:provider/provider.dart';
 
 class Schedule extends StatelessWidget {
-  static const routeName = '/Schedule';
-
   Schedule({Key key, this.title}) : super(key: key);
 
+  static const routeName = '/Schedule';
   final String title;
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 

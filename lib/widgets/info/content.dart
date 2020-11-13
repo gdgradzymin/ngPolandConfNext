@@ -8,24 +8,19 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoContent extends StatelessWidget {
-  InfoContent({
+  const InfoContent({
     this.selectedContent,
     this.refreshIndicatorKey,
   });
 
   final InfoContents selectedContent;
-
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-  bool _loadingData = false;
 
   @override
   Widget build(BuildContext context) {
     List<InfoItem> _info = Provider.of<InfoItemsProvider>(context).infoItems;
 
-    if (_info.isEmpty && !_loadingData) {
-      _loadingData = true;
-
+    if (_info.isEmpty) {
       Provider.of<InfoItemsProvider>(context, listen: false)
           .fetchData(howMany: 999, reload: true);
     }
