@@ -95,6 +95,34 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> initConnectivity(BuildContext ctx) async {
+    ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    switch (result) {
+      case ConnectivityResult.wifi:
+
+      case ConnectivityResult.mobile:
+        Provider.of<Connection>(ctx, listen: false).status = true;
+        break;
+      default:
+        Provider.of<Connection>(ctx, listen: false).status = false;
+        break;
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -167,8 +195,8 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<ThemeNotifier>(
         builder: (context, theme, _) {
           ctx = context;
+          initConnectivity(context);
           // fetch data on start
-
           Future.delayed(Duration.zero, () async {
             _fetchAllData(context: context, reload: true);
           });
