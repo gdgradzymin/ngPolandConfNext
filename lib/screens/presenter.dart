@@ -64,6 +64,9 @@ class Presenter extends StatelessWidget {
                                 (context, url, downloadProgress) =>
                                     Image.asset('assets/images/person.png'),
                             imageUrl: 'http:${speaker.photoFileUrl}',
+                            errorWidget: (context, url, dynamic error) {
+                              return Image.asset('assets/images/person.png');
+                            },
                             imageBuilder: (context, imageProvider) => Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.width * 0.4,

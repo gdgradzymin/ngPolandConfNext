@@ -56,6 +56,9 @@ class _SpeakersContentState extends State<SpeakersContent> {
                             ),
                           ),
                         ),
+                        errorWidget: (context, url, dynamic error) {
+                          return Image.asset('assets/images/person.png');
+                        },
                       ),
                     ),
                     title: Text(

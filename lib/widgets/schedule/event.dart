@@ -167,6 +167,9 @@ class _ScheduleEventState extends State<ScheduleEvent> {
                                       Image.asset('assets/images/person.png'),
                               imageUrl:
                                   'http:${widget.eventItem.speaker.photoFileUrl}',
+                              errorWidget: (context, url, dynamic error) {
+                                return Image.asset('assets/images/person.png');
+                              },
                             ),
                           ),
                         ),

@@ -46,6 +46,9 @@ class WorkshopsContent extends StatelessWidget {
                                     Image.asset('assets/images/person.png'),
                             imageUrl:
                                 'http:${_workshopsItems[index].speaker.photoFileUrl}',
+                            errorWidget: (context, url, dynamic error) {
+                              return Image.asset('assets/images/person.png');
+                            },
                             imageBuilder: (context, imageProvider) => Container(
                               width: 50,
                               height: 50,

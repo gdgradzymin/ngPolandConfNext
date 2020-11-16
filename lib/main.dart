@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/connection.dart';
@@ -22,6 +25,7 @@ import 'package:ngPolandConf/screens/workshops.dart';
 import 'package:ngPolandConf/shared/widgets/slideRoutes.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:rxdart/rxdart.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -44,9 +48,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Connectivity _connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  final PublishSubject<ConnectivityResult> connectionStatus =
+      PublishSubject<ConnectivityResult>();
+
   Connectivity connectivity;
 
   ThemeNotifier themeNotifier = ThemeNotifier();
+
+  BuildContext ctx;
 
   void getStatusDarkTheme() async {
     themeNotifier.darkTheme =
@@ -56,8 +67,39 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     getStatusDarkTheme();
-
     super.initState();
+
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+      connectionStatus.add(result);
+    });
+
+    connectionStatus.stream
+        .debounceTime(const Duration(
+            seconds: 3)) // ignore quick changes like cell -> wifi
+        .distinct((a, b) {
+      // only different states
+      return a.toString() == b.toString();
+    }).listen((ConnectivityResult r) {
+      switch (r) {
+        case ConnectivityResult.wifi:
+        case ConnectivityResult.mobile:
+          _fetchAllData(context: ctx, reload: true);
+          Provider.of<Connection>(ctx, listen: false).status = true;
+          break;
+        default:
+          _fetchAllData(context: ctx, reload: false);
+          Provider.of<Connection>(ctx, listen: false).status = false;
+          break;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _connectivitySubscription.cancel();
+    connectionStatus.close();
   }
 
   void _fetchAllData({BuildContext context, bool reload = false}) {
@@ -76,34 +118,21 @@ class _MyAppState extends State<MyApp> {
     SpeakersProvider _speakers =
         Provider.of<SpeakersProvider>(context, listen: false);
 
-    if (_info.infoItems.isEmpty) {
-      _info.fetchData(howMany: 999, reload: reload);
-    }
+    _info.fetchData(howMany: 999, reload: reload);
 
-    if (_events.eventItems.isEmpty) {
-      _events.fetchData(howMany: 999, reload: reload);
-      _events.selectedItems = EventItemType.JSPOLAND;
-      _events.fetchData(howMany: 999, reload: reload);
-      _events.selectedItems = EventItemType.NGPOLAND;
-    }
+    _events.selectedItems = EventItemType.JSPOLAND;
+    _events.fetchData(howMany: 999, reload: reload);
+    _events.selectedItems = EventItemType.NGPOLAND;
+    _events.fetchData(howMany: 999, reload: reload);
 
-    if (_ngGirls.data == null) {
-      _ngGirls.fetchData(myId: 'ng-girls-workshops', reload: reload);
-    }
+    _ngGirls.fetchData(myId: 'ng-girls-workshops', reload: reload);
 
-    if (_workshops.workshopItems.isEmpty) {
-      _workshops.fetchData(howMany: 999, reload: reload);
+    _workshops.selectedItems = EventItemType.JSPOLAND;
+    _workshops.fetchData(howMany: 999, reload: reload);
+    _workshops.selectedItems = EventItemType.NGPOLAND;
+    _workshops.fetchData(howMany: 999, reload: reload);
 
-      _workshops.selectedItems = EventItemType.JSPOLAND;
-
-      _workshops.fetchData(howMany: 999, reload: reload);
-
-      _workshops.selectedItems = EventItemType.NGPOLAND;
-    }
-
-    if (_speakers.speakers.isEmpty) {
-      _speakers.fetchData(howMany: 999, reload: reload);
-    }
+    _speakers.fetchData(howMany: 999, reload: reload);
   }
 
   @override
@@ -137,30 +166,12 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Consumer<ThemeNotifier>(
         builder: (context, theme, _) {
-          // Checking Status internet
-          connectivity = Connectivity();
-          connectivity.onConnectivityChanged
-              .listen((ConnectivityResult result) {
-            if (result == ConnectivityResult.wifi) {
-              Provider.of<Connection>(context, listen: false).viewedSnackBar =
-                  0;
-              Provider.of<Connection>(context, listen: false).status = true;
+          ctx = context;
+          // fetch data on start
 
-              // if data is empty - will download all data
-              _fetchAllData(context: context, reload: true);
-            } else if (result == ConnectivityResult.mobile) {
-              Provider.of<Connection>(context, listen: false).viewedSnackBar =
-                  0;
-              Provider.of<Connection>(context, listen: false).status = true;
-
-              // if data is empty - will download all data
-              _fetchAllData(context: context, reload: true);
-            } else {
-              Provider.of<Connection>(context, listen: false).status = false;
-              _fetchAllData(context: context, reload: true);
-            }
+          Future.delayed(Duration.zero, () async {
+            _fetchAllData(context: context, reload: true);
           });
-          //
 
           return MaterialApp(
             title: 'ngPolandConf 2020',

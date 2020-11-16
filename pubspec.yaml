@@ -32,7 +32,7 @@ dependencies:
   get_it: ^4.0.1
   intl: ^0.16.1
   cached_network_image: ^2.3.2+1
-  connectivity: ^0.4.9+3
+  connectivity: ^2.0.1
   flutter_dotenv: ^2.1.0
 
   # The following adds the Cupertino Icons font to your application.
