@@ -115,9 +115,11 @@ class _MyAppState extends State<MyApp> {
       case ConnectivityResult.wifi:
 
       case ConnectivityResult.mobile:
+        _fetchAllData(context: ctx, reload: true);
         Provider.of<Connection>(ctx, listen: false).status = true;
         break;
       default:
+        _fetchAllData(context: ctx, reload: false);
         Provider.of<Connection>(ctx, listen: false).status = false;
         break;
     }
@@ -196,10 +198,6 @@ class _MyAppState extends State<MyApp> {
         builder: (context, theme, _) {
           ctx = context;
           initConnectivity(context);
-          // fetch data on start
-          Future.delayed(Duration.zero, () async {
-            _fetchAllData(context: context, reload: true);
-          });
 
           return MaterialApp(
             title: 'ngPolandConf 2020',
