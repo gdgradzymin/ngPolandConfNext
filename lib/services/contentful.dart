@@ -28,7 +28,7 @@ final String _contentfulEntries =
     '${_url}spaces/$_spaceId/environments/master/entries?access_token=$_accessToken';
 
 class ContentfulService {
-  static const String _confID = '2019';
+  static const String _confID = '2020';
 
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
