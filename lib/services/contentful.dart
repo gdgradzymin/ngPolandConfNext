@@ -439,7 +439,6 @@ class ContentfulService {
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<Speaker> _speakers = [];
-
     try {
       if (prefs.containsKey('Speakers') && !reload) {
         List<String> _data = prefs.getStringList('Speakers');
