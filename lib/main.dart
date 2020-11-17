@@ -283,10 +283,10 @@ class _MyAppState extends State<MyApp> {
 
                     return _route == 'scale'
                         ? ScaleRoute(
-                            page: Workshops(title: 'Workshops'),
+                            page: const Workshops(title: 'Workshops'),
                           )
                         : LeftRoute(
-                            page: Workshops(title: 'Workshops'),
+                            page: const Workshops(title: 'Workshops'),
                           );
                   }
                   break;
