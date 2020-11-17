@@ -112,6 +112,15 @@ class About extends StatelessWidget {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: Text(
+                  'Version: 3.2.1',
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                      color: Theme.of(context).accentColor, fontSize: 8),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
