@@ -111,18 +111,20 @@ class _MyAppState extends State<MyApp> {
       return Future.value(null);
     }
 
-    switch (result) {
-      case ConnectivityResult.wifi:
-
-      case ConnectivityResult.mobile:
-        _fetchAllData(context: ctx, reload: true);
-        Provider.of<Connection>(ctx, listen: false).status = true;
-        break;
-      default:
-        _fetchAllData(context: ctx, reload: false);
-        Provider.of<Connection>(ctx, listen: false).status = false;
-        break;
+    if (!Provider.of<Connection>(ctx, listen: false).initialFetch) {
+      switch (result) {
+        case ConnectivityResult.wifi:
+        case ConnectivityResult.mobile:
+          _fetchAllData(context: ctx, reload: true);
+          Provider.of<Connection>(ctx, listen: false).status = true;
+          break;
+        default:
+          _fetchAllData(context: ctx, reload: false);
+          Provider.of<Connection>(ctx, listen: false).status = false;
+          break;
+      }
     }
+    Provider.of<Connection>(ctx, listen: false).initialFetch = true;
   }
 
   @override
@@ -198,7 +200,6 @@ class _MyAppState extends State<MyApp> {
         builder: (context, theme, _) {
           ctx = context;
           initConnectivity(context);
-
           return MaterialApp(
             title: 'ngPolandConf 2020',
             theme: ThemeData(
