@@ -12,4 +12,4 @@ You can download the app here:
 
 #
 
-[<img src="media/screens/screens.png">](media/screens/screens.png)
+[<img src="media/screens/android/screens.png">](media/screens/android/screens.png)
