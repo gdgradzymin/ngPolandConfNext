@@ -29,6 +29,8 @@ final String _contentfulEntries =
 class ContentfulService {
   static const String _confID = '2020';
 
+  final dio = Dio();
+
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
       case EventContentTypes.SPEAKER:
@@ -127,7 +129,6 @@ class ContentfulService {
                 (e) => InfoItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       } else {
-        var dio = Dio();
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
               contentType: getStringFromEventContentTypes(
@@ -191,7 +192,6 @@ class ContentfulService {
                 EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       } else {
-        var dio = Dio();
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
               contentType: getStringFromEventContentTypes(
@@ -297,7 +297,6 @@ class ContentfulService {
           ) as Map<String, dynamic>,
         );
       } else {
-        var dio = Dio();
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
               contentType: getStringFromEventContentTypes(
@@ -352,7 +351,6 @@ class ContentfulService {
                 (e) => Workshop.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       } else {
-        var dio = Dio();
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
               contentType: getStringFromEventContentTypes(
@@ -446,7 +444,6 @@ class ContentfulService {
             .map((e) => Speaker.fromJson(jsonDecode(e) as Map<String, dynamic>))
             .toList();
       } else {
-        var dio = Dio();
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
               contentType: getStringFromEventContentTypes(
