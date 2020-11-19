@@ -8,7 +8,7 @@ If you would like to help us, you're welcome. There will be always something you
 
 You can download the app here:
 - Android: [https://play.google.com/store/apps/details?id=pl.ngPoland.ngPolandConf](https://play.google.com/store/apps/details?id=pl.ngPoland.ngPolandConf)
-- iOS: coming soon
+- iOS: [https://apps.apple.com/app/ngpolandconf/id1441913676](https://apps.apple.com/app/ngpolandconf/id1441913676)
 
 #
 
