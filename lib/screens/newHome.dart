@@ -15,10 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppBar appBar = AppBar(
-      title: Text(title),
-      centerTitle: true,
-      actions: [ConnectionStatus()],
-    );
+        title: Text(title), centerTitle: true, actions: [ConnectionStatus()]);
 
     double _contentHeight = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -

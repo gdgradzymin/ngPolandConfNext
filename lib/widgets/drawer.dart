@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ngPolandConf/screens/about.dart';
-import 'package:ngPolandConf/screens/newHome.dart';
 import 'package:ngPolandConf/screens/info.dart';
+import 'package:ngPolandConf/screens/newHome.dart';
 import 'package:ngPolandConf/screens/ngGirls.dart';
 import 'package:ngPolandConf/screens/schedule.dart';
 import 'package:ngPolandConf/screens/speakers.dart';

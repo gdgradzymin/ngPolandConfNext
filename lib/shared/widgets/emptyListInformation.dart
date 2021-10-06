@@ -14,7 +14,7 @@ class EmptyListInformation extends StatelessWidget {
               Icon(
                 Icons.update,
                 size: 85,
-                color: Theme.of(context).accentColor.withOpacity(0.5),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
               ),
               Padding(
                 padding: const EdgeInsets.all(32.0),

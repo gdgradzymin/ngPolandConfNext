@@ -18,8 +18,8 @@ enum EventItemType {
   JSPOLAND,
 }
 
-final String _accessToken = DotEnv().env['access_token'];
-final String _spaceId = DotEnv().env['space_id'];
+final String _accessToken = dotenv.env['access_token'];
+final String _spaceId = dotenv.env['space_id'];
 
 const String _url = 'https://cdn.contentful.com/';
 

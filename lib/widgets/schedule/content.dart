@@ -78,10 +78,12 @@ class _ScheduleContentState extends State<ScheduleContent> {
                                   color: _animation
                                       ? _darkMode
                                           ? Theme.of(context)
-                                              .accentColor
+                                              .colorScheme
+                                              .secondary
                                               .withOpacity(0.8)
                                           : Theme.of(context)
-                                              .accentColor
+                                              .colorScheme
+                                              .secondary
                                               .withOpacity(0.4)
                                       : _darkMode
                                           ? Theme.of(context)

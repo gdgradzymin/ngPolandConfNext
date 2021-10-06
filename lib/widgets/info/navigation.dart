@@ -34,7 +34,7 @@ class InfoNavigation extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.225,
                 height: 50,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
             Positioned(
