@@ -94,7 +94,7 @@ class _ScheduleEventState extends State<ScheduleEvent> {
   Widget build(BuildContext context) {
     bool _darkMode = Provider.of<ThemeNotifier>(context).darkTheme;
 
-    Color _iconsColor = Theme.of(context).accentColor;
+    Color _iconsColor = Theme.of(context).colorScheme.secondary;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),

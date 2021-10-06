@@ -63,7 +63,7 @@ class About extends StatelessWidget {
                   'Authors:',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -120,7 +120,8 @@ class About extends StatelessWidget {
                 child: Text(
                   'Version: 3.2.7',
                   style: Theme.of(context).textTheme.headline6.copyWith(
-                      color: Theme.of(context).accentColor, fontSize: 8),
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 8),
                   textAlign: TextAlign.center,
                 ),
               ),

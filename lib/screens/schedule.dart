@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
+import 'package:ngPolandConf/shared/widgets/animatedBottomNav.dart';
 import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:ngPolandConf/widgets/drawer.dart';
-import 'package:ngPolandConf/shared/widgets/animatedBottomNav.dart';
 import 'package:ngPolandConf/widgets/schedule/content.dart';
 import 'package:provider/provider.dart';
 

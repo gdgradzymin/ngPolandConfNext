@@ -147,11 +147,15 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                                     color: _darkMode
                                         ? _selectedItems ==
                                                 EventItemType.NGPOLAND
-                                            ? Theme.of(context).accentColor
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .secondary
                                             : Colors.white
                                         : _selectedItems ==
                                                 EventItemType.NGPOLAND
-                                            ? Theme.of(context).accentColor
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .secondary
                                             : Colors.black,
                                   ),
                             ),
@@ -220,11 +224,15 @@ class _AnimatedBottomNavState extends State<AnimatedBottomNav> {
                                     color: _darkMode
                                         ? _selectedItems ==
                                                 EventItemType.JSPOLAND
-                                            ? Theme.of(context).accentColor
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .secondary
                                             : Colors.white
                                         : _selectedItems ==
                                                 EventItemType.JSPOLAND
-                                            ? Theme.of(context).accentColor
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .secondary
                                             : Colors.black,
                                   ),
                             ),

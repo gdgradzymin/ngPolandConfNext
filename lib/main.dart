@@ -3,28 +3,28 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/connection.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
 import 'package:ngPolandConf/providers/infoItems.dart';
-import 'package:ngPolandConf/providers/speakers.dart';
-import 'package:ngPolandConf/providers/workShops.dart';
-import 'package:ngPolandConf/screens/presenter.dart';
-import 'package:ngPolandConf/services/contentful.dart';
-import 'package:ngPolandConf/providers/selectedPage.dart';
 import 'package:ngPolandConf/providers/ngGirls.dart';
+import 'package:ngPolandConf/providers/selectedPage.dart';
+import 'package:ngPolandConf/providers/speakers.dart';
 import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/providers/workShops.dart';
 import 'package:ngPolandConf/screens/about.dart';
-import 'package:ngPolandConf/screens/newHome.dart';
 import 'package:ngPolandConf/screens/info.dart';
+import 'package:ngPolandConf/screens/newHome.dart';
 import 'package:ngPolandConf/screens/ngGirls.dart';
+import 'package:ngPolandConf/screens/presenter.dart';
 import 'package:ngPolandConf/screens/schedule.dart';
 import 'package:ngPolandConf/screens/speakers.dart';
 import 'package:ngPolandConf/screens/workshops.dart';
+import 'package:ngPolandConf/services/contentful.dart';
 import 'package:ngPolandConf/shared/widgets/slideRoutes.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:rxdart/rxdart.dart';
 
 GetIt locator = GetIt.instance;
@@ -34,7 +34,7 @@ void setupSingletons() async {
 }
 
 Future main() async {
-  await DotEnv().load('.env');
+  await DotEnv().load(fileName: '.env');
   setupSingletons();
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -203,8 +203,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'ngPolandConf 2020',
             theme: ThemeData(
-                brightness: Brightness.light,
-                accentColor: const Color.fromRGBO(255, 0, 122, 1),
+                // brightness: Brightness.light,
                 primaryColor: const Color.fromRGBO(59, 29, 130, 1),
                 canvasColor: Colors.white,
                 textTheme: const TextTheme(
@@ -224,10 +223,12 @@ class _MyAppState extends State<MyApp> {
                 ),
                 dividerTheme: const DividerThemeData(
                   color: Color.fromRGBO(255, 0, 122, 0.3),
-                )),
+                ),
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                    secondary: const Color.fromRGBO(255, 0, 122, 1),
+                    brightness: Brightness.light)),
             darkTheme: ThemeData(
-                brightness: Brightness.dark,
-                accentColor: const Color.fromRGBO(233, 30, 99, 1),
+                //brightness: Brightness.dark,
                 primaryColor: const Color.fromRGBO(59, 29, 130, 1),
                 textTheme: const TextTheme(
                     headline1: TextStyle(
@@ -246,7 +247,10 @@ class _MyAppState extends State<MyApp> {
                         TextStyle(color: Color.fromRGBO(255, 255, 255, 0.9))),
                 dividerTheme: const DividerThemeData(
                   color: Color.fromRGBO(255, 0, 122, 0.4),
-                )),
+                ),
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                    secondary: const Color.fromRGBO(233, 30, 99, 1),
+                    brightness: Brightness.dark)),
             themeMode: theme.darkTheme ? ThemeMode.dark : ThemeMode.light,
             initialRoute: '/',
             onGenerateRoute: (RouteSettings settings) {

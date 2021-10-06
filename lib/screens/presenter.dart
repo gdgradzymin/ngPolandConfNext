@@ -22,6 +22,15 @@ class Presenter extends StatelessWidget {
     // var _data = ModalRoute.of(context).settings.arguments as Map<String, Object>;
     var _darkTheme = Provider.of<ThemeNotifier>(context).darkTheme;
 
+    final flatButtonStyle = TextButton.styleFrom(
+      primary: Colors.black87,
+      minimumSize: const Size(50, 50),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(100.0),
+      ),
+    );
+
     // Speaker _speaker = _data['speaker'] as Speaker;
 
     return Scaffold(
@@ -44,7 +53,7 @@ class Presenter extends StatelessWidget {
                       : speaker.name,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         color: _darkTheme
-                            ? Theme.of(context).accentColor
+                            ? Theme.of(context).colorScheme.secondary
                             : Theme.of(context).primaryColor,
                       ),
                   textAlign: TextAlign.center,
@@ -92,15 +101,11 @@ class Presenter extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 25,
                             backgroundColor: Colors.white,
-                            child: FlatButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
+                            child: TextButton(
+                              style: flatButtonStyle,
                               onPressed: () {
                                 launch(speaker.urlTwitter);
                               },
-                              height: 50,
-                              minWidth: 50,
                               child: const Icon(
                                 FontAwesomeIcons.twitter,
                                 color: Colors.blue,

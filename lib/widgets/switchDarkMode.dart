@@ -64,7 +64,7 @@ class _SwitchDarkModeState extends State<SwitchDarkMode> {
                           width: 25,
                           decoration: BoxDecoration(
                             color: theme.darkTheme
-                                ? Theme.of(context).accentColor
+                                ? Theme.of(context).colorScheme.secondary
                                 : Theme.of(context).primaryColor,
                             shape: BoxShape.circle,
                           ),

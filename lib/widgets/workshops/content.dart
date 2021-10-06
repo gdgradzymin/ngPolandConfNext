@@ -66,7 +66,7 @@ class WorkshopsContent extends StatelessWidget {
                         _workshopsItems[index].title,
                         style: TextStyle(
                           color: Provider.of<ThemeNotifier>(context).darkTheme
-                              ? Theme.of(context).accentColor
+                              ? Theme.of(context).colorScheme.secondary
                               : Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
                         ),

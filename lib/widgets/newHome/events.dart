@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
+import 'package:ngPolandConf/providers/selectedPage.dart';
 import 'package:ngPolandConf/providers/workShops.dart';
 import 'package:ngPolandConf/screens/schedule.dart';
 import 'package:ngPolandConf/screens/workShops.dart';
 import 'package:ngPolandConf/services/contentful.dart';
-import 'package:ngPolandConf/providers/selectedPage.dart';
 import 'package:provider/provider.dart';
 
 class HomeEvents extends StatelessWidget {
@@ -103,7 +103,8 @@ class HomeEvents extends StatelessWidget {
           child: Text(
             name,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).accentColor.withOpacity(0.95),
+                  color:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.95),
                   fontSize: 18,
                 ),
           ),

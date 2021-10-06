@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:ngPolandConf/screens/presenter.dart';
-import 'package:ngPolandConf/providers/themeManager.dart';
 import 'package:ngPolandConf/models/contentful.dart';
 import 'package:ngPolandConf/providers/speakers.dart';
+import 'package:ngPolandConf/providers/themeManager.dart';
+import 'package:ngPolandConf/screens/presenter.dart';
 import 'package:ngPolandConf/shared/widgets/emptyListInformation.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +65,7 @@ class _SpeakersContentState extends State<SpeakersContent> {
                       _speakers[index].name,
                       style: TextStyle(
                           color: Provider.of<ThemeNotifier>(context).darkTheme
-                              ? Theme.of(context).accentColor
+                              ? Theme.of(context).colorScheme.secondary
                               : Theme.of(context).primaryColor,
                           fontWeight: FontWeight.w600),
                     ),
