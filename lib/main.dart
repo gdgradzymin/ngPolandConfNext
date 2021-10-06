@@ -34,7 +34,7 @@ void setupSingletons() async {
 }
 
 Future main() async {
-  await DotEnv().load(fileName: '.env');
+  await dotenv.load(fileName: '.env');
   setupSingletons();
 
   WidgetsFlutterBinding.ensureInitialized();
