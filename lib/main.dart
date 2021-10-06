@@ -224,7 +224,10 @@ class _MyAppState extends State<MyApp> {
                 dividerTheme: const DividerThemeData(
                   color: Color.fromRGBO(255, 0, 122, 0.3),
                 ),
+                appBarTheme: const AppBarTheme(
+                    backgroundColor: Color.fromRGBO(59, 29, 130, 1)),
                 colorScheme: ColorScheme.fromSwatch().copyWith(
+                    primary: const Color.fromRGBO(59, 29, 130, 1),
                     secondary: const Color.fromRGBO(255, 0, 122, 1),
                     brightness: Brightness.light)),
             darkTheme: ThemeData(
@@ -248,7 +251,11 @@ class _MyAppState extends State<MyApp> {
                 dividerTheme: const DividerThemeData(
                   color: Color.fromRGBO(255, 0, 122, 0.4),
                 ),
+                appBarTheme: const AppBarTheme(
+                    backgroundColor: Color.fromRGBO(233, 30, 99, 1),
+                    foregroundColor: Colors.white),
                 colorScheme: ColorScheme.fromSwatch().copyWith(
+                    primary: const Color.fromRGBO(59, 29, 130, 1),
                     secondary: const Color.fromRGBO(233, 30, 99, 1),
                     brightness: Brightness.dark)),
             themeMode: theme.darkTheme ? ThemeMode.dark : ThemeMode.light,
