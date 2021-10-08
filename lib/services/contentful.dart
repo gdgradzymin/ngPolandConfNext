@@ -10,7 +10,8 @@ enum EventContentTypes {
   EVENT_ITEM,
   SIMPLE_CONTENT,
   INFO_ITEM,
-  VERSION
+  VERSION,
+  CONFERENCES
 }
 
 enum EventItemType {
@@ -66,6 +67,12 @@ class ContentfulService {
       case EventContentTypes.VERSION:
         {
           return 'version';
+        }
+        break;
+
+      case EventContentTypes.CONFERENCES:
+        {
+          return 'conferences';
         }
         break;
 
