@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:ngPolandConf/models/conferences.dart';
 import 'package:ngPolandConf/models/contentful.dart';
+import 'package:ngPolandConf/providers/conferences.dart';
 import 'package:ngPolandConf/providers/connection.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
 import 'package:ngPolandConf/providers/infoItems.dart';
@@ -135,6 +137,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _fetchAllData({BuildContext context, bool reload = false}) {
+    ConferencesProvider _conferences =
+        Provider.of<ConferencesProvider>(context, listen: false);
+
     InfoItemsProvider _info =
         Provider.of<InfoItemsProvider>(context, listen: false);
 
@@ -149,6 +154,8 @@ class _MyAppState extends State<MyApp> {
 
     SpeakersProvider _speakers =
         Provider.of<SpeakersProvider>(context, listen: false);
+
+    _conferences.fetchData();
 
     _info.fetchData(howMany: 999, reload: reload);
 
@@ -194,6 +201,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (_) => Connection(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ConferencesProvider(),
         ),
       ],
       child: Consumer<ThemeNotifier>(

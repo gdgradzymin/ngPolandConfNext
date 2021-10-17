@@ -1,10 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:ngPolandConf/models/conferences.dart';
+import 'package:ngPolandConf/providers/conferences.dart';
+import 'package:ngPolandConf/providers/connection.dart';
+import 'package:ngPolandConf/services/contentful.dart';
 import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:ngPolandConf/widgets/drawer.dart';
 import 'package:ngPolandConf/widgets/newHome/events.dart';
 import 'package:ngPolandConf/widgets/newHome/timer.dart';
+import 'package:provider/provider.dart';
+
+GetIt locator = GetIt.instance;
 
 class Home extends StatelessWidget {
   const Home({Key key, this.title}) : super(key: key);
@@ -14,12 +22,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = AppBar(
-        title: Text(title), centerTitle: true, actions: [ConnectionStatus()]);
+    AppBar appBar = AppBar(title: Text(title), centerTitle: true, actions: [ConnectionStatus()]);
 
-    double _contentHeight = MediaQuery.of(context).size.height -
-        appBar.preferredSize.height -
-        kToolbarHeight;
+    double _contentHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - kToolbarHeight;
 
     return Scaffold(
       appBar: appBar,
@@ -43,40 +48,39 @@ class Home extends StatelessWidget {
             ListView(
               addRepaintBoundaries: false,
               children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: Text(
-                          'The Biggest Angular Conference In CEE 5th Edition',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white.withOpacity(0.7),
-                              fontSize: 28,
-                              fontWeight: FontWeight.w600),
-                        ),
+                Consumer<ConferencesProvider>(
+                  builder: (BuildContext context, ConferencesProvider value, _) {
+                    Conferences _conferencesData = value.conferencesData;
+
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Text(
+                              _conferencesData != null ? _conferencesData.description : 'The Biggest Angular Conference',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 28, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          SizedBox(
+                            height: _contentHeight * (MediaQuery.of(context).orientation == Orientation.portrait ? 0.05 : 0.10),
+                          ),
+                          HomeTimer(conferencesStartDate: _conferencesData?.conferencesStartDate),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Divider(
+                              height: 10,
+                              color: Theme.of(context).dividerTheme.color,
+                            ),
+                          ),
+                          HomeEvents(),
+                        ],
                       ),
-                      SizedBox(
-                        height: _contentHeight *
-                            (MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? 0.05
-                                : 0.10),
-                      ),
-                      HomeTimer(),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Divider(
-                          height: 10,
-                          color: Theme.of(context).dividerTheme.color,
-                        ),
-                      ),
-                      HomeEvents(),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ],
             ),

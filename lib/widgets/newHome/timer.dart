@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class HomeTimer extends StatefulWidget {
+  const HomeTimer({this.conferencesStartDate});
+
+  final String conferencesStartDate;
+
   @override
   _HomeTimerState createState() => _HomeTimerState();
 }
@@ -70,16 +74,13 @@ class _HomeTimerState extends State<HomeTimer> {
 
   @override
   Widget build(BuildContext context) {
-    _millisecondsSinceEpochToEvent = DateTime.parse('2021-11-18 10:00:00z')
-                    .add(DateTime.now().timeZoneOffset)
-                    .millisecondsSinceEpoch -
-                DateTime.now().millisecondsSinceEpoch <
-            0
-        ? 0
-        : DateTime.parse('2021-11-18 10:00:00z')
-                .add(DateTime.now().timeZoneOffset)
-                .millisecondsSinceEpoch -
-            DateTime.now().millisecondsSinceEpoch;
+    _millisecondsSinceEpochToEvent =
+        DateTime.parse(widget.conferencesStartDate ?? '2021-11-18 10:00:00z').add(DateTime.now().timeZoneOffset).millisecondsSinceEpoch -
+                    DateTime.now().millisecondsSinceEpoch <
+                0
+            ? 0
+            : DateTime.parse(widget.conferencesStartDate ?? '2021-11-18 10:00:00z').add(DateTime.now().timeZoneOffset).millisecondsSinceEpoch -
+                DateTime.now().millisecondsSinceEpoch;
 
     duration = Duration(
       days: 0,
@@ -99,24 +100,17 @@ class _HomeTimerState extends State<HomeTimer> {
           color: const Color.fromRGBO(255, 0, 122, 1),
         ),
         timeField(
-          time: DateTime.fromMillisecondsSinceEpoch(
-                  _millisecondsSinceEpochToEvent,
-                  isUtc: true)
-              .hour,
+          time: DateTime.fromMillisecondsSinceEpoch(_millisecondsSinceEpochToEvent, isUtc: true).hour,
           format: 'HOURS',
           color: const Color.fromRGBO(255, 193, 7, 1),
         ),
         timeField(
-          time: DateTime.fromMillisecondsSinceEpoch(
-                  _millisecondsSinceEpochToEvent)
-              .minute,
+          time: DateTime.fromMillisecondsSinceEpoch(_millisecondsSinceEpochToEvent).minute,
           format: 'MINUTES',
           color: const Color.fromRGBO(0, 193, 193, 1),
         ),
         timeField(
-          time: DateTime.fromMillisecondsSinceEpoch(
-                  _millisecondsSinceEpochToEvent)
-              .second,
+          time: DateTime.fromMillisecondsSinceEpoch(_millisecondsSinceEpochToEvent).second,
           format: 'SECONDS',
           color: const Color.fromRGBO(139, 195, 74, 1),
         ),

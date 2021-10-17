@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ngPolandConf/models/conferences.dart';
 import 'package:ngPolandConf/models/contentful.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,7 +12,7 @@ enum EventContentTypes {
   SIMPLE_CONTENT,
   INFO_ITEM,
   VERSION,
-  CONFERENCES
+  CONFERENCES,
 }
 
 enum EventItemType {
@@ -24,13 +25,55 @@ final String _spaceId = dotenv.env['space_id'];
 
 const String _url = 'https://cdn.contentful.com/';
 
-final String _contentfulEntries =
-    '${_url}spaces/$_spaceId/environments/master/entries?access_token=$_accessToken';
+final String _contentfulEntries = '${_url}spaces/$_spaceId/environments/master/entries?access_token=$_accessToken';
 
 class ContentfulService {
-  static const String _confID = '2021';
+  String _confID;
 
   final dio = Dio();
+
+  Future<Conferences> conferencesData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    Conferences _conferences;
+    // List<dynamic> listConfID;
+    try {
+      if (prefs.containsKey('CONFERENCES-DATA')) {
+        List<String> _data = prefs.getStringList('CONFERENCES-DATA');
+        _conferences = _data.map((e) => Conferences.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList().first;
+
+        _confID = _conferences.confId;
+      } else {
+        var response = await dio.get<String>(_contentfulEntries +
+            '&content_type=${getStringFromEventContentTypes(
+              EventContentTypes.CONFERENCES,
+            )}');
+        dynamic dataDecode = jsonDecode(response.data.toString());
+
+        Map<String, dynamic> jsonFromLastConferences = (dataDecode['items'] as List).last['fields'] as Map<String, dynamic>;
+
+        _conferences = Conferences.fromJson(jsonFromLastConferences);
+
+        print('Pobrano confID - ${_conferences.confId}, description - ${_conferences.description}');
+
+        _confID = _conferences.confId;
+
+        prefs.setStringList(
+          'CONFERENCES-DATA',
+          [jsonEncode(_conferences)],
+        );
+      }
+    } catch (err) {
+      if (prefs.containsKey('CONFERENCES-DATA')) {
+        List<String> _data = prefs.getStringList('CONFERENCES-DATA');
+        _conferences = _data.map((e) => Conferences.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList().first;
+        _confID = _conferences.confId;
+      }
+      // print(err);
+    }
+
+    return _conferences;
+  }
 
   String getStringFromEventContentTypes(EventContentTypes eventContentTypes) {
     switch (eventContentTypes) {
@@ -129,12 +172,13 @@ class ContentfulService {
     List<InfoItem> _infoItems = [];
 
     try {
+      if (_confID == null) {
+        await conferencesData();
+      }
+
       if (prefs.containsKey('InfoItems') && !reload) {
         List<String> _data = prefs.getStringList('InfoItems');
-        _infoItems = _data
-            .map(
-                (e) => InfoItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _infoItems = _data.map((e) => InfoItem.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       } else {
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
@@ -163,9 +207,7 @@ class ContentfulService {
           }
           prefs.setStringList(
             'InfoItems',
-            _infoItems
-                .map((InfoItem infoItem) => jsonEncode(infoItem))
-                .toList(),
+            _infoItems.map((InfoItem infoItem) => jsonEncode(infoItem)).toList(),
           );
         }
       }
@@ -173,10 +215,7 @@ class ContentfulService {
       if (prefs.containsKey('InfoItems')) {
         List<String> _data = prefs.getStringList('InfoItems');
 
-        _infoItems = _data
-            .map(
-                (e) => InfoItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _infoItems = _data.map((e) => InfoItem.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       }
     }
 
@@ -192,22 +231,20 @@ class ContentfulService {
 
     List<EventItem> _eventItems = [];
     try {
+      if (_confID == null) {
+        await conferencesData();
+      }
+
       if (prefs.containsKey('EventItems-$type') && !reload) {
         List<String> _data = prefs.getStringList('EventItems-$type');
-        _eventItems = _data
-            .map((e) =>
-                EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _eventItems = _data.map((e) => EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       } else {
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
               contentType: getStringFromEventContentTypes(
                 EventContentTypes.EVENT_ITEM,
               ),
-              fields: [
-                'type=${getStringFromEventItemType(type)}',
-                'confId=$_confID'
-              ],
+              fields: ['type=${getStringFromEventItemType(type)}', 'confId=$_confID'],
               order: 'fields.startDate',
               limit: howMany.toString(),
             ));
@@ -221,8 +258,7 @@ class ContentfulService {
             String _photoFileUrl = '';
             if (item['fields']['presenter'] != null) {
               for (final dynamic asset in dataDecode['includes']['Entry']) {
-                if (asset['sys']['id'] ==
-                    item['fields']['presenter']['sys']['id']) {
+                if (asset['sys']['id'] == item['fields']['presenter']['sys']['id']) {
                   _speaker = asset['fields'];
                 }
               }
@@ -240,8 +276,7 @@ class ContentfulService {
                 confId: item['fields']['confId'] as String ?? null,
                 type: item['fields']['type'] as String ?? null,
                 category: item['fields']['category'] as String ?? null,
-                shortDescription:
-                    item['fields']['shortDescription'] as String ?? null,
+                shortDescription: item['fields']['shortDescription'] as String ?? null,
                 description: item['fields']['description'] as String ?? null,
                 startDate: item['fields']['startDate'] as String ?? null,
                 endDate: item['fields']['endDate'] as String ?? null,
@@ -254,8 +289,7 @@ class ContentfulService {
                         bio: _speaker['bio'] as String,
                         photoFileUrl: _photoFileUrl,
                         photoTitle: _speaker['photoTitle'] as String,
-                        photoDescription:
-                            _speaker['photoDescription'] as String,
+                        photoDescription: _speaker['photoDescription'] as String,
                         email: _speaker['email'] as String,
                         urlGithub: _speaker['urlGithub'] as String,
                         urlLinkedIn: _speaker['urlLinkedIn'] as String,
@@ -268,9 +302,7 @@ class ContentfulService {
 
           prefs.setStringList(
             'EventItems-$type',
-            _eventItems
-                .map((EventItem eventItem) => jsonEncode(eventItem))
-                .toList(),
+            _eventItems.map((EventItem eventItem) => jsonEncode(eventItem)).toList(),
           );
         }
       }
@@ -278,10 +310,7 @@ class ContentfulService {
       if (prefs.containsKey('EventItems-$type')) {
         List<String> _data = prefs.getStringList('EventItems-$type');
 
-        _eventItems = _data
-            .map((e) =>
-                EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _eventItems = _data.map((e) => EventItem.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       }
     }
 
@@ -297,6 +326,10 @@ class ContentfulService {
     SimpleContent _simpleContent;
 
     try {
+      if (_confID == null) {
+        await conferencesData();
+      }
+
       if (prefs.containsKey('SimpleContent-$myId') && !reload) {
         _simpleContent = SimpleContent.fromJson(
           jsonDecode(
@@ -350,23 +383,21 @@ class ContentfulService {
     List<Workshop> _workshops = [];
 
     try {
+      if (_confID == null) {
+        await conferencesData();
+      }
+
       if (prefs.containsKey('Workshop-$type') && !reload) {
         List<String> _data = prefs.getStringList('Workshop-$type');
 
-        _workshops = _data
-            .map(
-                (e) => Workshop.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _workshops = _data.map((e) => Workshop.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       } else {
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
               contentType: getStringFromEventContentTypes(
                 EventContentTypes.WORKSHOP,
               ),
-              fields: [
-                'type=${getStringFromEventItemType(type)}',
-                'confId=$_confID'
-              ],
+              fields: ['type=${getStringFromEventItemType(type)}', 'confId=$_confID'],
               order: 'sys.createdAt',
               limit: howMany.toString(),
             ));
@@ -379,8 +410,7 @@ class ContentfulService {
             String _photoFileUrl = '';
 
             for (final dynamic asset in dataDecode['includes']['Entry']) {
-              if (asset['sys']['id'] ==
-                  item['fields']['instructor']['sys']['id']) {
+              if (asset['sys']['id'] == item['fields']['instructor']['sys']['id']) {
                 _speaker = asset['fields'];
               }
             }
@@ -411,27 +441,21 @@ class ContentfulService {
                 ),
                 startDate: item['fields']['startDate'] as String,
                 endDate: item['fields']['endDate'] as String,
-                locationDescription:
-                    item['fields']['locationDescription'] as String,
+                locationDescription: item['fields']['locationDescription'] as String,
                 pricePln: item['fields']['pricePln'].toString(),
               ),
             );
           }
           prefs.setStringList(
             'Workshop-$type',
-            _workshops
-                .map((Workshop workshop) => jsonEncode(workshop))
-                .toList(),
+            _workshops.map((Workshop workshop) => jsonEncode(workshop)).toList(),
           );
         }
       }
     } catch (err) {
       if (prefs.containsKey('Workshop-$type')) {
         List<String> _data = prefs.getStringList('Workshop-$type');
-        _workshops = _data
-            .map(
-                (e) => Workshop.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _workshops = _data.map((e) => Workshop.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       }
     }
 
@@ -445,11 +469,13 @@ class ContentfulService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<Speaker> _speakers = [];
     try {
+      if (_confID == null) {
+        await conferencesData();
+      }
+
       if (prefs.containsKey('Speakers') && !reload) {
         List<String> _data = prefs.getStringList('Speakers');
-        _speakers = _data
-            .map((e) => Speaker.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _speakers = _data.map((e) => Speaker.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       } else {
         Response response = await dio.get<String>(_contentfulEntries +
             _contentfull(
@@ -497,9 +523,7 @@ class ContentfulService {
     } catch (err) {
       if (prefs.containsKey('Speakers')) {
         List<String> _data = prefs.getStringList('Speakers');
-        _speakers = _data
-            .map((e) => Speaker.fromJson(jsonDecode(e) as Map<String, dynamic>))
-            .toList();
+        _speakers = _data.map((e) => Speaker.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList();
       }
     }
 
