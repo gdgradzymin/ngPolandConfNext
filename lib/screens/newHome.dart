@@ -76,7 +76,7 @@ class Home extends StatelessWidget {
                               color: Theme.of(context).dividerTheme.color,
                             ),
                           ),
-                          HomeEvents(),
+                          HomeEvents(conferencesData: _conferencesData),
                         ],
                       ),
                     );

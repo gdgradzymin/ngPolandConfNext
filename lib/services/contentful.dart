@@ -36,25 +36,21 @@ class ContentfulService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Conferences _conferences;
-    // List<dynamic> listConfID;
     try {
-      if (prefs.containsKey('CONFERENCES-DATA')) {
-        List<String> _data = prefs.getStringList('CONFERENCES-DATA');
-        _conferences = _data.map((e) => Conferences.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList().first;
-
-        _confID = _conferences.confId;
-      } else {
+      Future<void> _checkNewConferences() async {
         var response = await dio.get<String>(_contentfulEntries +
             '&content_type=${getStringFromEventContentTypes(
               EventContentTypes.CONFERENCES,
             )}');
         dynamic dataDecode = jsonDecode(response.data.toString());
 
-        Map<String, dynamic> jsonFromLastConferences = (dataDecode['items'] as List).last['fields'] as Map<String, dynamic>;
+        List<Conferences> _listConferences =
+            (dataDecode['items'] as List).map((dynamic e) => Conferences.fromJson(e['fields'] as Map<String, dynamic>)).toList();
 
-        _conferences = Conferences.fromJson(jsonFromLastConferences);
+        _listConferences.sort((a, b) => a.confId.compareTo(b.confId));
+        _conferences = _listConferences.last;
 
-        print('Pobrano confID - ${_conferences.confId}, description - ${_conferences.description}');
+        print('Setted new confID - ${_conferences.confId}, description - ${_conferences.description}');
 
         _confID = _conferences.confId;
 
@@ -62,6 +58,17 @@ class ContentfulService {
           'CONFERENCES-DATA',
           [jsonEncode(_conferences)],
         );
+      }
+
+      if (prefs.containsKey('CONFERENCES-DATA')) {
+        List<String> _data = prefs.getStringList('CONFERENCES-DATA');
+        _conferences = _data.map((e) => Conferences.fromJson(jsonDecode(e) as Map<String, dynamic>)).toList().first;
+
+        _confID = _conferences.confId;
+
+        _checkNewConferences();
+      } else {
+        await _checkNewConferences();
       }
     } catch (err) {
       if (prefs.containsKey('CONFERENCES-DATA')) {
