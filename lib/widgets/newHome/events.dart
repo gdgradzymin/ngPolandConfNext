@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ngPolandConf/models/conferences.dart';
 import 'package:ngPolandConf/providers/eventItems.dart';
 import 'package:ngPolandConf/providers/selectedPage.dart';
 import 'package:ngPolandConf/providers/workShops.dart';
@@ -9,36 +10,11 @@ import 'package:ngPolandConf/services/contentful.dart';
 import 'package:provider/provider.dart';
 
 class HomeEvents extends StatelessWidget {
-  final List<Map<String, Object>> _events = [
-    {
-      'date': '18-11-2020',
-      'name': 'NG WORKSHOPS',
-      'screen': Workshops.routeName,
-      'type': EventItemType.NGPOLAND,
-      'pageName': Workshops.routeName,
-    },
-    {
-      'date': '19-11-2020',
-      'name': 'NG POLAND',
-      'screen': Schedule.routeName,
-      'type': EventItemType.NGPOLAND,
-      'pageName': Schedule.routeName,
-    },
-    {
-      'date': '20-11-2020',
-      'name': 'JS POLAND',
-      'screen': Schedule.routeName,
-      'type': EventItemType.JSPOLAND,
-      'pageName': Schedule.routeName,
-    },
-    {
-      'date': '21-11-2020',
-      'name': 'JS WORKSHOPS',
-      'screen': Workshops.routeName,
-      'type': EventItemType.JSPOLAND,
-      'pageName': Workshops.routeName,
-    },
-  ];
+  HomeEvents({this.conferencesData});
+
+  final Conferences conferencesData;
+
+  final List<Map<String, Object>> _events = [];
 
   Widget _event(
     BuildContext context,
@@ -89,11 +65,9 @@ class HomeEvents extends StatelessWidget {
             }
 
             if (screen == Workshops.routeName) {
-              Provider.of<WorkshopsProvider>(context, listen: false)
-                  .selectedItems = eventItemType;
+              Provider.of<WorkshopsProvider>(context, listen: false).selectedItems = eventItemType;
             } else {
-              Provider.of<EventItemsProvider>(context, listen: false)
-                  .selectedItems = eventItemType;
+              Provider.of<EventItemsProvider>(context, listen: false).selectedItems = eventItemType;
             }
 
             Navigator.of(context).pushNamed(screen, arguments: {
@@ -103,8 +77,7 @@ class HomeEvents extends StatelessWidget {
           child: Text(
             name,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color:
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.95),
+                  color: Theme.of(context).colorScheme.secondary.withOpacity(0.95),
                   fontSize: 18,
                 ),
           ),
@@ -118,24 +91,60 @@ class HomeEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery.of(context).orientation == Orientation.portrait
-        ? Column(
-            children: _events
-                .map(
-                  (event) => _event(
-                    context,
-                    event['date'] as String,
-                    event['name'] as String,
-                    event['screen'] as String,
-                    event['type'] as EventItemType,
-                    event['pageName'] as String,
-                  ),
-                )
-                .toList(),
-          )
-        : SingleChildScrollView(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+    if (_events.isEmpty && conferencesData?.listItems != null)
+      for (final ConferenceHomePageScheduleItem element in conferencesData.listItems)
+        switch (element.name.toLowerCase()) {
+          case 'ng workshops':
+            _events.add(
+              {
+                'date': element.desc,
+                'name': element.name,
+                'screen': Workshops.routeName,
+                'type': EventItemType.NGPOLAND,
+                'pageName': Workshops.routeName,
+              },
+            );
+            break;
+          case 'ng poland':
+            _events.add(
+              {
+                'date': element.desc,
+                'name': element.name,
+                'screen': Schedule.routeName,
+                'type': EventItemType.NGPOLAND,
+                'pageName': Schedule.routeName,
+              },
+            );
+            break;
+          case 'js poland':
+            _events.add(
+              {
+                'date': element.desc,
+                'name': element.name,
+                'screen': Schedule.routeName,
+                'type': EventItemType.JSPOLAND,
+                'pageName': Schedule.routeName,
+              },
+            );
+            break;
+          case 'js workshops':
+            _events.add(
+              {
+                'date': element.desc,
+                'name': element.name,
+                'screen': Workshops.routeName,
+                'type': EventItemType.JSPOLAND,
+                'pageName': Workshops.routeName,
+              },
+            );
+            break;
+        }
+
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 300),
+      opacity: _events.isEmpty ? 0 : 1,
+      child: MediaQuery.of(context).orientation == Orientation.portrait
+          ? Column(
               children: _events
                   .map(
                     (event) => _event(
@@ -148,7 +157,24 @@ class HomeEvents extends StatelessWidget {
                     ),
                   )
                   .toList(),
+            )
+          : SingleChildScrollView(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: _events
+                    .map(
+                      (event) => _event(
+                        context,
+                        event['date'] as String,
+                        event['name'] as String,
+                        event['screen'] as String,
+                        event['type'] as EventItemType,
+                        event['pageName'] as String,
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
-          );
+    );
   }
 }
