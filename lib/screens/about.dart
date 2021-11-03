@@ -118,7 +118,7 @@ class About extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child: Text(
-                  'Version: 3.3.0',
+                  'Version: 3.3.1',
                   style: Theme.of(context).textTheme.headline6.copyWith(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 8),
