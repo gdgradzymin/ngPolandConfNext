@@ -1,11 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ngPolandConf/models/conferences.dart';
 import 'package:ngPolandConf/providers/conferences.dart';
-import 'package:ngPolandConf/providers/connection.dart';
-import 'package:ngPolandConf/services/contentful.dart';
 import 'package:ngPolandConf/widgets/connection.dart';
 import 'package:ngPolandConf/widgets/drawer.dart';
 import 'package:ngPolandConf/widgets/newHome/events.dart';
@@ -22,9 +18,12 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = AppBar(title: Text(title), centerTitle: true, actions: [ConnectionStatus()]);
+    AppBar appBar = AppBar(
+        title: Text(title), centerTitle: true, actions: [ConnectionStatus()]);
 
-    double _contentHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - kToolbarHeight;
+    double _contentHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        kToolbarHeight;
 
     return Scaffold(
       appBar: appBar,
@@ -49,7 +48,8 @@ class Home extends StatelessWidget {
               addRepaintBoundaries: false,
               children: [
                 Consumer<ConferencesProvider>(
-                  builder: (BuildContext context, ConferencesProvider value, _) {
+                  builder:
+                      (BuildContext context, ConferencesProvider value, _) {
                     Conferences _conferencesData = value.conferencesData;
 
                     return Container(
@@ -60,15 +60,26 @@ class Home extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 12),
                             child: Text(
-                              _conferencesData != null ? _conferencesData.description : 'The Biggest Angular Conference',
+                              _conferencesData != null
+                                  ? _conferencesData.description
+                                  : 'The Biggest Angular Conference',
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 28, fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                  color: Colors.white.withOpacity(0.7),
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                           SizedBox(
-                            height: _contentHeight * (MediaQuery.of(context).orientation == Orientation.portrait ? 0.05 : 0.10),
+                            height: _contentHeight *
+                                (MediaQuery.of(context).orientation ==
+                                        Orientation.portrait
+                                    ? 0.05
+                                    : 0.10),
                           ),
-                          HomeTimer(conferencesStartDate: _conferencesData?.conferencesStartDate),
+                          HomeTimer(
+                              conferencesStartDate:
+                                  _conferencesData?.conferencesStartDate),
                           Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Divider(
